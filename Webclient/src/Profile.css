@@ -1,0 +1,17 @@
+.profile {
+  float: right;
+}
+
+.profile__name {
+  font-size: 22px;
+}
+
+.profile__signout {
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.profile__signout:hover {
+  text-decoration: underline;
+}
