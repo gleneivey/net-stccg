@@ -1,0 +1,13 @@
+.signin__container {
+  padding-top: 80px;
+  text-align: center;
+}
+
+.signin__button {
+  background-color: #333;
+  color: #fff;
+  font-size: 26px;
+  padding: 12px;
+  border-radius: 18px;
+}
+
