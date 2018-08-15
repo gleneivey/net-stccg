@@ -1,3 +1,14 @@
 *~
+*log*
+
 node_modules
+build
 .firebase
+
+coverage
+
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

@@ -4,4 +4,5 @@ Wednesday
 ---------
                        standup
  9:25 - 10:45          basic research
-10:45 -                Google Firebase/Project setup
+10:45 - 11:15          Google Firebase/Project setup; first commit
+11:15 - 11:35          create-react-app, build & deploy to https://net-stccg.firebaseapp.com/; second commit
