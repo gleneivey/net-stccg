@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import './Profile.css';
 import firebase from "./firebase";
 
 class Profile extends Component {
+  static propTypes = {
+    displayName: PropTypes.string.isRequired,
+    doSignOut: PropTypes.func.isRequired
+  };
+
   render() {
     return (
       <div className="profile">

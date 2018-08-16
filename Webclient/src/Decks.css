@@ -1,0 +1,17 @@
+.decks__title {
+  text-align: center;
+}
+
+.decks__startGame {
+  display: block;
+  float: right;
+  clear: right;
+  border-top: solid 1px;
+  margin-top: 26px;
+}
+
+.decks__startArrow {
+  transform: rotate(90deg);
+  position: relative;
+  top: 20px;
+}

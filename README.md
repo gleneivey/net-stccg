@@ -8,6 +8,23 @@ Available publicly at
 in requires a Google account.
 
 
+## To Do
+
+Stuff that I skipped doing "when I could have" in order to get to a
+broader set of functionality:
+
+* tune service worker config so it handles background image, card images
+
+Stuff that I'd do if this were going to be a long-lived,
+production-worthy project:
+
+* establish multiple db instances/ environments (dev, ci integration
+  test, staging, production)
+* incorporate unit & Se test frameworks, backfill missing tests
+* better linting, conform to linting, automate linting
+* establish CI & coverage & put badges in README
+
+
 ## Development
 
 ### Client

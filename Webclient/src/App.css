@@ -1,3 +1,11 @@
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .app__container {
   padding: 16px;
 }

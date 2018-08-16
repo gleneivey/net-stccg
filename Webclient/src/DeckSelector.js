@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import './DeckSelector.css';
 import { firestore } from './firebase.js';
 
 class DeckSelector extends Component {
+  static propTypes = {
+    decks: PropTypes.array.isRequired,
+    currentDeckIndex: PropTypes.number,
+    userId: PropTypes.string.isRequired,
+    onDeckAdded: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +42,7 @@ class DeckSelector extends Component {
               className="button"
               onClick={this.addDeck_}
             >Save Deck</button>
-            <a onClick={this.changeToSelecting_}>cancel</a>
+            <a className="deckSelector__cancel" onClick={this.changeToSelecting_}>cancel</a>
           </div>
         )}
       </div>
@@ -48,6 +56,7 @@ class DeckSelector extends Component {
           <label>Choose a Deck:</label>
           <select
             value={this.props.decks[this.props.currentDeckIndex].id}
+            onChange={this.selectionChanged_}
           >
             {this.props.decks.map(deck => (
               <option
@@ -72,7 +81,10 @@ class DeckSelector extends Component {
   };
 
   changeToSelecting_ = () => {
-    this.setState({selecting: true});
+    this.setState({
+      newDeckName: '',
+      selecting: true
+    });
   };
 
   updateNewDeckName_ = (event) => {
@@ -84,15 +96,23 @@ class DeckSelector extends Component {
     const db = firestore();
     db
       .collection('users')
-      .doc(this.props.userId)
+      .doc(self.props.userId)
       .collection('decks')
       .add({
-        name: this.state.newDeckName
+        name: self.state.newDeckName
       })
-
-    this.setState({selecting: true});
-    this.props.onDeckAdded();
+      .then(function(docRef) {
+        self.setState({selecting: true});
+        self.props.onDeckAdded();
+      })
+      .catch(function(error) {
+        console.log("Error writing new 'user' document: ", error);
+      });
   };
+
+  selectionChanged_ = (event) => {
+    this.props.doDeckSelect(event.target.value);
+  }
 }
 
 export default DeckSelector;

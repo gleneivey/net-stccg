@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 import './Decks.css';
 import Profile from './Profile';
 import DeckSelector from './DeckSelector';
 import Deck from './Deck';
 import { firestore } from './firebase.js';
+import badgeIconCommand from './badge-icon-command.svg'
 
 class Decks extends Component {
+  static propTypes = {
+    userId: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+    doSignOut: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
+      haveDecks: false,
       decks: [],
       currentDeckIndex: null
     };
@@ -19,23 +29,41 @@ class Decks extends Component {
   }
 
   render() {
-    const currentDeck = !!this.state.currentDeckIndex && this.state.decks[this.state.currentDeckIndex];
+    let currentDeck = null;
+    if (this.state.currentDeckIndex != null) {
+      currentDeck = this.state.decks[this.state.currentDeckIndex];
+    }
+
+    let selectionControls;
+    if (this.state.haveDecks) {
+      selectionControls = (
+        <div>
+          <h1 className="decks__title">Your Decks</h1>
+          <DeckSelector
+            userId={this.props.userId}
+            decks={this.state.decks}
+            currentDeckIndex={this.state.currentDeckIndex}
+            doDeckSelect={this.doDeckSelect_}
+            onDeckAdded={this.onDeckAdded_}
+          />
+          <Deck
+            userId={this.props.userId}
+            deck={currentDeck}
+          />
+        </div>
+      );
+    }
     return (
       <div>
         <Profile
           displayName={this.props.displayName}
           doSignOut={this.props.doSignOut}
         />
-        <DeckSelector
-          decks={this.state.decks}
-          currentDeckIndex={this.state.currentDeckIndex}
-          doDeckSelect={this.doDeckSelect_}
-          onDeckAdded={this.onDeckAdded_}
-        />
-        <Deck
-          userId={this.props.userId}
-          deckId={currentDeck && currentDeck.id}
-        />
+        <Link className="decks__startGame" to="/start">
+          Start Game
+          <img src={badgeIconCommand} className="decks__startArrow" alt="" />
+        </Link>
+        {selectionControls}
       </div>
     );
   }
@@ -43,6 +71,7 @@ class Decks extends Component {
   fetchDecksIntoState_ = () => {
     const self = this;
     const db = firestore();
+
     db
       .collection('users')
       .doc(this.props.userId)
@@ -51,18 +80,25 @@ class Decks extends Component {
       .then(function(querySnapshot) {
         let decks = [];
         querySnapshot.forEach(function(doc) {
-console.log(doc.id, " => ", doc.data());
-          decks.push(doc.data());
+          let data = doc.data();
+          data.id = doc.id;
+          decks.push(data);
         });
-        self.setState({decks: decks});
+
+        self.setState({
+          haveDecks: true,
+          decks: decks,
+          currentDeckIndex: 0
+        });
       })
       .catch(function(error) {
         console.log("Error getting 'decs' documents: ", error);
       });
   };
 
-  doDeckSelect_ = () => {
-
+  doDeckSelect_ = (deckId) => {
+    const newIndex = this.state.decks.findIndex(deck => deck.id == deckId);
+    this.setState({currentDeckIndex: newIndex});
   };
 
   onDeckAdded_ = () => {

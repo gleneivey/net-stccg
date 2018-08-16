@@ -3,10 +3,15 @@ import { Route } from 'react-router-dom';
 import './App.css';
 import SignIn from './SignIn';
 import Decks from './Decks';
+import StartGame from './StartGame';
+import PlayGame from './PlayGame';
 import firebase, { firestore } from './firebase';
 import spinner from './stccg-logo.png'
 
 class App extends Component {
+  static propTypes = {
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -58,6 +63,8 @@ class App extends Component {
             }
           }}
         />
+        <Route path="/start" component={StartGame} />
+        <Route path="/play" component={PlayGame} />
       </div>
     );
   }

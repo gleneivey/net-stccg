@@ -9,9 +9,4 @@
 .profile__signout {
   font-size: 12px;
   text-align: center;
-  cursor: pointer;
-}
-
-.profile__signout:hover {
-  text-decoration: underline;
 }
