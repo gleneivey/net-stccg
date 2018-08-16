@@ -8,4 +8,7 @@ Wednesday
 11:15 - 11:35          create-react-app, build & deploy to https://net-stccg.firebaseapp.com/; second commit
 11:35 - 12:25          first real React component, incorporate react routes, start README
  1:15 -  2:00
- 2:00 -                Google Sign-In
+ 2:00 -  5:10          Sign in and sign out using firebase auth
+ 5:10 -  5:25          Firestore, Read/write user info
+ 8:55 -  9:40
+ 9:40 -  
