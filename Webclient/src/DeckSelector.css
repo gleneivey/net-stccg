@@ -1,0 +1,20 @@
+.deckSelector__selection *, .deckSelector__add * {
+  display: inline-block;
+}
+
+.deckSelector__selection label, .deckSelector__add label {
+  margin-right: 4px;
+}
+
+.deckSelector__selection .button, .deckSelector__add .button {
+  margin-left: 30px;
+}
+
+.deckSelector__placeholderText {
+  font-size: 24px;
+}
+
+.deckSelector__add input {
+  font-size: 14px;
+  width: 240px;
+}

@@ -3,7 +3,8 @@ import { Route } from 'react-router-dom';
 import './App.css';
 import SignIn from './SignIn';
 import Decks from './Decks';
-import { firestore } from './firebase.js';
+import firebase, { firestore } from './firebase';
+import spinner from './stccg-logo.png'
 
 class App extends Component {
   constructor(props) {
@@ -16,23 +17,47 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          signedIn: true,
+          displayName: user.displayName,
+          email: user.email
+        });
+        this.getOrCreateUser_();
+      }
+    });
+  }
+
   render() {
     return (
-      <div>
-        <Route exact path="/" render={props => {
-          if (this.state.signedIn) {
-            return (
-              <Decks
-                displayName={this.state.displayName}
-                doSignOut={this.doSignOut_}
-              />
-            );
-          } else {
-            return (
-              <SignIn doSignIn={this.doSignIn_}/>
-            );
-          }
-        }}/>
+      <div className="app__container">
+        <Route
+          exact
+          path="/"
+          render={props => {
+            if (!this.state.signedIn) {
+              return (
+                <SignIn doSignIn={this.doSignIn_}/>
+              );
+            } else if (!this.state.userId) {
+              return (
+                <div className="authSpinner__container">
+                  <img src={spinner} className="authSpinner__spinner" alt="Authorization in progress" />
+                </div>
+              );
+            } else {
+              return (
+                <Decks
+                  userId={this.state.userId}
+                  displayName={this.state.displayName}
+                  doSignOut={this.doSignOut_}
+                />
+              );
+            }
+          }}
+        />
       </div>
     );
   }
