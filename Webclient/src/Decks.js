@@ -12,7 +12,8 @@ class Decks extends Component {
   static propTypes = {
     userId: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,
-    doSignOut: PropTypes.func.isRequired
+    doSignOut: PropTypes.func.isRequired,
+    setCurrentDeck: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -38,7 +39,6 @@ class Decks extends Component {
     if (this.state.haveDecks) {
       selectionControls = (
         <div>
-          <h1 className="decks__title">Your Decks</h1>
           <DeckSelector
             userId={this.props.userId}
             decks={this.state.decks}
@@ -53,6 +53,7 @@ class Decks extends Component {
         </div>
       );
     }
+
     return (
       <div>
         <Profile
@@ -63,6 +64,7 @@ class Decks extends Component {
           Start Game
           <img src={badgeIconCommand} className="decks__startArrow" alt="" />
         </Link>
+        <h1 className="decks__title">Your Decks</h1>
         {selectionControls}
       </div>
     );
@@ -74,17 +76,19 @@ class Decks extends Component {
 
     db
       .collection('users')
-      .doc(this.props.userId)
+      .doc(self.props.userId)
       .collection('decks')
       .get()
       .then(function(querySnapshot) {
         let decks = [];
+
         querySnapshot.forEach(function(doc) {
           let data = doc.data();
           data.id = doc.id;
           decks.push(data);
         });
 
+        self.props.setCurrentDeck(decks[0]);
         self.setState({
           haveDecks: true,
           decks: decks,
@@ -97,7 +101,8 @@ class Decks extends Component {
   };
 
   doDeckSelect_ = (deckId) => {
-    const newIndex = this.state.decks.findIndex(deck => deck.id == deckId);
+    const newIndex = this.state.decks.findIndex(deck => deck.id === deckId);
+    this.props.setCurrentDeck(this.state.decks[newIndex]);
     this.setState({currentDeckIndex: newIndex});
   };
 

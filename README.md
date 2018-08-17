@@ -14,6 +14,11 @@ Stuff that I skipped doing "when I could have" in order to get to a
 broader set of functionality:
 
 * tune service worker config so it handles background image, card images
+* show "waiting...." spinner while Game Code is being generated
+* clean up old/orphan Game Code values
+* flatten and/or extract some of the promises for db access (to make
+more readable/maintainable)
+
 
 Stuff that I'd do if this were going to be a long-lived,
 production-worthy project:

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import './App.css';
 import SignIn from './SignIn';
 import Decks from './Decks';
@@ -18,7 +18,11 @@ class App extends Component {
       signedIn: false,
       displayName: null,
       email: null,
-      userId: null
+      userId: null,
+      user: null,
+      currentDeck: null,
+      currentGameId: null,
+      opponent: null
     };
   }
 
@@ -58,13 +62,39 @@ class App extends Component {
                   userId={this.state.userId}
                   displayName={this.state.displayName}
                   doSignOut={this.doSignOut_}
+                  setCurrentDeck={this.setCurrentDeck_}
                 />
               );
             }
           }}
         />
-        <Route path="/start" component={StartGame} />
-        <Route path="/play" component={PlayGame} />
+        <Route
+          path="/start"
+          render={props => {
+            return (
+              <StartGame
+                userId={this.state.userId}
+                displayName={this.state.displayName}
+                deck={this.state.currentDeck}
+                doSignOut={this.doSignOut_}
+                doStartPlaying={this.doStartPlaying_}
+              />
+            );
+          }}
+        />
+        <Route
+          path="/play"
+          render={props => {
+            return (
+              <PlayGame
+                player={this.state.user}
+                opponent={this.state.opponent}
+                currentGameId={this.state.currentGameId}
+                doSignOut={this.doSignOut_}
+              />
+            );
+          }}
+        />
       </div>
     );
   }
@@ -95,26 +125,50 @@ class App extends Component {
       .get()
       .then(function(querySnapshot) {
         if (querySnapshot.empty) {
+          const user = {
+            displayName: self.state.displayName,
+            email: self.state.email
+          };
+
           db
             .collection("users")
-            .add({
-              displayName: self.state.displayName,
-              email: self.state.email
-            })
+            .add(user)
             .then(function(docRef) {
-              self.setState({userId: docRef.id});
+              user.id = docRef.id;
+              self.setState({
+                userId: docRef.id,
+                user: user
+              });
             })
             .catch(function(error) {
               console.log("Error writing new 'user' document: ", error);
             });
         } else {
-          self.setState({userId: querySnapshot.docs[0].id});
+          const id = querySnapshot.docs[0].id;
+          const user = querySnapshot.docs[0].data();
+          user.id = id;
+          self.setState({
+            userId: id,
+            user: user
+          });
         }
       })
       .catch(function(error) {
         console.log("Error getting 'user' document: ", error);
       });
-  }
+  };
+
+  setCurrentDeck_ = (deck) => {
+    this.setState({currentDeck: deck});
+  };
+
+  doStartPlaying_ = (offerId, opponent) => {
+    this.setState({
+      currentGameId: offerId,
+      opponent: opponent
+    });
+    this.props.history.push('/play')
+  };
 }
 
-export default App;
+export default withRouter(App);

@@ -1,0 +1,80 @@
+.startGame__changeDeck {
+  display: block;
+  float: right;
+  clear: right;
+  border-top: solid 1px;
+  margin-top: 26px;
+}
+
+.startGame__deckArrow {
+  transform: rotate(-90deg);
+  position: relative;
+  top: 20px;
+}
+
+.startGame__playArrow {
+  transform: rotate(90deg);
+  position: relative;
+  top: 20px;
+}
+
+.startGame__description {
+  width: 40%;
+}
+
+.startGame__deckName {
+  font-style: italic;
+  color: #ddd;
+}
+
+.startGame__controlColumn {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 50%;
+  margin-top: 16px;
+  padding-bottom: 18px;
+}
+.startGame__controlColumnLeft {
+  vertical-align: top;
+}
+.startGame__controlColumnRight {
+  border-left: solid 1px;
+  padding-left: 26px;
+}
+
+.startGame__playGame {
+  display: block;
+}
+
+.startGame__gameCodeEntry {
+  font-size: 24px;
+  margin-left: 20px;
+  width: 90px;
+  text-align: center;
+}
+
+.startGame__gameCode {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.startGame__cancelGameCode {
+  display: block;
+  margin-top: 10px;
+}
+
+.startGame__spinnerContainer {
+  margin-left: 14px;
+}
+
+.startGame__spinner {
+  display: inline-block;
+  animation: start-spinner infinite 20s linear;
+  height: 40px;
+}
+
+@keyframes start-spinner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
