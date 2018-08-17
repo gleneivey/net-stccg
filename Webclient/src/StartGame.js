@@ -311,9 +311,12 @@ class StartGame extends Component {
     const db = firestore();
 
     db
-      .collection("users").doc(opponentId)
+      .collection("users")
+      .doc(opponentId)
       .get()
-      .then(function(opponent) {
+      .then(function(snapshot) {
+        const opponent = snapshot.data();
+        opponent.id = opponentId;
         self.props.doStartPlaying(gameId, opponent);
       })
       .catch(function(error) {

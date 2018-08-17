@@ -27,16 +27,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          signedIn: true,
-          displayName: user.displayName,
-          email: user.email
-        });
-        this.getOrCreateUser_();
-      }
-    });
+    this.checkIfAlreadySignedIn_();
   }
 
   render() {
@@ -76,6 +67,7 @@ class App extends Component {
                 userId={this.state.userId}
                 displayName={this.state.displayName}
                 deck={this.state.currentDeck}
+
                 doSignOut={this.doSignOut_}
                 doStartPlaying={this.doStartPlaying_}
               />
@@ -87,9 +79,14 @@ class App extends Component {
           render={props => {
             return (
               <PlayGame
+                userId={this.state.userId}
+                displayName={this.state.displayName}
+
                 player={this.state.user}
+                deck={this.state.currentDeck}
                 opponent={this.state.opponent}
                 currentGameId={this.state.currentGameId}
+
                 doSignOut={this.doSignOut_}
               />
             );
@@ -168,6 +165,19 @@ class App extends Component {
       opponent: opponent
     });
     this.props.history.push('/play')
+  };
+
+  checkIfAlreadySignedIn_ = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          signedIn: true,
+          displayName: user.displayName,
+          email: user.email
+        });
+        this.getOrCreateUser_();
+      }
+    });
   };
 }
 

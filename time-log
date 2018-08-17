@@ -16,6 +16,8 @@ Wednesday
 Thursday
 ---------
 10:15 - 12:00          (continuing) Decks & DeckSelector
-12:00 - 12:30          StartGame page, select opponent, handshake w/ other browser through db
+12:00 - 12:30          StartGame page, select opponent, handshake w/ other browser through db,
+                         load both user docs & both deck docs
  1:35 -  5:20
  7:00 -  8:55
+ 9:40 - 11:25

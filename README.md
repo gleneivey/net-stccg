@@ -15,6 +15,7 @@ broader set of functionality:
 
 * tune service worker config so it handles background image, card images
 * show "waiting...." spinner while Game Code is being generated
+* put Google avatar image next to all uses of displayName
 * clean up old/orphan Game Code values
 * flatten and/or extract some of the promises for db access (to make
 more readable/maintainable)

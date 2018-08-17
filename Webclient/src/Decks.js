@@ -83,9 +83,9 @@ class Decks extends Component {
         let decks = [];
 
         querySnapshot.forEach(function(doc) {
-          let data = doc.data();
-          data.id = doc.id;
-          decks.push(data);
+          let deck = doc.data();
+          deck.id = doc.id;
+          decks.push(deck);
         });
 
         self.props.setCurrentDeck(decks[0]);
