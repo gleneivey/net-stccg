@@ -8,28 +8,10 @@ Available publicly at
 in requires a Google account.
 
 
-## To Do
+## To Play
 
-Stuff that I skipped doing "when I could have" in order to get to a
-broader set of functionality:
-
-* tune service worker config so it handles background image, card images
-* show "waiting...." spinner while Game Code is being generated
-* put Google avatar image next to all uses of displayName
-* clean up old/orphan Game Code values
-* flatten and/or extract some of the promises for db access (to make
-more readable/maintainable)
-
-
-Stuff that I'd do if this were going to be a long-lived,
-production-worthy project:
-
-* establish multiple db instances/ environments (dev, ci integration
-  test, staging, production)
-* incorporate unit & Se test frameworks, backfill missing tests
-* better linting, conform to linting, automate linting
-* establish CI & coverage & put badges in README
-
+1. Go to the game's home [net-stccg.firebaseapp.com](https://net-stccg.firebaseapp.com/)
+2. Click the "Sign in with Google" button
 
 ## Development
 
@@ -84,5 +66,31 @@ choosing Google Firebase:
     * WebRTC
         * https://www.scaledrone.com/blog/webrtc-chat-tutorial/
         * https://developer.mozilla.org/en-US/docs/Web/Guide/API/WebRTC/Peer-to-peer_communications_with_WebRTC
+
+
+
+
+## To Do
+
+Stuff that I skipped doing "when I could have" in order to get to a
+broader set of functionality:
+
+* tune service worker config so it handles background image, card images
+* show "waiting...." spinner while Game Code is being generated
+* put Google avatar image next to all uses of displayName
+* refactor to put Profile component directly under App
+* clean up old/orphan Game Code values
+* flatten and/or extract some of the promises for db access (to make
+more readable/maintainable)
+
+
+Stuff that I'd do if this were going to be a long-lived,
+production-worthy project:
+
+* establish multiple db instances/environments (dev, ci integration
+  test, staging, production)
+* incorporate unit & Se test frameworks, backfill missing tests
+* better linting, conform to linting, automate linting
+* establish CI & coverage & put badges in README
 
 

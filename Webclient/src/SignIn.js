@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import GoogleButton from 'react-google-button'
 import './SignIn.css';
 import firebase from './firebase.js';
+import PropTypes from "prop-types";
 
 class SignIn extends Component {
+  static propTypes = {
+    doSignIn: PropTypes.func.isRequired
+  };
+
   render() {
     return (
       <div className="signin__container">

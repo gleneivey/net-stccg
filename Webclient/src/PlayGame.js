@@ -83,8 +83,6 @@ class PlayGame extends Component {
           console.log("Error getting doc from 'games': ", error);
         });
     }
-
-
   };
 }
 

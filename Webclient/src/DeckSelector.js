@@ -8,7 +8,8 @@ class DeckSelector extends Component {
     decks: PropTypes.array.isRequired,
     currentDeckIndex: PropTypes.number,
     userId: PropTypes.string.isRequired,
-    onDeckAdded: PropTypes.func.isRequired
+    onDeckAdded: PropTypes.func.isRequired,
+    doDeckSelect: PropTypes.func.isRequired
   };
 
   constructor(props) {
