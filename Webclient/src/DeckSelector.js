@@ -103,7 +103,10 @@ class DeckSelector extends Component {
         name: self.state.newDeckName
       })
       .then(function(docRef) {
-        self.setState({selecting: true});
+        self.setState({
+          selecting: true,
+          newDeckName: ""
+        });
         self.props.onDeckAdded();
       })
       .catch(function(error) {

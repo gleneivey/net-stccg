@@ -4,3 +4,61 @@
   margin-left: 20px;
   font-size: 24px;
 }
+
+.playGame__concede {
+  display: block;
+  float: right;
+  clear: right;
+  border-top: solid 1px;
+  margin-top: 26px;
+}
+
+.playGame__backArrow {
+  transform: rotate(-90deg);
+  position: relative;
+  top: 20px;
+}
+
+.playGame__playmat, .pageModal__scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.playGame__playmat {
+  z-index: -10;
+}
+
+.pageModal__scrim {
+  background-color: rgba(0,0,0,0.7);
+  z-index: 10;
+}
+
+.pageModal__message {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%;
+  box-sizing: border-box;
+  width: 30%;
+  border: solid 4px;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.pageModal__message p {
+  margin: 0;
+}
+
+.pageModal_link {
+  display: block;
+}
+
+.playGame__dot {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}

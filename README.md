@@ -12,6 +12,16 @@ in requires a Google account.
 
 1. Go to the game's home [net-stccg.firebaseapp.com](https://net-stccg.firebaseapp.com/)
 2. Click the "Sign in with Google" button
+3. Create (at least) a deck
+    * details to go here
+4. Click "Start Game"
+5. Click "Get Game Code"
+6. Contact the person you want to play against
+    * have them go through the steps through #4
+    * have them enter the Game Code you generated and
+      click "Play Game"
+    * when they're done, your browser will go to the play screen
+
 
 ## Development
 
@@ -79,10 +89,11 @@ broader set of functionality:
 * show "waiting...." spinner while Game Code is being generated
 * put Google avatar image next to all uses of displayName
 * refactor to put Profile component directly under App
+* implement "delete" for decks
 * clean up old/orphan Game Code values
 * flatten and/or extract some of the promises for db access (to make
 more readable/maintainable)
-
+* handle window resizing
 
 Stuff that I'd do if this were going to be a long-lived,
 production-worthy project:
@@ -92,5 +103,3 @@ production-worthy project:
 * incorporate unit & Se test frameworks, backfill missing tests
 * better linting, conform to linting, automate linting
 * establish CI & coverage & put badges in README
-
-

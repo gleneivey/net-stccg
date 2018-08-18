@@ -210,11 +210,14 @@ class StartGame extends Component {
       .set({
         playerOneId: this.props.userId,
         playerOneDeckId: this.props.deck.id,
+        playerOneScore: 0,
         playerTwoId: opponentId,
         playerTwoDeckId: null,
+        playerTwoScore: 0,
         started: firebase.firestore.Timestamp.now(),
         finished: null,
-        winnerId: null
+        winnerId: null,
+        concessionId: null
       });
 
     this.getOpponentDocAndStartPlaying_(offerId, opponentId);
