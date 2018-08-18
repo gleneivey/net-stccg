@@ -170,9 +170,14 @@ class App extends Component {
   checkIfAlreadySignedIn_ = () => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        let displayName = user.displayName;
+        if (!displayName || displayName.length === 0) {
+          displayName = user.email;
+        }
+
         this.setState({
           signedIn: true,
-          displayName: user.displayName,
+          displayName: displayName,
           email: user.email
         });
         this.getOrCreateUser_();
