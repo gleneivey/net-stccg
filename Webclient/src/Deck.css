@@ -2,3 +2,10 @@
   margin-top: 44px;
   text-decoration: underline;
 }
+
+.deck__cardDetail {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 38%;
+}

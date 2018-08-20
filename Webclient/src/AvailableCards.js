@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import './AvailableCards.css';
+import Card from './Card';
 
 import cardData from './CardData/data'
-const { cards, cardMap } = cardData;
+const { cards } = cardData;
 
 class AvailableCards extends Component {
   static propTypes = {
+    showDetailsFor: PropTypes.func.isRequired,
+    dontShowDetails: PropTypes.func.isRequired
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      showDetailsFor: null
-    };
-  }
 
   componentDidMount() {
     this.fixupListHeight_();
@@ -25,27 +21,20 @@ class AvailableCards extends Component {
   }
 
   render() {
-    let maybeDetails = null;
-    if (this.state.showDetailsFor) {
-      const card = cardMap[this.state.showDetailsFor];
-      maybeDetails = (
-        <img src={card.imageUrl} className="availableCards__cardDetail" alt={"Image of card '" + card.name + "'"} />
-      );
-    }
-
     return (
       <div className="availableCards__container" ref={el => (this.containerEl = el)}>
-        {maybeDetails}
         <ul className="availableCards__scrollList">
           {cards.map(card => (
             <li
               className="availableCards__card"
               cardid={card.id}
               key={card.id}
-              onMouseEnter={this.onMouseEnter_}
-              onMouseLeave={this.onMouseLeave_}
             >
-              {card.name}
+              <Card
+                card={card}
+                showDetailsFor={this.props.showDetailsFor}
+                dontShowDetails={this.props.dontShowDetails}
+              />
             </li>
           ))}
         </ul>
@@ -55,14 +44,6 @@ class AvailableCards extends Component {
 
   fixupListHeight_ = () => {
     this.containerEl.style.height = (window.innerHeight - this.containerEl.offsetTop) + "px";
-  };
-
-  onMouseEnter_ = (event) => {
-    this.setState({showDetailsFor: event.target.getAttribute("cardid")});
-  };
-
-  onMouseLeave_ = (event) => {
-    this.setState({showDetailsFor: null});
   };
 }
 

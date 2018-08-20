@@ -18,10 +18,3 @@
   list-style-type: none;
   cursor: pointer;
 }
-
-.availableCards__cardDetail {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 38%;
-}
