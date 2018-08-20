@@ -100,7 +100,11 @@ class DeckSelector extends Component {
       .doc(self.props.userId)
       .collection('decks')
       .add({
-        name: self.state.newDeckName
+        name: self.state.newDeckName,
+        mission: [],
+        site: [],
+        seed: [],
+        draw: []
       })
       .then(function(docRef) {
         self.setState({

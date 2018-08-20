@@ -1,0 +1,159 @@
+#!/usr/bin/env ruby
+
+require 'json'
+
+
+verbose = ENV['VERBOSE'] == 'true'
+card_set = ARGV[0]
+input_directory = ARGV[1]
+STDERR.puts "USAGE:  data_from_html_files <mnemonic for card set> <input directory>" and exit unless card_set && input_directory
+
+Dir.glob(File.join(input_directory,'*.html')).each do |html_name|
+  next unless html_name =~ /\/(\d+)\.html/
+
+  id = $1
+
+  html_lines = File.read(html_name).split("\n")
+  index = html_lines.index {|line| line =~ /<a href="javascript:history.go\(-1\)"><img src="([^"]+)"/}
+  image_url = $1
+
+  info_block = html_lines[index+4]
+  if verbose
+    STDERR.puts id
+    STDERR.puts info_block
+    STDERR.puts
+  end
+
+  details = {}
+  type = affiliation = nil
+  multiple = false
+
+  if info_block =~ / &#10070;/
+    multiple = true
+    info_block.gsub!(/ &#10070;/, '')
+  end
+
+  re = /<font color="red">&#8226;<\/font>&nbsp;([^<]+)/
+  attributes = info_block.scan(re).flatten.map(&:strip)
+  info_block.gsub!(re, '')
+  re = /<a href="trait\.php\?search=.*?">([^<]+)<\/a>/
+  characteristics = info_block.scan(re).flatten.map(&:strip)
+  info_block.gsub!(re, '')
+
+  re = /<span style="background-color:black.+?>(\d+)<\/span>/
+  info_block =~ re
+  if $1
+    details['points'] = $1
+    info_block.gsub!(re, '')
+  end
+
+  re = /<img src="[^<]+?Icon\.jpg.+? alt="\[([^\]]+?)\]">/
+  staffing = info_block.scan(re).flatten
+  if staffing.length > 0
+    details[:staffing] = staffing
+    info_block.gsub!(re, '')
+  end
+
+  info_block =~ /Rarity: (.+?)<br \/>/
+  rarity = $1 || exit
+
+  info_block =~ /alt="\[([SP\/]+)\]"> <b>/
+  if $1 && %w(P S S/P).include?($1)   # mission or dilema
+    if info_block =~ /Span: (\d+)/
+      type = 'mission'
+      details[:span] = $1
+
+      info_block =~ / alt="\[([^\]]+)\]"> <b>([^<]+)<\/b><br \/>(.+?)<br \/><strong>(.+?)<\/strong><br \/><img /
+      $1 || exit
+      name = $2.strip
+      text = $3.strip
+      rules = $4.strip
+
+      re = /<img src=".+?Mission.+? alt="\[([^\]]+)\]"/
+      affiliation = info_block.scan(re).flatten
+      affiliation = nil unless affiliation.length > 0
+      info_block.gsub!(re, '')
+    else
+      type = 'dilemma'
+
+      info_block =~ / alt="\[([^\]]+)\]"> <b>([^<]+)<\/b>(<br \/><img .+? alt=".+?">  )?<br \/>(.+?)<br \/><b>(.+?)<\/b>/
+      $1 || exit
+      name = $2.strip
+      text = $4.strip
+      rules = $5.strip
+
+      # some dilemmas are ships.....
+      if info_block =~ /Range: (\d+).* Weapons: (\d+).* Shields: (\d+)/
+        details[:range] = $1
+        details[:weapons] = $2
+        details[:shields] = $3
+      end
+    end
+  elsif info_block =~ /Outpost<\/b>/
+    type = 'facility'
+
+    info_block =~ /<b>([^<]+)<\/b><br \/>(.+?)<br \/><b>(.+?)<\/b><br \/>/
+    $1 || exit
+    name = $1.strip
+    text = $2.strip
+    rules = $3.strip
+
+    info_block =~ /Shields: (\d+)/
+    details[:shields] = $1
+  else
+    info_block =~ / alt="\[([^\]]+?)\]"> <b>([^<]+)<\/b><br \/> *(<b>([^<]+)<\/b> <br \/>)?(.+?)<br \/>(<b>(.*?)<\/b>)?/
+    affiliation = $1 || exit
+    name = $2.strip
+    block = $4.strip if $4
+    text = $5.strip
+    rules = $7.strip if $7
+
+    if %w(Interrupt Event Artifact Equipment).include?(affiliation)
+      type = affiliation
+      affiliation = ''
+    end
+
+    if type
+      # yay
+    elsif info_block =~ /Integrity: (\d+).* Cunning: (\d+).* Strength: (\d+)</
+      type = 'person'
+      details[:integrity] = $1
+      details[:cunning] = $2
+      details[:strength] = $3
+    elsif info_block =~ /Range: (\d+).* Weapons: (\d+).* Shields: (\d+)/
+      type = 'ship'
+
+      details[:range] = $1
+      details[:weapons] = $2
+      details[:shields] = $3
+
+      info_block =~ / alt="\[([^\]]+?)\]"> <b>([^<]+)<\/b><br \/> *(([^<]+) <br \/>)?(.+?)<br \/>(<b>(.*?)<\/b>)?/
+      affiliation = $1 || exit
+      name = $2.strip
+      block = $4.strip if $4
+      text = $5.strip
+      rules = $7.strip if $7
+    else
+      STDERR.puts "Don't know what 'type' of card this is"
+      exit 2
+    end
+  end
+
+  puts JSON.dump({
+    id: "#{card_set}|#{id}",
+    imageUrl: image_url,
+    name: name,
+    multiple: multiple,
+    affiliation: affiliation,
+    rarity: rarity,
+    block: block,
+    text: text,
+    rules: rules,
+    attributes: attributes,
+    characteristics: characteristics,
+    details: details,
+    type: type
+  }) + ','
+
+  STDERR.puts if verbose
+end

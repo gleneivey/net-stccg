@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import './Profile.css';
-import firebase from "./firebase";
 
 class Profile extends Component {
   static propTypes = {
@@ -21,11 +20,7 @@ class Profile extends Component {
   }
 
   doSignOut_ = () => {
-    firebase.auth()
-      .signOut()
-      .then(() => {
-        this.props.doSignOut();
-      });
+    this.props.doSignOut();
   };
 }
 

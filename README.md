@@ -89,10 +89,13 @@ broader set of functionality:
 * show "waiting...." spinner while Game Code is being generated
 * put Google avatar image next to all uses of displayName
 * refactor to put Profile component directly under App
+* refactor to create a Home component that App routes to "/" and
+  renders sub-components
 * implement "delete" for decks
+* fix console warning about how firebase lib is imported
 * clean up old/orphan Game Code values
 * flatten and/or extract some of the promises for db access (to make
-more readable/maintainable)
+  more readable/maintainable)
 * handle window resizing
 
 Stuff that I'd do if this were going to be a long-lived,

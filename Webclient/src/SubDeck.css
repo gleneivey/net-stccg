@@ -1,0 +1,20 @@
+.subdeckCards__container {
+  margin-left: 12px;
+  border: solid 1px #000;
+}
+
+.subdeckCards__list {
+  height: 100%;
+  overflow-y: scroll;
+  margin: 0;
+}
+
+.subdeckCards__card {
+  margin-left: -1em;
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.subdeckCards__endOfList {
+  cursor: pointer;
+}

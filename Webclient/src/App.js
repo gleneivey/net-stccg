@@ -106,6 +106,7 @@ class App extends Component {
   };
 
   doSignOut_ = () => {
+    firebase.auth().signOut();
     this.setState({
       signedIn: false,
       userId: null
