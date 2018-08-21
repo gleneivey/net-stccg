@@ -6,7 +6,7 @@ import Profile from './Profile';
 import DeckSelector from './DeckSelector';
 import Deck from './Deck';
 import { firestore } from './firebase.js';
-import badgeIconCommand from './badge-icon-command.svg'
+import badgeIconCommand from './Assets/badge-icon-command.svg'
 
 class Decks extends Component {
   static propTypes = {

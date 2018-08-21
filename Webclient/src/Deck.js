@@ -40,6 +40,7 @@ class Deck extends Component {
         {maybeDetails}
         <h2 className="deck__name">{this.props.deck.name}</h2>
         <DeckContent
+          userId={this.props.userId}
           deck={this.props.deck}
           showDetailsFor={this.showDetailsFor_}
           dontShowDetails={this.dontShowDetails_}

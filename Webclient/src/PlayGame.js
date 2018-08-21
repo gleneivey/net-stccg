@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import './PlayGame.css';
 import firebase, { firestore } from './firebase.js';
 import Profile from './Profile';
-import badgeIconCommand from './badge-icon-command.svg'
+import badgeIconCommand from './Assets/badge-icon-command.svg'
 
 class PlayGame extends Component {
   static propTypes = {

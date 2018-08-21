@@ -4,8 +4,8 @@ import { Link, Redirect } from 'react-router-dom';
 import './StartGame.css';
 import firebase, { firestore } from './firebase.js';
 import Profile from './Profile';
-import badgeIconCommand from './badge-icon-command.svg'
-import spinner from './stccg-logo.png'
+import badgeIconCommand from './Assets/badge-icon-command.svg'
+import spinner from './Assets/stccg-logo.png'
 
 
 /* the "handshake" between both players' browsers to agree to play with

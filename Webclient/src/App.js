@@ -6,7 +6,7 @@ import Decks from './Decks';
 import StartGame from './StartGame';
 import PlayGame from './PlayGame';
 import firebase, { firestore } from './firebase';
-import spinner from './stccg-logo.png'
+import spinner from './Assets/stccg-logo.png'
 
 class App extends Component {
   static propTypes = {

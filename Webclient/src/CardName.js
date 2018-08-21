@@ -1,27 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd';
-import './Card.css';
+import './CardName.css';
 
-const cardSource = {
-  beginDrag: function(props) {
-    return {
-      card: props.card
-    };
-  }
-};
-
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-}
-
-
-class Card extends Component {
+class CardName extends Component {
   static propTypes = {
     card: PropTypes.object.isRequired,
+    inSubDeck: PropTypes.string,
     showDetailsFor: PropTypes.func.isRequired,
     dontShowDetails: PropTypes.func.isRequired,
 
@@ -54,4 +39,24 @@ class Card extends Component {
   }
 }
 
-export default DragSource("card", cardSource, collect)(Card);
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
+
+const specification = {
+  beginDrag: function(props) {
+    const item = {
+      cardId: props.card.id
+    };
+    if (props.inSubDeck) {
+      item.fromSubdeck = props.inSubDeck;
+    }
+    return item;
+  }
+};
+
+export default DragSource("card", specification, collect)(CardName);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import './AvailableCards.css';
-import Card from './Card';
+import CardName from './CardName';
 
 import cardData from './CardData/data'
 const { cards } = cardData;
@@ -30,7 +30,7 @@ class AvailableCards extends Component {
               cardid={card.id}
               key={card.id}
             >
-              <Card
+              <CardName
                 card={card}
                 showDetailsFor={this.props.showDetailsFor}
                 dontShowDetails={this.props.dontShowDetails}
