@@ -39,13 +39,13 @@ cards.forEach((card) => {
   // error check card data against metadata
 
   //   "type":"person"
-  if (cardTypeKeys.indexOf(card.type) === -1) {
+  if (!cardTypeKeys.includes(card.type)) {
     corrupt("type", card);
   }
 
   //   "id":"1e-p|1555"
   const separatedId = card.id.split("|");
-  if (cardSetNameKeys.indexOf(separatedId[0]) === -1) {
+  if (!cardSetNameKeys.includes(separatedId[0])) {
     corrupt("id", card);
   }
   shouldBeInteger(separatedId[1], "id", card);
@@ -61,17 +61,17 @@ cards.forEach((card) => {
 
   //   "affiliation":"Kli"
   if (typeof card.affiliation === "string") {
-    if (cardAffiliationKeys.indexOf(card.affiliation) === -1) {
+    if (!cardAffiliationKeys.includes(card.affiliation)) {
       corrupt("affiliation", card);
     }
   } else if (card.affiliation === null) {
-    if (["dilemma", "facility"].indexOf(card.type) === -1) {
+    if (!["dilemma", "facility"].includes(card.type)) {
       corrupt("affiliation", card);
     }
   } else {
     card.affiliation.forEach((affil) => {
       const titelized = affil.substr(0,1) + affil.substr(1).toLowerCase();
-      if (cardAffiliationKeys.indexOf(titelized) === -1) {
+      if (!cardAffiliationKeys.includes(titelized)) {
         corrupt("affiliation", card);
       }
     });
@@ -79,12 +79,12 @@ cards.forEach((card) => {
 
   //   "rarity":"U (Premiere)"
   let match = card.rarity.match(/^([A-Z]+) /);
-  if (metadata.genericCardRarities.indexOf(match[1]) === -1) {
+  if (!metadata.genericCardRarities.includes(match[1])) {
     corrupt("rarity", card);
   }
 
   //   "block":"SCIENCE"
-  if (["equipment", "mission", "dilemma", "interrupt", "event", "artifact", "facility"].indexOf(card.type) === -1) {
+  if (!["equipment", "mission", "dilemma", "interrupt", "event", "artifact", "facility"].includes(card.type)) {
     shouldBeNonemptyString("block", card);
   }
 

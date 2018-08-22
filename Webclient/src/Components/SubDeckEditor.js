@@ -4,6 +4,7 @@ import { DropTarget } from "react-dnd";
 import classNames from "classnames";
 import "./SubDeckEditor.css";
 import CardName from "./CardName";
+import subDeckFactory from "../Models/subDeckFactory";
 
 import cardData from "../CardData/data"
 const { cardMap } = cardData;
@@ -53,12 +54,12 @@ class SubDeckEditor extends Component {
     );
 
     let endOfList;
-    const wantAnExactNumber = (this.props.min == this.props.max);
+    const wantAnExactNumber = (this.props.min === this.props.max);
     let message;
     let playable = true;
 
     if (wantAnExactNumber) {
-      if (this.props.max != this.props.cardIds.length) {
+      if (this.props.max !== this.props.cardIds.length) {
         playable = false;
         message = this.props.cardIds.length === 0 ?
           "Need exactly " + this.props.min + " cards" :
@@ -116,7 +117,8 @@ const specification = {
     component.addDroppedCardToThisSubDeck_(monitor.getItem());
   },
   canDrop: function (props, monitor) {
-    return !props.max || (props.max > props.cardIds.length);
+    return (!props.max || (props.max > props.cardIds.length)) &&
+      subDeckFactory(props.type, props.cardIds).canContainCard(monitor.getItem().cardId);
   }
 };
 

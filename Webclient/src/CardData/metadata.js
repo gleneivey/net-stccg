@@ -101,9 +101,14 @@ const genericCardRarities = [
 ];
 
 export default {
+  screen: function screen(knownGood, toScreen) {
+    const bad = toScreen.some((item) => !knownGood.includes(item));
+    return bad ? null : toScreen;
+  },
+
   cardSetNames: cardSetNames,
   deckNames: deckNames,
   cardTypes: cardTypes,
   cardAffiliations: cardAffiliations,
   genericCardRarities: genericCardRarities
-}
+};
