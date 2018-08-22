@@ -9,6 +9,10 @@
   margin: 0;
 }
 
+.subdeckCards__list--cantDrop {
+  background-color: #fcc;
+}
+
 .subdeckCards__endOfList {
   font-size: 80%;
   font-style: italic;

@@ -19,13 +19,19 @@ class SubDeck extends Component {
     dontShowDetails: PropTypes.func.isRequired,
 
     // Injected by React DnD:
-    connectDropTarget: PropTypes.func.isRequired
+    connectDropTarget: PropTypes.func.isRequired,
+    cantDrop: PropTypes.bool.isRequired
   };
 
   render() {
+    const listClasses = classNames({
+      "subdeckCards__list": true,
+      "subdeckCards__list--cantDrop": this.props.cantDrop
+    });
+
     let itemCount = -1;
     let itemsFromPropsCards = (
-      <ol className="subdeckCards__list">
+      <ol className={listClasses}>
         {this.props.cardIds.map(cardId => {
           itemCount++;
           return (
@@ -100,13 +106,17 @@ class SubDeck extends Component {
 
 function collect(connect, monitor) {
   return {
-    connectDropTarget: connect.dropTarget()
+    connectDropTarget: connect.dropTarget(),
+    cantDrop: monitor.isOver() && !monitor.canDrop()
   };
 }
 
 const specification = {
   drop: function (props, monitor, component) {
     component.addDroppedCardToThisSubDeck_(monitor.getItem());
+  },
+  canDrop: function (props, monitor) {
+    return !props.max || (props.max > props.cardIds.length);
   }
 };
 
