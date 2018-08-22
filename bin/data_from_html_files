@@ -101,6 +101,11 @@ Dir.glob(File.join(input_directory,'*.html')).each do |html_name|
     info_block =~ /Shields: (\d+)/
     details[:shields] = $1
   else
+
+    ### doesn't work yet for:
+    # <img src="/images/icons/1e/Hologram.jpg" height="12" border="0" alt="[Holo]">
+    ### between name and block
+
     info_block =~ / alt="\[([^\]]+?)\]"> <b>([^<]+)<\/b><br \/> *(<b>([^<]+)<\/b> <br \/>)?(.+?)<br \/>(<b>(.*?)<\/b>)?/
     affiliation = $1 || exit
     name = $2.strip
@@ -109,7 +114,7 @@ Dir.glob(File.join(input_directory,'*.html')).each do |html_name|
     rules = $7.strip if $7
 
     if %w(Interrupt Event Artifact Equipment).include?(affiliation)
-      type = affiliation
+      type = affiliation.downcase
       affiliation = ''
     end
 

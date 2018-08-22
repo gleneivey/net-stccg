@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
 import "./DeckContent.css";
-import SubDeck from "./SubDeck";
+import SubDeckEditor from "./SubDeckEditor";
 import DeckContentDelete from "./DeckContentDelete";
 import { firestore } from "../firebase";
 
@@ -49,7 +49,7 @@ class DeckContent extends Component {
         <DeckContentDelete removeCardFromSubDeck={this.removeCardFromSubDeck_} />
         <h3>Seed-Phase Decks</h3>
         <h4>Mission Deck</h4>
-        <SubDeck
+        <SubDeckEditor
           type="mission"
           cardIds={this.state.deck.mission}
           min={6} max={6}
@@ -58,7 +58,7 @@ class DeckContent extends Component {
           dontShowDetails={this.props.dontShowDetails}
         />
         <h4>Seed Deck</h4>
-        <SubDeck
+        <SubDeckEditor
           type="seed"
           cardIds={this.state.deck.seed}
           max={30}
@@ -70,7 +70,7 @@ class DeckContent extends Component {
         <DeckContentDelete removeCardFromSubDeck={this.removeCardFromSubDeck_} />
         <h3>Play-Phase Decks</h3>
         <h4>Draw Deck</h4>
-        <SubDeck
+        <SubDeckEditor
           type="draw"
           cardIds={this.state.deck.draw}
           min={30}
@@ -107,7 +107,7 @@ class DeckContent extends Component {
     let subdeck = this.state.deck[subdeckName];
     const toRemove = subdeck.indexOf(item.cardId);
     if (toRemove === -1) {
-      console.log("WARNING!!!!  Couldn't find item to remove from SubDeck", item);
+      console.log("WARNING!!!!  Couldn't find item to remove from SubDeckEditor", item);
       return;
     }
 

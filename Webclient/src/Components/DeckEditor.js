@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types"
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import "./Deck.css";
+import "./DeckEditor.css";
 import AvailableCards from "./AvailableCards";
 import DeckContent from "./DeckContent";
 
 import cardData from "../CardData/data"
 const { cardMap } = cardData;
 
-class Deck extends Component {
+class DeckEditor extends Component {
   static propTypes = {
     userId: PropTypes.string.isRequired,
     deck: PropTypes.object
@@ -62,4 +62,4 @@ class Deck extends Component {
   };
 }
 
-export default DragDropContext(HTML5Backend)(Deck);
+export default DragDropContext(HTML5Backend)(DeckEditor);

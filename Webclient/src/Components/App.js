@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
 import "./App.css";
 import SignIn from "./SignIn";
-import Decks from "./Decks";
+import ManageDecks from "./ManageDecks";
 import StartGame from "./StartGame";
 import PlayGame from "./PlayGame";
 import firebase, { firestore } from "../firebase";
@@ -49,7 +49,7 @@ class App extends Component {
               );
             } else {
               return (
-                <Decks
+                <ManageDecks
                   userId={this.state.userId}
                   displayName={this.state.displayName}
                   doSignOut={this.doSignOut_}

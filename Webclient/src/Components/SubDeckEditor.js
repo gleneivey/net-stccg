@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types"
 import { DropTarget } from "react-dnd";
 import classNames from "classnames";
-import "./SubDeck.css";
+import "./SubDeckEditor.css";
 import CardName from "./CardName";
 
 import cardData from "../CardData/data"
 const { cardMap } = cardData;
 
-class SubDeck extends Component {
+class SubDeckEditor extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     cardIds: PropTypes.array.isRequired,
@@ -120,4 +120,4 @@ const specification = {
   }
 };
 
-export default DropTarget("card", specification, collect)(SubDeck);
+export default DropTarget("card", specification, collect)(SubDeckEditor);

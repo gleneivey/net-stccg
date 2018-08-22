@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom";
-import "./Decks.css";
+import "./ManageDecks.css";
 import Profile from "./Profile";
 import DeckSelector from "./DeckSelector";
-import Deck from "./Deck";
+import DeckEditor from "./DeckEditor";
 import { firestore } from "../firebase.js";
 import badgeIconCommand from "../Assets/badge-icon-command.svg"
 
-class Decks extends Component {
+class ManageDecks extends Component {
   static propTypes = {
     userId: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,
@@ -46,7 +46,7 @@ class Decks extends Component {
             doDeckSelect={this.doDeckSelect_}
             onDeckAdded={this.onDeckAdded_}
           />
-          <Deck
+          <DeckEditor
             userId={this.props.userId}
             deck={currentDeck}
           />
@@ -111,4 +111,4 @@ class Decks extends Component {
   };
 }
 
-export default Decks;
+export default ManageDecks;
