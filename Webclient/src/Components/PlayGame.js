@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { Link, Redirect } from 'react-router-dom';
-import './PlayGame.css';
-import firebase, { firestore } from './firebase.js';
-import Profile from './Profile';
-import badgeIconCommand from './Assets/badge-icon-command.svg'
+import React, { Component } from "react";
+import PropTypes from "prop-types"
+import { Link, Redirect } from "react-router-dom";
+import "./PlayGame.css";
+import Profile from "./Profile";
+import firebase, { firestore } from "../firebase.js";
+import badgeIconCommand from "../Assets/badge-icon-command.svg"
 
 class PlayGame extends Component {
   static propTypes = {

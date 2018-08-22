@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import './DeckContent.css';
-import SubDeck from './SubDeck';
-import DeckContentDelete from './DeckContentDelete';
-import { firestore } from './firebase';
+import React, { Component } from "react";
+import PropTypes from "prop-types"
+import "./DeckContent.css";
+import SubDeck from "./SubDeck";
+import DeckContentDelete from "./DeckContentDelete";
+import { firestore } from "../firebase";
 
 
 class DeckContent extends Component {

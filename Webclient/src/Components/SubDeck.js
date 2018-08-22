@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { DropTarget } from 'react-dnd';
-import classNames from 'classnames';
-import './SubDeck.css';
-import CardName from './CardName';
+import React, { Component } from "react";
+import PropTypes from "prop-types"
+import { DropTarget } from "react-dnd";
+import classNames from "classnames";
+import "./SubDeck.css";
+import CardName from "./CardName";
 
-import cardData from './CardData/data'
+import cardData from "../CardData/data"
 const { cardMap } = cardData;
 
 class SubDeck extends Component {

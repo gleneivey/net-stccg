@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import './AvailableCards.css';
-import CardName from './CardName';
+import React, { Component } from "react";
+import PropTypes from "prop-types"
+import "./AvailableCards.css";
+import CardName from "./CardName";
 
-import cardData from './CardData/data'
+import cardData from "../CardData/data"
 const { cards } = cardData;
 
 class AvailableCards extends Component {

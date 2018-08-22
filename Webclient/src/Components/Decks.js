@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
-import './Decks.css';
-import Profile from './Profile';
-import DeckSelector from './DeckSelector';
-import Deck from './Deck';
-import { firestore } from './firebase.js';
-import badgeIconCommand from './Assets/badge-icon-command.svg'
+import React, { Component } from "react";
+import PropTypes from "prop-types"
+import { Link } from "react-router-dom";
+import "./Decks.css";
+import Profile from "./Profile";
+import DeckSelector from "./DeckSelector";
+import Deck from "./Deck";
+import { firestore } from "../firebase.js";
+import badgeIconCommand from "../Assets/badge-icon-command.svg"
 
 class Decks extends Component {
   static propTypes = {

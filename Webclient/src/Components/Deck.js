@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import './Deck.css';
-import AvailableCards from './AvailableCards';
-import DeckContent from './DeckContent';
+import React, { Component } from "react";
+import PropTypes from "prop-types"
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import "./Deck.css";
+import AvailableCards from "./AvailableCards";
+import DeckContent from "./DeckContent";
 
-import cardData from './CardData/data'
+import cardData from "../CardData/data"
 const { cardMap } = cardData;
 
 class Deck extends Component {

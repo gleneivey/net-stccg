@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom';
-import './App.css';
-import SignIn from './SignIn';
-import Decks from './Decks';
-import StartGame from './StartGame';
-import PlayGame from './PlayGame';
-import firebase, { firestore } from './firebase';
-import spinner from './Assets/stccg-logo.png'
+import React, { Component } from "react";
+import { Route, withRouter } from "react-router-dom";
+import "./App.css";
+import SignIn from "./SignIn";
+import Decks from "./Decks";
+import StartGame from "./StartGame";
+import PlayGame from "./PlayGame";
+import firebase, { firestore } from "../firebase";
+import spinner from "../Assets/stccg-logo.png"
 
 class App extends Component {
   static propTypes = {

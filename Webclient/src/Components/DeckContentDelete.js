@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { DropTarget } from 'react-dnd';
-import './DeckContentDelete.css';
-import trashCan from './Assets/delete.svg'
+import React, { Component } from "react";
+import PropTypes from "prop-types"
+import { DropTarget } from "react-dnd";
+import "./DeckContentDelete.css";
+import trashCan from "../Assets/delete.svg"
 
 class DeckContentDelete extends Component {
   static propTypes = {

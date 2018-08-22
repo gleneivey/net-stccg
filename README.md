@@ -84,12 +84,13 @@ choosing Google Firebase:
 
 ### Immediate
 
-* prevent drop of card onto full list
 * prevent drop of wrong type of card into list
 
 
 ### Features Soon
 
+* wrap Deck in vertical scroll area
+* put expandos on SubDeck headers
 * can't drag from Available based on count already in deck
 * filter Available Card list (card: type, affilliation)
 * preload deck

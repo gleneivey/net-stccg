@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { DragSource } from 'react-dnd';
-import './CardName.css';
+import React, { Component } from "react";
+import PropTypes from "prop-types"
+import { DragSource } from "react-dnd";
+import "./CardName.css";
 
 class CardName extends Component {
   static propTypes = {

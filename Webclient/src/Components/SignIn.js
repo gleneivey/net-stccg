@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import GoogleButton from 'react-google-button'
-import './SignIn.css';
-import firebase from './firebase.js';
+import React, { Component } from "react";
 import PropTypes from "prop-types";
+import GoogleButton from "react-google-button"
+import "./SignIn.css";
+import firebase from "../firebase.js";
 
 class SignIn extends Component {
   static propTypes = {
