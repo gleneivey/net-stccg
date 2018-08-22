@@ -9,7 +9,7 @@ import { firestore } from './firebase';
 class DeckContent extends Component {
   static propTypes = {
     userId: PropTypes.string.isRequired,
-    deck: PropTypes.object.isRequired,
+    deckId: PropTypes.string.isRequired,
     showDetailsFor: PropTypes.func.isRequired,
     dontShowDetails: PropTypes.func.isRequired
   };
@@ -27,14 +27,23 @@ class DeckContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      deck: JSON.parse( JSON.stringify(props.deck) ),
+      deck: null,
+      deckUnsubscribe: null,
       updateMissionSubdeck: updateFunctionFor_(this, 'mission'),
       updateSeedSubdeck: updateFunctionFor_(this, 'seed'),
       updateDrawSubdeck: updateFunctionFor_(this, 'draw'),
     };
   }
 
+  componentDidMount() {
+    this.fetchDocsIntoState_();
+  }
+
   render() {
+    if (!this.state.deck) {
+      return <div />;
+    }
+
     return (
       <div className="deckContent__container">
         <DeckContentDelete removeCardFromSubDeck={this.removeCardFromSubDeck_} />
@@ -73,6 +82,26 @@ class DeckContent extends Component {
     );
   }
 
+  fetchDocsIntoState_ = () => {
+    const self = this;
+    const db = firestore();
+
+    const ref = db
+      .collection("users")
+      .doc(self.props.userId)
+      .collection("decks")
+      .doc(self.props.deckId);
+    let unsubscribe = ref
+      .onSnapshot(function(snapshot) {
+        const deck = snapshot.data();
+        deck.id = self.props.deckId;
+        self.setState({deck: deck});
+      }, function(error) {
+        console.log("Error getting doc from 'games': ", error);
+      });
+    this.setState({deckUnsubscribe: unsubscribe});
+  };
+
   removeCardFromSubDeck_ = (item) => {
     const subdeckName = item.fromSubdeck;
     let subdeck = this.state.deck[subdeckName];
@@ -83,12 +112,16 @@ class DeckContent extends Component {
     }
 
     subdeck.splice(toRemove, 1);
-    let deck = this.state.deck;
-    deck[subdeckName] = Array.from(subdeck);
-    this.setState({deck: deck});
-
     updateSubDeckInDb_(this.props, subdeckName, subdeck);
   };
+}
+
+function updateFunctionFor_(instance, subdeck) {
+  const fn = function (cardIds) {
+    updateSubDeckInDb_(this.props, subdeck, cardIds);
+  };
+
+  return fn.bind(instance);
 }
 
 function updateSubDeckInDb_(props, subdeckName, subdeckCardIds) {
@@ -100,20 +133,8 @@ function updateSubDeckInDb_(props, subdeckName, subdeckCardIds) {
     .collection("users")
     .doc(props.userId)
     .collection("decks")
-    .doc(props.deck.id)
+    .doc(props.deckId)
     .update(deckUpdate);
-}
-
-function updateFunctionFor_(instance, subdeck) {
-  const fn = function (cardIds) {
-    let deck = this.state.deck;
-    deck[subdeck] = cardIds;
-    this.setState({deck: deck});
-
-    updateSubDeckInDb_(this.props, subdeck, cardIds);
-  };
-
-  return fn.bind(instance);
 }
 
 

@@ -82,6 +82,21 @@ choosing Google Firebase:
 
 ## To Do
 
+### Immediate
+
+* prevent drop of card onto full list
+* prevent drop of wrong type of card into list
+
+
+### Features Soon
+
+* can't drag from Available based on count already in deck
+* filter Available Card list (card: type, affilliation)
+* preload deck
+
+
+### Long Term
+
 Stuff that I skipped doing "when I could have" in order to get to a
 broader set of functionality:
 

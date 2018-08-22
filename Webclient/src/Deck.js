@@ -41,7 +41,7 @@ class Deck extends Component {
         <h2 className="deck__name">{this.props.deck.name}</h2>
         <DeckContent
           userId={this.props.userId}
-          deck={this.props.deck}
+          deckId={this.props.deck.id}
           showDetailsFor={this.showDetailsFor_}
           dontShowDetails={this.dontShowDetails_}
         />
