@@ -1,4 +1,3 @@
-
 // root of model hierarchy; will put stuff here that should be common to
 // all kinds of models in the system
 class Model {

@@ -5,16 +5,15 @@ const { cardMap } = cardData;
 
 const acceptableCardTypes = metadata.screen(
   Object.keys(metadata.cardTypes),
-  ["mission"]
+  ["dilemma", "artifact"]
 );
 
 
-class MissionSubDeck extends SubDeck {
+class DrawSubDeck extends SubDeck {
   canContainCard(cardId) {
     const card = cardMap[cardId];
-    return acceptableCardTypes.includes(card.type) &&
-      (card.multiple || !this.cardIds.includes(cardId));
+    return acceptableCardTypes.includes(card.type);
   }
 }
 
-export default MissionSubDeck;
+export default DrawSubDeck;

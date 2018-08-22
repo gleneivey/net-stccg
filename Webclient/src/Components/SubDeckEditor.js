@@ -61,22 +61,25 @@ class SubDeckEditor extends Component {
     if (wantAnExactNumber) {
       if (this.props.max !== this.props.cardIds.length) {
         playable = false;
+        const difference = this.props.max - this.props.cardIds.length;
         message = this.props.cardIds.length === 0 ?
           "Need exactly " + this.props.min + " cards" :
-          "Need " + (this.props.max - this.props.cardIds.length) + " more cards";
+          "Need " + difference + " more card" + (difference === 1 ? "" : "s");
       }
     } else if (Number.isInteger(this.props.min)) {
       if (this.props.cardIds.length < this.props.min) {
         playable = false;
+        const difference = this.props.min - this.props.cardIds.length;
         message = this.props.cardIds.length === 0 ?
           "At least " + this.props.min + " cards" :
-          "At least " + (this.props.min - this.props.cardIds.length) + " more cards";
+          "At least " + difference + " more card" + (difference === 1 ? "" : "s");
       }
     } else if (Number.isInteger(this.props.max)) {
       if (this.props.cardIds.length < this.props.max) {
+        const difference = this.props.max - this.props.cardIds.length;
         message = this.props.cardIds.length === 0 ?
           "Up to " + this.props.max + " cards" :
-          "Up to " + (this.props.max - this.props.cardIds.length) + " more cards";
+          "Up to " + difference + " more card" + (difference === 1 ? "" : "s");
       }
     } else {
     }

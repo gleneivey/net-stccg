@@ -17,7 +17,10 @@ class CardName extends Component {
 
   render() {
     const { card, isDragging, connectDragSource } = this.props;
-
+    let maybeMultiple = null;
+    if (card.multiple) {
+      maybeMultiple = <span>&#10070; </span>;
+    }
     return connectDragSource(
       <div
         className="card__container"
@@ -29,6 +32,7 @@ class CardName extends Component {
           onMouseLeave={this.props.dontShowDetails}
         >
           {card.name}
+          {maybeMultiple}
         </div>
       </div>
     );

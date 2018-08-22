@@ -84,7 +84,7 @@ choosing Google Firebase:
 
 ### Immediate
 
-* prevent drop of wrong type of card into list
+* sort cards in Available Cards list (by name)
 
 
 ### Features Soon

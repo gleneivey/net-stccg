@@ -1,4 +1,3 @@
-
 import Model from './Model';
 
 class SubDeck extends Model {
