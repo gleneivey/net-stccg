@@ -42,7 +42,8 @@ class DeckContent extends Component {
         <h4>Mission Deck</h4>
         <SubDeck
           type="mission"
-          cardIds={this.state.deck.mission} min={6} max={6} numbered={true}
+          cardIds={this.state.deck.mission}
+          min={6} max={6}
           updateCardIdsInSubDeck={this.state.updateMissionSubdeck}
           showDetailsFor={this.props.showDetailsFor}
           dontShowDetails={this.props.dontShowDetails}
@@ -50,7 +51,8 @@ class DeckContent extends Component {
         <h4>Seed Deck</h4>
         <SubDeck
           type="seed"
-          cardIds={this.state.deck.seed} max={30} numbered={true}
+          cardIds={this.state.deck.seed}
+          max={30}
           updateCardIdsInSubDeck={this.state.updateSeedSubdeck}
           showDetailsFor={this.props.showDetailsFor}
           dontShowDetails={this.props.dontShowDetails}
@@ -61,7 +63,8 @@ class DeckContent extends Component {
         <h4>Draw Deck</h4>
         <SubDeck
           type="draw"
-          cardIds={this.state.deck.draw} min={30} numbered={true}
+          cardIds={this.state.deck.draw}
+          min={30}
           updateCardIdsInSubDeck={this.state.updateDrawSubdeck}
           showDetailsFor={this.props.showDetailsFor}
           dontShowDetails={this.props.dontShowDetails}
