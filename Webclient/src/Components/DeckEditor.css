@@ -9,3 +9,19 @@
   right: 20px;
   width: 38%;
 }
+
+.availableCards__container, .deckContent__container {
+  width: 28%;
+  float: left;
+  margin-left: 16px;
+  background-color: #fff;
+  color: #000;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.availableCards__scrollList, .deckContent__scrollable {
+  height: 100%;
+  overflow-y: scroll;
+  margin: 0;
+}

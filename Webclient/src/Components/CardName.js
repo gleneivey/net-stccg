@@ -19,7 +19,7 @@ class CardName extends Component {
     const { card, isDragging, connectDragSource } = this.props;
     let maybeMultiple = null;
     if (card.multiple) {
-      maybeMultiple = <span>&#10070; </span>;
+      maybeMultiple = <span> &#10070;</span>;
     }
     return connectDragSource(
       <div

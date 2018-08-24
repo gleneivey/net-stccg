@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
+import "./DeckEditor.css";
 import "./AvailableCards.css";
 import CardName from "./CardName";
+import domTools from "../domTools";
 
 import cardData from "../CardData/data"
 const { cards } = cardData;
@@ -13,18 +15,20 @@ class AvailableCards extends Component {
   };
 
   componentDidMount() {
-    this.fixupListHeight_();
+    domTools.fixupListHeight(this);
   }
 
   componentDidUpdate() {
-    this.fixupListHeight_();
+    domTools.fixupListHeight(this);
   }
 
   render() {
+    let shownCards = cards.sort((a,b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0);
+
     return (
       <div className="availableCards__container" ref={el => (this.containerEl = el)}>
         <ul className="availableCards__scrollList">
-          {cards.map(card => (
+          {shownCards.map(card => (
             <li
               className="availableCards__card"
               cardid={card.id}
@@ -41,10 +45,6 @@ class AvailableCards extends Component {
       </div>
     );
   }
-
-  fixupListHeight_ = () => {
-    this.containerEl.style.height = (window.innerHeight - this.containerEl.offsetTop) + "px";
-  };
 }
 
 export default AvailableCards;

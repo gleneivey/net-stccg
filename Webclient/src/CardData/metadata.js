@@ -29,11 +29,12 @@ const cardSetNames = {
   "1e-tmp": "The Motion Pictures"
 };
 
-const deckNames = [
-  "Seed Deck",
-  "Draw Deck"
+const deckNames = {
+  "mission": "Mission Deck",
+  "seed": "Seed Deck",
+  "draw": "Draw Deck"
+};
 /*
-"Mission"
 "Site"
 "Q-Tent Side Deck"
 "Q-Flash Side Deck"
@@ -43,7 +44,6 @@ const deckNames = [
 "Dilemma Side Deck"
 "&quot;outside the game&quot;"
 */
-];
 
 const cardTypes = {
   "person": "Personnel",

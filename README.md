@@ -84,16 +84,13 @@ choosing Google Firebase:
 
 ### Immediate
 
-* sort cards in Available Cards list (by name)
+* prevent drag from Availables based on deck content (no duplicates of non-universal missions)
 
 
 ### Features Soon
 
-* wrap Deck in vertical scroll area
-* put expandos on SubDeck headers
-* can't drag from Available based on count already in deck
 * filter Available Card list (card: type, affilliation)
-* preload deck
+* preload deck options/buttons
 
 
 ### Long Term

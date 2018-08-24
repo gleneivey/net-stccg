@@ -1,11 +1,27 @@
-.subdeckCards__container {
+.subdeckCards__container h4 {
+  cursor: pointer;
+}
+
+.subdeckCards__container h4::before {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  content: " ";
+  background-image: url("/images/kisspng-arrow.jpg");
+  background-size: contain;
+  transform: rotate(0.25turn);
+}
+.subdeckCards__container--closed h4::before {
+  transform: rotate(0turn);
+}
+
+.subdeckCards__listAndEnd {
   margin-left: 12px;
   border: solid 1px #000;
 }
 
 .subdeckCards__list {
   height: 100%;
-  overflow-y: scroll;
   margin: 0;
 }
 

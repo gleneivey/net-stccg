@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
+import "./DeckEditor.css";
 import "./DeckContent.css";
 import SubDeckEditor from "./SubDeckEditor";
 import DeckContentDelete from "./DeckContentDelete";
 import { firestore } from "../firebase";
+import domTools from "../domTools";
 
 
 class DeckContent extends Component {
@@ -37,6 +39,11 @@ class DeckContent extends Component {
 
   componentDidMount() {
     this.fetchDocsIntoState_();
+    domTools.fixupListHeight(this);
+  }
+
+  componentDidUpdate() {
+    domTools.fixupListHeight(this);
   }
 
   render() {
@@ -45,39 +52,38 @@ class DeckContent extends Component {
     }
 
     return (
-      <div className="deckContent__container">
-        <DeckContentDelete removeCardFromSubDeck={this.removeCardFromSubDeck_} />
-        <h3>Seed-Phase Decks</h3>
-        <h4>Mission Deck</h4>
-        <SubDeckEditor
-          type="mission"
-          cardIds={this.state.deck.mission}
-          min={6} max={6}
-          updateCardIdsInSubDeck={this.state.updateMissionSubdeck}
-          showDetailsFor={this.props.showDetailsFor}
-          dontShowDetails={this.props.dontShowDetails}
-        />
-        <h4>Seed Deck</h4>
-        <SubDeckEditor
-          type="seed"
-          cardIds={this.state.deck.seed}
-          max={30}
-          updateCardIdsInSubDeck={this.state.updateSeedSubdeck}
-          showDetailsFor={this.props.showDetailsFor}
-          dontShowDetails={this.props.dontShowDetails}
-        />
+      <div className="deckContent__container" ref={el => (this.containerEl = el)}>
+        <div className="deckContent__scrollable">
+          <DeckContentDelete removeCardFromSubDeck={this.removeCardFromSubDeck_} />
+          <h3>Seed-Phase Decks</h3>
+          <SubDeckEditor
+            type="mission"
+            cardIds={this.state.deck.mission}
+            min={6} max={6}
+            updateCardIdsInSubDeck={this.state.updateMissionSubdeck}
+            showDetailsFor={this.props.showDetailsFor}
+            dontShowDetails={this.props.dontShowDetails}
+          />
+          <SubDeckEditor
+            type="seed"
+            cardIds={this.state.deck.seed}
+            max={30}
+            updateCardIdsInSubDeck={this.state.updateSeedSubdeck}
+            showDetailsFor={this.props.showDetailsFor}
+            dontShowDetails={this.props.dontShowDetails}
+          />
 
-        <DeckContentDelete removeCardFromSubDeck={this.removeCardFromSubDeck_} />
-        <h3>Play-Phase Decks</h3>
-        <h4>Draw Deck</h4>
-        <SubDeckEditor
-          type="draw"
-          cardIds={this.state.deck.draw}
-          min={30}
-          updateCardIdsInSubDeck={this.state.updateDrawSubdeck}
-          showDetailsFor={this.props.showDetailsFor}
-          dontShowDetails={this.props.dontShowDetails}
-        />
+          <DeckContentDelete removeCardFromSubDeck={this.removeCardFromSubDeck_} />
+          <h3>Play-Phase Decks</h3>
+          <SubDeckEditor
+            type="draw"
+            cardIds={this.state.deck.draw}
+            min={30}
+            updateCardIdsInSubDeck={this.state.updateDrawSubdeck}
+            showDetailsFor={this.props.showDetailsFor}
+            dontShowDetails={this.props.dontShowDetails}
+          />
+        </div>
       </div>
     );
   }
