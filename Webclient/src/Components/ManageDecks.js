@@ -47,6 +47,7 @@ class ManageDecks extends Component {
             doDeckSelect={this.doDeckSelect_}
             onDeckAdded={this.onDeckAdded_}
           />
+          <hr />
           <DeckEditor
             userId={this.props.userId}
             deck={currentDeck}

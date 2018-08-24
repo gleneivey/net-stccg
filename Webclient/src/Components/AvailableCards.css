@@ -1,5 +1,16 @@
 /* common stuff is a "level up" in DeckEditor.css */
 
+.availableCards__filters {
+  max-width: 24%;
+  float: left;
+  margin-left: 32px;
+}
+
+.availableCards__filterHeader {
+  margin-top: 0;
+  margin-left: -16px;
+}
+
 .availableCards__card {
   margin-left: -2em;
   list-style-type: none;

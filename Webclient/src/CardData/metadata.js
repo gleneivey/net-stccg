@@ -76,7 +76,7 @@ const cardTypes = {
 */
 
 const cardAffiliations = {
-  "": null,
+  "": "unaligned",
   "Fed": "Federation",
   "Kli": "Klingon",
   "Non": "Neutral",
