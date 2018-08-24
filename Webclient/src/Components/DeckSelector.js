@@ -95,17 +95,19 @@ class DeckSelector extends Component {
   addDeck_ = () => {
     const self = this;
     const db = firestore();
+    const newDeckInfo = {
+      name: self.state.newDeckName,
+      mission: [],
+      site: [],
+      seed: [],
+      draw: []
+    };
+
     db
       .collection('users')
       .doc(self.props.userId)
       .collection('decks')
-      .add({
-        name: self.state.newDeckName,
-        mission: [],
-        site: [],
-        seed: [],
-        draw: []
-      })
+      .add(newDeckInfo)
       .then(function(docRef) {
         self.setState({
           selecting: true,

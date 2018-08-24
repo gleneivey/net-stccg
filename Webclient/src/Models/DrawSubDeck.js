@@ -3,9 +3,10 @@ import metadata from '../CardData/metadata';
 import cardData from "../CardData/data"
 const { cardMap } = cardData;
 
+const cardTypeKeys = Object.keys(metadata.cardTypes);  // drop out Q-Icon cards when we get there
 const acceptableCardTypes = metadata.screen(
   Object.keys(metadata.cardTypes),
-  ["dilemma", "artifact"]
+  cardTypeKeys
 );
 
 

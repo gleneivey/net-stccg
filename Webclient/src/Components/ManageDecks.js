@@ -7,6 +7,7 @@ import DeckSelector from "./DeckSelector";
 import DeckEditor from "./DeckEditor";
 import { firestore } from "../firebase.js";
 import badgeIconCommand from "../Assets/badge-icon-command.svg"
+import Deck from "../Models/Deck";
 
 class ManageDecks extends Component {
   static propTypes = {
@@ -85,6 +86,7 @@ class ManageDecks extends Component {
         querySnapshot.forEach(function(doc) {
           let deck = doc.data();
           deck.id = doc.id;
+          Deck.ensureDeckDefaults(deck);
           decks.push(deck);
         });
 
