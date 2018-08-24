@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
 import "./DeckSelector.css";
-import { firestore } from "../firebase.js";
+import { firestore } from "../../firebase.js";
 
 class DeckSelector extends Component {
   static propTypes = {

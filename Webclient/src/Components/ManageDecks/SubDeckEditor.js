@@ -4,10 +4,10 @@ import { DropTarget } from "react-dnd";
 import classNames from "classnames";
 import "./SubDeckEditor.css";
 import CardName from "./CardName";
-import subDeckFactory from "../Models/subDeckFactory";
+import subDeckFactory from "../../Models/subDeckFactory";
 
-import metadata from "../CardData/metadata"
-import cardData from "../CardData/data"
+import metadata from "../../CardData/metadata"
+import cardData from "../../CardData/data"
 const { cardMap } = cardData;
 
 class SubDeckEditor extends Component {

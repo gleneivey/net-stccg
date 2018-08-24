@@ -84,13 +84,15 @@ choosing Google Firebase:
 
 ### Immediate
 
-* prevent drag from Availables based on deck content (no duplicates of non-universal missions)
+* filter Available Card list (card: type, affilliation)
 
 
 ### Features Soon
 
-* filter Available Card list (card: type, affilliation)
+* number of cards in subdeck, subdeck playable, in header
+* prevent drag from Availables based on deck content (no duplicates of non-universal missions)
 * preload deck options/buttons
+    - 
 
 
 ### Long Term
@@ -104,7 +106,9 @@ broader set of functionality:
 * refactor to put Profile component directly under App
 * refactor to create a Home component that App routes to "/" and
   renders sub-components
+* drag/drop to sort within subdeck
 * implement "delete" for decks
+* implement "rename" for decks
 * fix console warning about how firebase lib is imported
 * clean up old/orphan Game Code values
 * flatten and/or extract some of the promises for db access (to make

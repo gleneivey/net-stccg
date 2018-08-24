@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types"
 import { Link, Redirect } from "react-router-dom";
 import "./StartGame.css";
-import Profile from "./Profile";
-import firebase, { firestore } from "../firebase.js";
-import badgeIconCommand from "../Assets/badge-icon-command.svg"
-import spinner from "../Assets/stccg-logo.png"
+import Profile from "../Profile";
+import firebase, { firestore } from "../../firebase.js";
+import badgeIconCommand from "../../Assets/badge-icon-command.svg"
+import spinner from "../../Assets/stccg-logo.png"
 
 
 /* the "handshake" between both players' browsers to agree to play with

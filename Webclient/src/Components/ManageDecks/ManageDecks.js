@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom";
 import "./ManageDecks.css";
-import Profile from "./Profile";
+import Profile from "../Profile";
 import DeckSelector from "./DeckSelector";
 import DeckEditor from "./DeckEditor";
-import { firestore } from "../firebase.js";
-import badgeIconCommand from "../Assets/badge-icon-command.svg"
-import Deck from "../Models/Deck";
+import { firestore } from "../../firebase.js";
+import badgeIconCommand from "../../Assets/badge-icon-command.svg"
+import Deck from "../../Models/Deck";
 
 class ManageDecks extends Component {
   static propTypes = {

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
 import "./App.css";
 import SignIn from "./SignIn";
-import ManageDecks from "./ManageDecks";
-import StartGame from "./StartGame";
-import PlayGame from "./PlayGame";
+import ManageDecks from "./ManageDecks/ManageDecks";
+import StartGame from "./StartGame/StartGame";
+import PlayGame from "./PlayGame/PlayGame";
 import firebase, { firestore } from "../firebase";
 import spinner from "../Assets/stccg-logo.png"
 

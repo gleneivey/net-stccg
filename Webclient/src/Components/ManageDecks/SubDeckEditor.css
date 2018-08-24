@@ -6,6 +6,7 @@
   display: inline-block;
   height: 12px;
   width: 12px;
+  margin-right: 2px;
   content: " ";
   background-image: url("/images/kisspng-arrow.jpg");
   background-size: contain;

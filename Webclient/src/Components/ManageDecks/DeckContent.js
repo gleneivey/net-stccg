@@ -4,8 +4,8 @@ import "./DeckEditor.css";
 import "./DeckContent.css";
 import SubDeckEditor from "./SubDeckEditor";
 import DeckContentDelete from "./DeckContentDelete";
-import { firestore } from "../firebase";
-import domTools from "../domTools";
+import { firestore } from "../../firebase";
+import domTools from "../../domTools";
 
 
 class DeckContent extends Component {

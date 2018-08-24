@@ -4,10 +4,10 @@ import "./DeckEditor.css";
 import "./AvailableCards.css";
 import CardName from "./CardName";
 import FilterSelector from "./FilterSelector";
-import domTools from "../domTools";
+import domTools from "../../domTools";
 
-import metadata from "../CardData/metadata"
-import cardData from "../CardData/data"
+import metadata from "../../CardData/metadata"
+import cardData from "../../CardData/data"
 const { cards } = cardData;
 
 class AvailableCards extends Component {
