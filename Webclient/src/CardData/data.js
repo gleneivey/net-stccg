@@ -69,9 +69,12 @@ cards.forEach((card) => {
       corrupt("affiliation", card);
     }
   } else {
+    // first, normalize because original data uses different text case for missions
+    card.affiliation = card.affiliation.map(affil => affil.substr(0,1) + affil.substr(1).toLowerCase());
+
+    // now, compare each affiliation in array to known-good set
     card.affiliation.forEach((affil) => {
-      const titelized = affil.substr(0,1) + affil.substr(1).toLowerCase();
-      if (!cardAffiliationKeys.includes(titelized)) {
+      if (!cardAffiliationKeys.includes(affil)) {
         corrupt("affiliation", card);
       }
     });

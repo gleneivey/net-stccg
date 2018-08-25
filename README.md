@@ -84,15 +84,23 @@ choosing Google Firebase:
 
 ### Immediate
 
-* filter Available Card list (card: type, affilliation)
 
 
 ### Features Soon
 
 * number of cards in subdeck, subdeck playable, in header
+* filter Available Card list (substring text match)
 * prevent drag from Availables based on deck content (no duplicates of non-universal missions)
 * preload deck options/buttons
-    - 
+    - random primier + warp pack
+    - Introductory 2-Player Game: Federation
+    - Introductory 2-Player Game: Klingon
+    - random Official Tournament Sealed Deck mix
+    - random Deep Space 9 deck
+    - random Starter Deck II
+    - random Voyager deck
+* support for finite set in Available Card list
+* indicators n deck-select dropdown, by Start Game link, when deck isn't legal (yet)
 
 
 ### Long Term

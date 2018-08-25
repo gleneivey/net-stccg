@@ -1,7 +1,7 @@
 /* common stuff is a "level up" in DeckEditor.css */
 
 .availableCards__filters {
-  max-width: 24%;
+  width: 24%;
   float: left;
   margin-left: 32px;
 }

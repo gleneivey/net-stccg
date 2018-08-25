@@ -1,12 +1,51 @@
 .filterSelector {
-
+  color: #000;
+  background-color: #fff;
+  margin-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .filterSelector__title {
+  cursor: pointer;
+  font-weight: bold;
+  border-bottom: solid 2px #333;
+  padding-left: 6px;
+}
 
+.filterSelector__title::before {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  margin-right: 2px;
+  content: " ";
+  background-image: url("/images/kisspng-arrow.jpg");
+  background-size: contain;
+  transform: rotate(0.25turn);
+}
+.filterSelector__title--closed::before {
+  transform: rotate(0turn);
+}
+.filterSelector__title::after {
+  display: inline-block;
+  vertical-align: middle;
+  height: 25px;
+  width: 1px;
+  content: " ";
+}
+
+.filterSelector__presetButton {
+  display: inline-block;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-left: 8px;
 }
 
 .filterSelector__itemName {
   display: inline-block;
-  padding: 4px;
+  margin-right: 10px;
+  margin-left: 2px;
+  padding-top: 4px;
+  padding-bottom: 0px;
+  border-bottom: solid 2px #eee;
 }

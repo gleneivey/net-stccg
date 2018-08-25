@@ -90,6 +90,10 @@ Dir.glob(File.join(input_directory,'*.html')).each do |html_name|
       end
     end
   elsif info_block =~ /Outpost<\/b>/
+    ### doesn't work yet for:
+    # affiliation comes out "null" in JSON for outposts
+    ### between name and block
+
     type = 'facility'
 
     info_block =~ /<b>([^<]+)<\/b><br \/>(.+?)<br \/><b>(.+?)<\/b><br \/>/
@@ -115,6 +119,10 @@ Dir.glob(File.join(input_directory,'*.html')).each do |html_name|
 
     if %w(Interrupt Event Artifact Equipment).include?(affiliation)
       type = affiliation.downcase
+
+      ### doesn't work yet for:
+      # find a way to set affiliation from "xxx use only" in rule string
+      ### between name and block
       affiliation = ''
     end
 

@@ -47,6 +47,7 @@ const deckNames = {
 
 const cardTypes = {
   "person": "Personnel",
+  "ship": "Ship",
   "mission": "Mission",
   "dilemma": "Dilemma",
   "facility": "Facility",
@@ -54,7 +55,6 @@ const cardTypes = {
   "equipment": "Equipment",
   "event": "Event",
   "interrupt": "Interrupt",
-  "ship": "Ship"
 };
 /*
 "DamageMarker": "Damage Marker",

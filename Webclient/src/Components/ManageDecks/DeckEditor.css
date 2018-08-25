@@ -8,6 +8,7 @@
   top: 20px;
   right: 20px;
   width: 38%;
+  z-index: 8;
 }
 
 .availableCards__container, .deckContent__container {
