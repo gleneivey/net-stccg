@@ -1,4 +1,9 @@
 
+const cards = [
+];
+
+export default cards;
+
 /*
 
 Yellow Alert – Preview from Alternate Universe

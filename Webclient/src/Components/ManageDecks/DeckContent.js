@@ -18,6 +18,7 @@ class DeckContent extends Component {
 
   /* Deck data structure is:
       {
+        id: "string",
         name: "string",
         mission: [],
         site: [],    // not yet supported
@@ -42,7 +43,10 @@ class DeckContent extends Component {
     domTools.fixupListHeight(this);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.deckId !== prevProps.deckId) {
+      this.fetchDocsIntoState_();
+    }
     domTools.fixupListHeight(this);
   }
 

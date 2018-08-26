@@ -1,5 +1,9 @@
 import metadata from './metadata';
-import premier from './premier';
+
+import premier from './premierCards';
+import warpPack from './warpPackCards';
+import intro2Player from './intro2PlayerCards';
+
 
 function corrupt(field, card) {
   const message = "Corrupt/inconsistent card database.  Bad value in OR missing '" + field +
@@ -33,7 +37,10 @@ const cardTypeKeys = Object.keys(metadata.cardTypes);
 const cardSetNameKeys = Object.keys(metadata.cardSetNames);
 const cardAffiliationKeys = Object.keys(metadata.cardAffiliations);
 
-const cards = premier;
+const cards = premier
+  .concat(warpPack)
+  .concat(intro2Player);
+
 const cardMap = {};
 cards.forEach((card) => {
   // error check card data against metadata

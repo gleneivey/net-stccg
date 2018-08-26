@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import PropTypes from "prop-types"
 import "./DeckSelector.css";
 import { firestore } from "../../firebase.js";
+import deckGeneratorFactory from "../../Models/deckGeneratorFactory";
+import metadata from "../../CardData/metadata"
+
 
 class DeckSelector extends Component {
   static propTypes = {
     decks: PropTypes.array.isRequired,
     currentDeckIndex: PropTypes.number,
     userId: PropTypes.string.isRequired,
+    addingADeck: PropTypes.bool.isRequired,
+    updateAddingADeck: PropTypes.func.isRequired,
     onDeckAdded: PropTypes.func.isRequired,
     doDeckSelect: PropTypes.func.isRequired
   };
@@ -15,7 +20,8 @@ class DeckSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selecting: true,
+      addDeck: "blank",
+      deckToGenerate: "",
       newDeckName: ""
     };
   }
@@ -23,17 +29,9 @@ class DeckSelector extends Component {
   render() {
     return (
       <div>
-        { this.state.selecting ? (
-          <div className="deckSelector__selection">
-            {this.selectorOrEmptyMessage_()}
-            <button
-              className="button"
-              onClick={this.changeToAdding_}
-            >Add Deck</button>
-          </div>
-        ) : (
+        { this.props.addingADeck ? (
           <div className="deckSelector__add">
-            <label>Name for new deck:</label>
+            <label className="deckSelector__newNameLabel">Name for new deck:</label>
             <input
               type="text"
               value={this.state.newDeckName}
@@ -44,6 +42,47 @@ class DeckSelector extends Component {
               onClick={this.addDeck_}
             >Save Deck</button>
             <a className="deckSelector__cancel" onClick={this.changeToSelecting_}>cancel</a>
+
+            <div className="deckGenerate__container">
+              <label className="deckGenerate__generateRadio">
+                <input
+                  type="radio" name="generate" value="blank"
+                  onChange={this.generateChanged_}
+                  checked={this.state.addDeck === "blank"}
+                />
+                New blank deck.
+              </label>
+              <label className="deckGenerate__generateRadio">
+                <input
+                  type="radio" name="generate" value="generate"
+                  onChange={this.generateChanged_}
+                  checked={this.state.addDeck === "generate"}
+                />
+                Generate a deck:
+              </label>
+
+              <div className="deckGenerate__options">
+                {Object.keys(metadata.deckPregen).map(key => (
+                  <label className="deckGenerate__option" key={key}>
+                    <input
+                      type="radio" name="option" value={key}
+                      checked={this.state.deckToGenerate === key}
+                      onChange={this.optionChanged_}
+                      disabled={this.state.addDeck === "blank"}
+                    />
+                    {metadata.deckPregen[key]}
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="deckSelector__selection">
+            {this.selectorOrEmptyMessage_()}
+            <button
+              className="button"
+              onClick={this.changeToAdding_}
+            >Add Deck</button>
           </div>
         )}
       </div>
@@ -52,6 +91,9 @@ class DeckSelector extends Component {
 
   selectorOrEmptyMessage_ = () => {
     if (this.props.decks.length > 0) {
+      if (!this.props.decks[this.props.currentDeckIndex]) {
+        return <div />;
+      }
       return (
         <div>
           <label>Choose a Deck:</label>
@@ -78,14 +120,12 @@ class DeckSelector extends Component {
   };
 
   changeToAdding_ = () => {
-    this.setState({selecting: false});
+    this.props.updateAddingADeck(true);
   };
 
   changeToSelecting_ = () => {
-    this.setState({
-      newDeckName: '',
-      selecting: true
-    });
+    this.setState({newDeckName: ''});
+    this.props.updateAddingADeck(false);
   };
 
   updateNewDeckName_ = (event) => {
@@ -95,13 +135,21 @@ class DeckSelector extends Component {
   addDeck_ = () => {
     const self = this;
     const db = firestore();
-    const newDeckInfo = {
-      name: self.state.newDeckName,
-      mission: [],
-      site: [],
-      seed: [],
-      draw: []
-    };
+    let newDeckInfo;
+    if (this.state.addDeck === "blank") {
+      newDeckInfo = {
+        mission: [],
+        site: [],
+        seed: [],
+        draw: []
+      };
+    } else {
+      const generator = deckGeneratorFactory(this.state.deckToGenerate);
+      newDeckInfo = generator.generate();
+    }
+
+
+    newDeckInfo.name = self.state.newDeckName;
 
     db
       .collection('users')
@@ -109,11 +157,9 @@ class DeckSelector extends Component {
       .collection('decks')
       .add(newDeckInfo)
       .then(function(docRef) {
-        self.setState({
-          selecting: true,
-          newDeckName: ""
-        });
-        self.props.onDeckAdded();
+        self.setState({newDeckName: ''});
+        self.props.updateAddingADeck(false);
+        self.props.onDeckAdded(docRef.id);
       })
       .catch(function(error) {
         console.log("Error writing new 'user' document: ", error);
@@ -122,7 +168,20 @@ class DeckSelector extends Component {
 
   selectionChanged_ = (event) => {
     this.props.doDeckSelect(event.target.value);
-  }
+  };
+
+  generateChanged_ = (event) => {
+    const addDeck = event.target.value;
+    const deckToGenerate = (addDeck === "blank") ? "" : this.state.deckToGenerate;
+    this.setState({
+      addDeck: addDeck,
+      deckToGenerate: deckToGenerate
+    })
+  };
+
+  optionChanged_ = (event) => {
+    this.setState({deckToGenerate: event.target.value})
+  };
 }
 
 export default DeckSelector;

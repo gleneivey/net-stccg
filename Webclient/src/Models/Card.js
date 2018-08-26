@@ -6,6 +6,14 @@ class Card extends Model {
     this.data = cardData;
   }
 
+  isAMission() {
+    return this.data.type === "mission";
+  }
+
+  shouldSeed() {
+    return ["mission", "dilemma", "facility", "artifact"].includes(this.data.type);
+  }
+
   doesTypeMatch(types) {
     return types.includes(this.data.type);
   }

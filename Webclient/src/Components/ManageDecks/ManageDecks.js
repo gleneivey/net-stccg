@@ -21,6 +21,7 @@ class ManageDecks extends Component {
     super(props);
     this.state = {
       haveDecks: false,
+      addingADeck: false,
       decks: [],
       currentDeckIndex: null
     };
@@ -36,24 +37,31 @@ class ManageDecks extends Component {
       currentDeck = this.state.decks[this.state.currentDeckIndex];
     }
 
-    let selectionControls;
+    let deckSelector, deckEditor;
     if (this.state.haveDecks) {
-      selectionControls = (
-        <div>
-          <DeckSelector
-            userId={this.props.userId}
-            decks={this.state.decks}
-            currentDeckIndex={this.state.currentDeckIndex}
-            doDeckSelect={this.doDeckSelect_}
-            onDeckAdded={this.onDeckAdded_}
-          />
-          <hr />
-          <DeckEditor
-            userId={this.props.userId}
-            deck={currentDeck}
-          />
-        </div>
+      deckSelector = (
+        <DeckSelector
+          userId={this.props.userId}
+          decks={this.state.decks}
+          currentDeckIndex={this.state.currentDeckIndex}
+          addingADeck={this.state.addingADeck}
+          updateAddingADeck={this.updateAddingADeck_}
+          doDeckSelect={this.doDeckSelect_}
+          onDeckAdded={this.onDeckAdded_}
+        />
       );
+
+      if (!this.state.addingADeck) {
+        deckEditor = (
+          <div>
+            <hr />
+            <DeckEditor
+              userId={this.props.userId}
+              deck={currentDeck}
+            />
+          </div>
+        );
+      }
     }
 
     return (
@@ -67,12 +75,13 @@ class ManageDecks extends Component {
           <img src={badgeIconCommand} className="decks__startArrow" alt="" />
         </Link>
         <h1 className="decks__title">Your Decks</h1>
-        {selectionControls}
+        {deckSelector}
+        {deckEditor}
       </div>
     );
   }
 
-  fetchDecksIntoState_ = () => {
+  fetchDecksIntoState_ = (maybeNewDeckId) => {
     const self = this;
     const db = firestore();
 
@@ -91,16 +100,28 @@ class ManageDecks extends Component {
           decks.push(deck);
         });
 
-        self.props.setCurrentDeck(decks[0]);
+        let newDeckIndex;
+        if (maybeNewDeckId) {
+          newDeckIndex = decks.findIndex(deck => deck.id === maybeNewDeckId);
+          self.props.setCurrentDeck(decks[newDeckIndex]);
+        } else {
+          newDeckIndex = 0;
+          self.props.setCurrentDeck(decks[0]);
+        }
+
         self.setState({
           haveDecks: true,
           decks: decks,
-          currentDeckIndex: 0
+          currentDeckIndex: newDeckIndex
         });
       })
       .catch(function(error) {
         console.log("Error getting 'decs' documents: ", error);
       });
+  };
+
+  updateAddingADeck_ = (newValue) => {
+    this.setState({addingADeck: newValue});
   };
 
   doDeckSelect_ = (deckId) => {
@@ -109,8 +130,8 @@ class ManageDecks extends Component {
     this.setState({currentDeckIndex: newIndex});
   };
 
-  onDeckAdded_ = () => {
-    this.fetchDecksIntoState_();
+  onDeckAdded_ = (newDeckId) => {
+    this.fetchDecksIntoState_(newDeckId);
   };
 }
 

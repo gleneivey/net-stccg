@@ -100,6 +100,12 @@ const genericCardRarities = [
   "C", "U", "R"
 ];
 
+const deckPregen = {
+  "1e-p": "Premiere Starter Deck plus Warp Pack (random)",
+  "1e-i2p f": "Intro 2-Player Game, Federation Deck",
+  "1e-i2p k": "Intro 2-Player Game, Klingon Deck",
+};
+
 export default {
   screen: function screen(knownGood, toScreen) {
     const bad = toScreen.some((item) => !knownGood.includes(item));
@@ -110,5 +116,6 @@ export default {
   deckNames: deckNames,
   cardTypes: cardTypes,
   cardAffiliations: cardAffiliations,
-  genericCardRarities: genericCardRarities
+  genericCardRarities: genericCardRarities,
+  deckPregen: deckPregen,
 };

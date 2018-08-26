@@ -1,8 +1,8 @@
-.deckSelector__selection *, .deckSelector__add * {
+.deckSelector__selection > *, .deckSelector__add > * {
   display: inline-block;
 }
 
-.deckSelector__selection label, .deckSelector__add label {
+.deckSelector__newNameLabel {
   margin-right: 4px;
 }
 
@@ -14,7 +14,7 @@
   font-size: 24px;
 }
 
-.deckSelector__add input {
+.deckSelector__add input[type=text] {
   font-size: 14px;
   width: 240px;
 }
@@ -22,4 +22,22 @@
 .deckSelector__cancel {
   display: inline-block;
   margin-left: 10px;
+}
+
+.deckSelector__add .deckGenerate__container {
+  display: block;
+  clear: left;
+  margin-left: 20px;
+}
+
+.deckSelector__add .deckGenerate__generateRadio {
+  display: block;
+}
+
+.deckGenerate__options {
+  margin-left: 40px;
+}
+
+.deckGenerate__option {
+  display: block;
 }
