@@ -84,17 +84,29 @@ choosing Google Firebase:
 
 ### Immediate
 
+* add Introductory 2-Player Game card set
+* add Warp Pack card set
+* add Alternate Universe card set
+* preload deck options/buttons
+    - random primier + warp pack
 
 
 ### Features Soon
 
-* number of cards in subdeck, subdeck playable, in header
+* playable-by-definition flag for pregen decks
+* Available Card list shows overflow from pregen deck
+* when editing a pregen deck
+    - can swap between overflow list and full list
+    - back-to-overflow button in place of Delete
+* CardName items have icons for
+    - card type
+    - affiliation
+    - attributes
+* can sort subdeck lists, Available list by column content
 * filter Available Card list (substring text match)
 * prevent drag from Availables based on deck content (no duplicates of non-universal missions)
+* number of cards in subdeck, subdeck playable, in header
 * preload deck options/buttons
-    - random primier + warp pack
-    - Introductory 2-Player Game: Federation
-    - Introductory 2-Player Game: Klingon
     - random Official Tournament Sealed Deck mix
     - random Deep Space 9 deck
     - random Starter Deck II
