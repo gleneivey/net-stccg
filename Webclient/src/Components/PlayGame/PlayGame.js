@@ -3,8 +3,13 @@ import PropTypes from "prop-types"
 import { Link, Redirect } from "react-router-dom";
 import "./PlayGame.css";
 import Profile from "../Profile";
+import OpponentArea from "./OpponentArea";
+import Spaceline from "./Spaceline";
+import PlayerArea from "./PlayerArea";
+import Game from "../../Models/Game";
 import firebase, { firestore } from "../../firebase.js";
 import badgeIconCommand from "../../Assets/badge-icon-command.svg"
+import Deck from "../../Models/Deck";
 
 class PlayGame extends Component {
   static propTypes = {
@@ -59,6 +64,11 @@ class PlayGame extends Component {
       );
     }
 
+    let locations = [];
+    if (this.state.game && this.state.game.state.locations) {
+      locations = this.state.game.state.locations;
+    }
+
     return (
       <div>
         <div className="playGame__playmat" onClick={this.onPlayClick_}>
@@ -77,19 +87,11 @@ class PlayGame extends Component {
           {this.props.opponent.displayName} ({this.state.opponentDeck && this.state.opponentDeck.name})
         </h1>
 
-        {this.state.plays.map(play => (
-          <div
-            className="playGame__dot"
-            key={play.id}
-            style={{
-              backgroundColor: (play.by === this.props.userId ? "#0000ff" : "#ff0000"),
-              left: (Math.floor(play.x * this.state.width) - 10) + "px",
-              top: (Math.floor(play.y * this.state.height) - 10) + "px"
-            }}
-          >
-            &nbsp;
-          </div>
-        ))}
+        <OpponentArea />
+        <Spaceline
+          locations={locations}
+        />
+        <PlayerArea />
       </div>
     );
   }
@@ -130,6 +132,8 @@ class PlayGame extends Component {
   };
 
   handlePlaySnapshots_ = (snapshots) => {
+    if (!this.state.game) { return; }
+
     let plays = this.state.plays;
     const playsMap = this.state.playsMap;
     const newPlays = [];
@@ -154,20 +158,30 @@ class PlayGame extends Component {
       return secondsDifferent ? secondsDifferent : (a.time.nanoseconds - b.time.nanoseconds);
     }));
 
+    this.state.game.advanceState(newPlays);
     this.setState({
       plays: plays,
       playsMap: playsMap
-    })
+    });
+
+    const play = newPlays[0];
+    if (newPlays.length === 1 &&
+        this.state.game.state.phase === "initialization" &&
+        !play.precedingPlay &&
+        play.type === "setDecks") {
+      // first player just shuffled their deck, time for us to
+      this.makePlayerTwoFirstPlay_(this.state.game.data, play.id);
+    }
   };
 
-  tryToLoadOpponentDeck_ = (game) => {
+  tryToLoadOpponentDeck_ = (gameData) => {
     const self = this;
     const db = firestore();
-    const deckId = (game.playerOneId === self.props.opponent.id) ?
-      game.playerOneDeckId : game.playerTwoDeckId;
+    const deckId = (gameData.playerOneId === self.props.opponent.id) ?
+      gameData.playerOneDeckId : gameData.playerTwoDeckId;
 
     if (deckId) {
-      self.setState({game: game});
+      self.setState({game: new Game(this.props.userId, gameData)});
 
       db
         .collection("users")
@@ -194,13 +208,12 @@ class PlayGame extends Component {
   };
 
   onConcede_ = () => {
-console.log("hope we go through here before we navigate/re-render");
     this.cleanUp_();
 
     const db = firestore();
     db
       .collection("games")
-      .doc(this.state.game.id)
+      .doc(this.state.game.data.id)
       .update({
         finished: firebase.firestore.Timestamp.now(),
         concessionId: this.props.userId
@@ -213,20 +226,27 @@ console.log("hope we go through here before we navigate/re-render");
   };
 
   onPlayClick_ = (event) => {
-    const x = event.pageX / this.state.width;
-    const y = event.pageY / this.state.height;
+throw "in the middle of re-implementing";
+    // const x = event.pageX / this.state.width;
+    // const y = event.pageY / this.state.height;
 
     const db = firestore();
     db
       .collection("games")
-      .doc(this.state.game.id)
+      .doc(this.state.game.data.id)
       .collection("plays")
       .add({
-        x: x,
-        y: y,
-        by: this.props.userId,
-        time: firebase.firestore.Timestamp.now()
+        // x: x,
+        // y: y,
+        // by: this.props.userId,
+        // time: firebase.firestore.Timestamp.now()
       })
+  };
+
+  makePlayerTwoFirstPlay_ = (gameData, lastPlay) => {
+console.log("PlayGame#makePlayerTwoFirstPlay_");
+    const shuffleUp = Game.shuffleUp.bind(this);
+    shuffleUp(gameData, lastPlay);
   };
 }
 

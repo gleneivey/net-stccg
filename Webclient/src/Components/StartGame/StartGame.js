@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { Link, Redirect } from "react-router-dom";
 import "./StartGame.css";
 import Profile from "../Profile";
+import Game from "../../Models/Game";
 import firebase, { firestore } from "../../firebase.js";
 import badgeIconCommand from "../../Assets/badge-icon-command.svg"
 import spinner from "../../Assets/stccg-logo.png"
@@ -197,6 +198,8 @@ class StartGame extends Component {
   };
 
   onGameOfferAccepted_ = (offerId, opponentId) => {
+    const self = this;
+
     if (this.state.offerUnsubscribe) {
       this.state.offerUnsubscribe();
     }
@@ -204,20 +207,16 @@ class StartGame extends Component {
     const db = firestore();
     db.collection("gameOffers").doc(offerId).delete();
 
+    const gameData = this.initializeGame_(offerId, opponentId);
     db
       .collection("games")
       .doc(offerId)
-      .set({
-        playerOneId: this.props.userId,
-        playerOneDeckId: this.props.deck.id,
-        playerOneScore: 0,
-        playerTwoId: opponentId,
-        playerTwoDeckId: null,
-        playerTwoScore: 0,
-        started: firebase.firestore.Timestamp.now(),
-        finished: null,
-        winnerId: null,
-        concessionId: null
+      .set(gameData)
+      .then(function () {
+        self.makePlayerOneFirstPlay_(gameData);
+      })
+      .catch(function(error) {
+        console.log("Error setting new 'game': ", error);
       });
 
     this.getOpponentDocAndStartPlaying_(offerId, opponentId);
@@ -325,7 +324,35 @@ class StartGame extends Component {
       .catch(function(error) {
         console.log("Error getting opponent's 'user' document: ", error);
       });
-  }
+  };
+
+  makePlayerOneFirstPlay_ = (gameData) => {
+console.log("StartGame#makePlayerOneFirstPlay_");
+    const shuffleUp = Game.shuffleUp.bind(this);
+    shuffleUp(gameData, null);
+  };
+
+  initializeGame_ = (gameId, opponentId) => {
+    const game = {
+      id: gameId,
+      playerOneId: this.props.userId,
+      playerOneDeckId: this.props.deck.id,
+      playerOneScore: 0,
+      playerTwoId: opponentId,
+      playerTwoDeckId: null,
+      playerTwoScore: 0,
+      started: firebase.firestore.Timestamp.now(),
+      finished: null,
+      winnerId: null,
+      concessionId: null
+    };
+
+    game[this.props.userId] = {
+      deck: this.props.deck
+    };
+
+    return game;
+  };
 }
 
 export default StartGame;

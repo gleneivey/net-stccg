@@ -106,6 +106,43 @@ const deckPregen = {
   "1e-i2p k": "Intro 2-Player Game, Klingon Deck",
 };
 
+const gameStates = [
+  {
+    key: "initialization",
+    name: ""
+  },
+  {
+    key: "seed",
+    name: "Seed Phase",
+    gameStates: [
+      // {
+      //   key: "doorway",
+      //   name: "Doorway Phase",
+      // },
+      {
+        key: "mission",
+        name: "Mission Phase",
+      },
+      {
+        key: "dilemma",
+        name: "Dilemma Phase",
+      },
+      {
+        key: "facility",
+        name: "Facility Phase",
+      },
+    ]
+  },
+  {
+    key: "play",
+    name: "Play Phase"
+  },
+];
+
+const turnStates = {
+
+};
+
 export default {
   screen: function screen(knownGood, toScreen) {
     const bad = toScreen.some((item) => !knownGood.includes(item));
@@ -118,4 +155,8 @@ export default {
   cardAffiliations: cardAffiliations,
   genericCardRarities: genericCardRarities,
   deckPregen: deckPregen,
+  stateCollections: {
+    gameStates: gameStates,
+    turnStates: turnStates
+  },
 };

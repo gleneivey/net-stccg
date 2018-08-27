@@ -84,14 +84,16 @@ choosing Google Firebase:
 
 ### Immediate
 
+
+
+
+### Features Soon
+
 * add Introductory 2-Player Game card set
 * add Warp Pack card set
 * add Alternate Universe card set
 * preload deck options/buttons
     - random primier + warp pack
-
-
-### Features Soon
 
 * playable-by-definition flag for pregen decks
 * Available Card list shows overflow from pregen deck
@@ -113,6 +115,9 @@ choosing Google Firebase:
     - random Voyager deck
 * support for finite set in Available Card list
 * indicators n deck-select dropdown, by Start Game link, when deck isn't legal (yet)
+* handle case where both players attempt to seed the same mission
+* better way to determine starting player
+
 
 
 ### Long Term
