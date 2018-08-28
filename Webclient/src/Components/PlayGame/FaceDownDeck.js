@@ -11,7 +11,6 @@ class FaceDownDeck extends Component {
 
   render() {
     const pseudoDeckSize = Math.floor(Math.log(this.props.numberOfCards)/Math.LN2);
-console.log(this.props.numberOfCards, pseudoDeckSize);
     const cardbackOffsets = [];
     for (let c=pseudoDeckSize-1; c >= 0; c--) {
       cardbackOffsets.push(c * 8);

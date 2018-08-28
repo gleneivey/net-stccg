@@ -12,6 +12,8 @@ class CardInPlay extends Component {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
+    onDragStart: PropTypes.func,
+    onDragEnd: PropTypes.func,
 
     // Injected by React DnD:
     connectDragSource: PropTypes.func.isRequired,
@@ -48,10 +50,16 @@ function collect(connect, monitor) {
 
 const specification = {
   beginDrag: function(props) {
+    if (props.onDragStart) { props.onDragStart(); }
+
     const item = {
       cardId: props.cardId
     };
     return item;
+  },
+
+  endDrag: function(props) {
+    if (props.onDragEnd) {props.onDragEnd(); }
   }
 };
 

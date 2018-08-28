@@ -7,7 +7,8 @@ import CardInPlay from "./CardInPlay";
 class PlayerArea extends Component {
   static propTypes = {
     game: PropTypes.object.isRequired,
-    cardWidthInPx: PropTypes.number.isRequired
+    cardWidthInPx: PropTypes.number.isRequired,
+    setDraggingToSpaceline: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -39,6 +40,8 @@ class PlayerArea extends Component {
           x={Math.floor((window.innerWidth - this.props.cardWidthInPx) / 2.0)}
           y={20}
           cardWidthInPx={this.props.cardWidthInPx}
+          onDragStart={this.onTurnedCardDragStart_}
+          onDragEnd={this.onTurnedCardDragEnd_}
         />
       );
     }
@@ -58,6 +61,14 @@ class PlayerArea extends Component {
 
   onUserClickOnMissionDeck_ = () => {
     this.setState({turnedCard: this.props.game.state[this.props.userId].mission.shift()});
+  };
+
+  onTurnedCardDragStart_ = () => {
+    this.props.setDraggingToSpaceline(true);
+  };
+
+  onTurnedCardDragEnd_ = () => {
+    this.props.setDraggingToSpaceline(false);
   };
 }
 

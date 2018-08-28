@@ -7,23 +7,29 @@ import SpacelineLocation from "./SpacelineLocation";
 class Spaceline extends Component {
   static propTypes = {
     locations: PropTypes.array.isRequired,
-    cardWidthInPx: PropTypes.number.isRequired
+    cardWidthInPx: PropTypes.number.isRequired,
+    draggingTo: PropTypes.bool.isRequired
   };
 
   render() {
-console.log(this.props.locations);
+    const remaining = 13 - this.props.locations.length;
+    const spaceline = Array(Math.floor(remaining / 2.0)).fill({})
+      .concat(this.props.locations).concat(
+        Array(Math.floor((remaining / 2.0)+0.5)).fill({})
+      );
 
     return (
       <div className="spaceline__container">
-        {this.props.locations.map((location, index) => (
+        {spaceline.map((location, index) => (
           <SpacelineLocation
             key={index}
             index={index}
             thisLocation={location}
             adjacents={[
-              location > 0 ? this.props.locations[location-1] : null,
-              location < this.props.locations.length-1 ? this.props.locations[location+1] : null
+              location > 0 ? spaceline[location-1] : null,
+              location < spaceline.length-1 ? spaceline[location+1] : null
             ]}
+            showAsDroppable={this.props.draggingTo}
             cardWidthInPx={this.props.cardWidthInPx}
           />
         ))}

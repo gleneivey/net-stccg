@@ -208,12 +208,13 @@ class StartGame extends Component {
     db.collection("gameOffers").doc(offerId).delete();
 
     const gameData = this.initializeGame_(offerId, opponentId);
+    this.state.game = new Game(this.props.userId, gameData);
     db
       .collection("games")
       .doc(offerId)
       .set(gameData)
       .then(function () {
-        self.makePlayerOneFirstPlay_(gameData);
+        self.makePlayerOneFirstPlay_();
       })
       .catch(function(error) {
         console.log("Error setting new 'game': ", error);
@@ -326,10 +327,9 @@ class StartGame extends Component {
       });
   };
 
-  makePlayerOneFirstPlay_ = (gameData) => {
+  makePlayerOneFirstPlay_ = () => {
 console.log("StartGame#makePlayerOneFirstPlay_");
-    const shuffleUp = Game.shuffleUp.bind(this);
-    shuffleUp(gameData, null);
+    Game.shuffleUp.bind(this)();
   };
 
   initializeGame_ = (gameId, opponentId) => {

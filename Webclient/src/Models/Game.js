@@ -6,6 +6,7 @@ import firebase from "../firebase";
 class Game extends Model {
   constructor(playerId, gameData) {
     super();
+    this.lastPlay = null;
     this.playerId = playerId;
     this.data = gameData;
     this.state = {};
@@ -19,9 +20,6 @@ console.log(play);
       if (!this.state.phase) {
         this.state.phase = "initialization";
         this.state.locations = [];
-        for (let c = 0; c < 13; c++) {
-          this.state.locations.push({});
-        }
       }
 
       switch(play.type) {
@@ -44,7 +42,7 @@ console.log(play);
       //     break;
       // }
 
-      this.state.lastPlay = play.id;
+      this.lastPlay = play.id;
       if (play.advancePhaseTo) {
         this.state.phase = play.advancePhaseTo;
       }
@@ -53,10 +51,12 @@ console.log(this.state);
   }
 
   // this method is expected to be bound to a React component to call
-  static shuffleUp(gameData, precedingPlay) {
+  static shuffleUp() {
+    const game = this.props.game || this.state.game;
+
     const play = {
-      precedingPlay: precedingPlay,
-      by: this.props.userId,
+      precedingPlay: game.lastPlay,
+      by: game.playerId,
       time: firebase.firestore.Timestamp.now(),
       description: this.props.displayName + " shuffles their decks.",
       type: "setDecks",
@@ -82,14 +82,43 @@ console.log(this.state);
     }
     play.setDecks.draw = shuffledDraw;
 
-    if (precedingPlay) {
+    if (game.lastPlay) {
       play.advancePhaseTo = "seed";
     }
+
 console.log(play);
     const db = firestore();
     db
       .collection("games")
-      .doc(gameData.id)
+      .doc(game.data.id)
+      .collection("plays")
+      .add(play);
+  }
+
+  static updateLocations(spaceline, spacelineIndexOfNew) {
+    const game = this.props.game || this.state.game;
+
+    let numEmptyPositions = 0;
+    for (;!spaceline[numEmptyPositions].cardId; numEmptyPositions++) {}
+
+    const indexOfNew = spacelineIndexOfNew - numEmptyPositions;
+    const locations = spaceline.filter(location => !!location.cardId);
+
+    const play = {
+      precedingPlay: game.lastPlay,
+      by: game.playerId,
+      time: firebase.firestore.Timestamp.now(),
+      description: this.props.displayName + " plays Mission to Spaceline.",
+      type: "setLocations",
+      setLocations: JSON.parse(JSON.stringify(locations)),
+      indexOfChange: indexOfNew
+    };
+
+console.log(play);
+    const db = firestore();
+    db
+      .collection("games")
+      .doc(game.data.id)
       .collection("plays")
       .add(play);
   }

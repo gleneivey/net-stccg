@@ -84,7 +84,11 @@ choosing Google Firebase:
 
 ### Immediate
 
-
+* spaceline shows can/can't drag indicators while dragging
+* drop of mission onto spaceline makes new play, propagates
+* player can't click/drag when not their turn
+* status indicator: score, phase, whose turn, PASS button
+* card being dragged is full-size
 
 
 ### Features Soon

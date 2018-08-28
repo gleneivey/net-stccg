@@ -12,6 +12,7 @@ class SpacelineLocation extends Component {
     thisLocation: PropTypes.object.isRequired,
     adjacents: PropTypes.array.isRequired,
     index: PropTypes.number.isRequired,
+    showAsDroppable: PropTypes.bool.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
 
     // Injected by React DnD:
@@ -24,9 +25,11 @@ class SpacelineLocation extends Component {
     const card = cardMap[cardId];
     const aspectRatio = (3.5/2.5);
 
+    const canBeDroppedOn = this.canBeDroppedOn_();
     const locationClasses = classNames({
       "spacelineLocation__empty": true,
-      "spacelineLocation__empty--cantDrop": this.props.cantDrop
+      "spacelineLocation__empty--canDrop": this.props.showAsDroppable && canBeDroppedOn,
+      "spacelineLocation__empty--cantDrop": this.props.showAsDroppable && !canBeDroppedOn
     });
 
     return this.props.connectDropTarget(
@@ -52,23 +55,33 @@ class SpacelineLocation extends Component {
 
   placeDroppedCardInThisLocation_ = (item) => {
 console.log("DROPPED IN");
-  }
+  };
+
+  canBeDroppedOn_ = () => {
+    return !this.props.thisLocation.cardId && (
+      this.props.index === 6 ||
+      (this.props.adjacents[0] && this.props.adjacents[0].cardId) ||
+      (this.props.adjacents[1] && this.props.adjacents[1].cardId)
+    );
+  };
 }
 
 
 function collect(connect, monitor) {
-  return {
+  const collection = {
     connectDropTarget: connect.dropTarget(),
     cantDrop: monitor.isOver() && !monitor.canDrop()
   };
+  return collection;
 }
 
 const specification = {
   drop: function (props, monitor, component) {
     component.placeDroppedCardInThisLocation_(monitor.getItem());
   },
-  canDrop: function (props, monitor) {
-    return !props.thisLocation.cardId;
+  canDrop: function (props, monitor, component) {
+    if (!component) { return false; }
+    return component.canBeDroppedOn_();
   }
 };
 

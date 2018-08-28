@@ -33,6 +33,7 @@ class PlayGame extends Component {
       game: null,
       plays: [],
       playsMap: {},
+      draggingToSpaceline: false,
       gameCollectionUnsubscribe: null,
       playCollectionUnsubscribe: null
     };
@@ -79,11 +80,13 @@ class PlayGame extends Component {
           <Spaceline
             locations={locations}
             cardWidthInPx={cardWidthInPx}
+            draggingTo={this.state.draggingToSpaceline}
           />
           <PlayerArea
             userId={this.props.userId}
             game={this.state.game}
             cardWidthInPx={cardWidthInPx}
+            setDraggingToSpaceline={this.setDraggingToSpaceline_}
           />
         </div>
       );
@@ -259,9 +262,12 @@ throw new Error("in the middle of re-implementing");
 
   makePlayerTwoFirstPlay_ = (gameData, lastPlay) => {
 console.log("PlayGame#makePlayerTwoFirstPlay_");
-    const shuffleUp = Game.shuffleUp.bind(this);
-    shuffleUp(gameData, lastPlay);
+    Game.shuffleUp.bind(this)();
   };
+
+  setDraggingToSpaceline_ = (dragging) => {
+    this.setState({draggingToSpaceline: dragging});
+  }
 }
 
 export default DragDropContext(HTML5Backend)(PlayGame);
