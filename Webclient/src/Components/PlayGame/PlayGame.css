@@ -1,3 +1,9 @@
+.playGame__root {
+  height: 100%;
+  position: relative;
+  top: -16px;
+}
+
 .playGame__title {
   text-align: left;
   margin-top: 0;
@@ -64,6 +70,9 @@
 }
 
 
+.playGame__table {
+  height: 90%;
+}
 
 .opponentArea__container {
   width: 100%;
@@ -71,9 +80,9 @@
 }
 .spaceline__container {
   width: 100%;
-  height: 20%;
+  height: 25%;
 }
 .playerArea__container {
   width: 100%;
-  height: 50%;
+  height: 45%;
 }

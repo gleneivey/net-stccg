@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
 import { Link, Redirect } from "react-router-dom";
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 import "./PlayGame.css";
 import Profile from "../Profile";
 import OpponentArea from "./OpponentArea";
@@ -9,7 +11,6 @@ import PlayerArea from "./PlayerArea";
 import Game from "../../Models/Game";
 import firebase, { firestore } from "../../firebase.js";
 import badgeIconCommand from "../../Assets/badge-icon-command.svg"
-import Deck from "../../Models/Deck";
 
 class PlayGame extends Component {
   static propTypes = {
@@ -46,6 +47,7 @@ class PlayGame extends Component {
       return <Redirect to="/" />;
     }
 
+    const cardWidthInPx = Math.floor(this.state.width * 0.065);
     let maybeScrim = null;
     if (this.state.opponentConceded) {
       maybeScrim = (
@@ -64,15 +66,31 @@ class PlayGame extends Component {
       );
     }
 
-    let locations = [];
-    if (this.state.game && this.state.game.state.locations) {
-      locations = this.state.game.state.locations;
+    let playArea = null;
+    if (this.state.game) {
+      let locations = [];
+      if (this.state.game.state.locations) {
+        locations = this.state.game.state.locations;
+      }
+
+      playArea = (
+        <div className="playGame__table">
+          <OpponentArea />
+          <Spaceline
+            locations={locations}
+            cardWidthInPx={cardWidthInPx}
+          />
+          <PlayerArea
+            userId={this.props.userId}
+            game={this.state.game}
+            cardWidthInPx={cardWidthInPx}
+          />
+        </div>
+      );
     }
 
     return (
-      <div>
-        <div className="playGame__playmat" onClick={this.onPlayClick_}>
-        </div>
+      <div className="playGame__root">
         {maybeScrim}
         <Profile
           displayName={this.props.player.displayName}
@@ -87,11 +105,7 @@ class PlayGame extends Component {
           {this.props.opponent.displayName} ({this.state.opponentDeck && this.state.opponentDeck.name})
         </h1>
 
-        <OpponentArea />
-        <Spaceline
-          locations={locations}
-        />
-        <PlayerArea />
+        {playArea}
       </div>
     );
   }
@@ -226,7 +240,7 @@ class PlayGame extends Component {
   };
 
   onPlayClick_ = (event) => {
-throw "in the middle of re-implementing";
+throw new Error("in the middle of re-implementing");
     // const x = event.pageX / this.state.width;
     // const y = event.pageY / this.state.height;
 
@@ -250,4 +264,4 @@ console.log("PlayGame#makePlayerTwoFirstPlay_");
   };
 }
 
-export default PlayGame;
+export default DragDropContext(HTML5Backend)(PlayGame);

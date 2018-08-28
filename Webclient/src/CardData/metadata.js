@@ -130,18 +130,41 @@ const gameStates = [
       {
         key: "facility",
         name: "Facility Phase",
-      },
+      }
     ]
   },
   {
     key: "play",
     name: "Play Phase"
   },
+  {
+    key: "end",
+    name: "End of Game"
+  }
 ];
 
-const turnStates = {
-
-};
+const turnStates = [
+  {
+    key: "normal",
+    name: "Play a Card"
+  },
+  {
+    key: "orders",
+    name: "Execute Orders",
+    alternatives: [
+      "Moving personel and/or equipment",
+      "Moving ship",
+      "Attempting Mission",
+      "Commandeer a Facility",
+      "Personel Battle",
+      "Ship Battle"
+    ]
+  },
+  {
+    key: "draw",
+    name: "Draw a Card"
+  }
+];
 
 export default {
   screen: function screen(knownGood, toScreen) {

@@ -6,7 +6,9 @@ class OpponentArea extends Component {
   };
 
   render() {
-    return <div className="opponentArea__container"> &nbsp; </div>;
+    return <div className="opponentArea__container">
+      &nbsp;
+    </div>;
   }
 }
 

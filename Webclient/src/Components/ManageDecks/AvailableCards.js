@@ -7,8 +7,8 @@ import FilterSelector from "./FilterSelector";
 import domTools from "../../domTools";
 import cardFactory from "../../Models/cardFactory";
 
-import metadata from "../../CardData/metadata"
-import cardData from "../../CardData/data"
+import metadata from "../../CardData/metadata";
+import cardData from "../../CardData/data";
 const { cards } = cardData;
 
 class AvailableCards extends Component {

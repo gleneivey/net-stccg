@@ -1,0 +1,10 @@
+.faceDownDeck__container {
+  position: relative;
+  top: -30px;
+}
+
+.faceDownDeck__cardBack {
+  display: block;
+  position: absolute;
+  width: 80px;
+}

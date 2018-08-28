@@ -1,0 +1,21 @@
+.spacelineLocation__empty {
+  display: inline-block;
+  margin-left: 0.25%;
+  margin-right: 0.25%;
+
+  border: solid 2px #ccc;
+  border-radius: 8px;
+}
+
+.spacelineLocation__empty--canDrop {
+  border-color: #fff;
+}
+.spacelineLocation__empty--cantDrop {
+  border-color: #444;
+}
+
+.spacelineLocation__mission {
+  display: inline-block;
+  margin-left: 0.25%;
+  margin-right: 0.25%;
+}

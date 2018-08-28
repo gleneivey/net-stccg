@@ -6,8 +6,8 @@ import "./SubDeckEditor.css";
 import CardName from "./CardName";
 import subDeckFactory from "../../Models/subDeckFactory";
 
-import metadata from "../../CardData/metadata"
-import cardData from "../../CardData/data"
+import metadata from "../../CardData/metadata";
+import cardData from "../../CardData/data";
 const { cardMap } = cardData;
 
 class SubDeckEditor extends Component {
@@ -44,16 +44,14 @@ class SubDeckEditor extends Component {
 
     let listAndEnd;
     if (!this.state.closed) {
-      let itemCount = -1;
       let itemsFromPropsCards = (
         <ol className={listClasses}>
-          {this.props.cardIds.map(cardId => {
-            itemCount++;
+          {this.props.cardIds.map((cardId, index) => {
             return (
               <li
                 className="subdeckCards__card"
                 cardid={cardId}
-                key={itemCount}
+                key={index}
               >
                 <CardName
                   card={cardMap[cardId]}

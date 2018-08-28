@@ -24,7 +24,7 @@ function deckGeneratorFactory(key) {
     const constructor = constructors[key].constructor;
     return Reflect.construct(constructor, constructors[key].params);
   } else {
-    throw "Internal error -- can't construct a deck generator for '" + key + "'";
+    throw new Error("Internal error -- can't construct a deck generator for '" + key + "'");
   }
 }
 

@@ -19,7 +19,7 @@ console.log(play);
       if (!this.state.phase) {
         this.state.phase = "initialization";
         this.state.locations = [];
-        for (let c = 0; c < 12; c++) {
+        for (let c = 0; c < 13; c++) {
           this.state.locations.push({});
         }
       }
@@ -70,7 +70,7 @@ console.log(this.state);
     if (shuffledMission.length !== play.setDecks.mission.length) {
       console.log(shuffledMission);
       console.log(play.setDecks.mission);
-      throw "missions lost during shuffle"
+      throw new Error("missions lost during shuffle");
     }
     play.setDecks.mission = shuffledMission;
 
@@ -78,7 +78,7 @@ console.log(this.state);
     if (shuffledDraw.length !== play.setDecks.draw.length) {
       console.log(shuffledMission);
       console.log(play.setDecks.draw);
-      throw "draw-deck cards lost during shuffle"
+      throw new Error("draw-deck cards lost during shuffle");
     }
     play.setDecks.draw = shuffledDraw;
 

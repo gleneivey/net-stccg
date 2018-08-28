@@ -6,7 +6,7 @@ import "./DeckEditor.css";
 import AvailableCards from "./AvailableCards";
 import DeckContent from "./DeckContent";
 
-import cardData from "../../CardData/data"
+import cardData from "../../CardData/data";
 const { cardMap } = cardData;
 
 class DeckEditor extends Component {
