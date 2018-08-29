@@ -5,6 +5,7 @@ import classNames from "classnames";
 import "./SpacelineLocation.css";
 
 import cardData from "../../CardData/data";
+import Game from "../../Models/Game";
 const { cardMap } = cardData;
 
 class SpacelineLocation extends Component {
@@ -14,6 +15,7 @@ class SpacelineLocation extends Component {
     index: PropTypes.number.isRequired,
     showAsDroppable: PropTypes.bool.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
+    droppedIntoSpaceline: PropTypes.func.isRequired,
 
     // Injected by React DnD:
     connectDropTarget: PropTypes.func.isRequired,
@@ -54,16 +56,20 @@ class SpacelineLocation extends Component {
   }
 
   placeDroppedCardInThisLocation_ = (item) => {
-console.log("DROPPED IN");
+    this.props.droppedIntoSpaceline(item, this.props.index);
   };
 
   canBeDroppedOn_ = () => {
-    return !this.props.thisLocation.cardId && (
-      this.props.index === 6 ||
-      (this.props.adjacents[0] && this.props.adjacents[0].cardId) ||
-      (this.props.adjacents[1] && this.props.adjacents[1].cardId)
-    );
+    return SpacelineLocation.canBeDroppedOn(this.props);
   };
+
+  static canBeDroppedOn(props) {
+    return !props.thisLocation.cardId && (
+      props.index === 6 ||
+      (props.adjacents[0] && props.adjacents[0].cardId) ||
+      (props.adjacents[1] && props.adjacents[1].cardId)
+    );
+  }
 }
 
 
@@ -80,8 +86,7 @@ const specification = {
     component.placeDroppedCardInThisLocation_(monitor.getItem());
   },
   canDrop: function (props, monitor, component) {
-    if (!component) { return false; }
-    return component.canBeDroppedOn_();
+    return SpacelineLocation.canBeDroppedOn(props);
   }
 };
 

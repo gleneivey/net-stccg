@@ -33,6 +33,7 @@ class PlayGame extends Component {
       game: null,
       plays: [],
       playsMap: {},
+      turnedCardId: null,
       draggingToSpaceline: false,
       gameCollectionUnsubscribe: null,
       playCollectionUnsubscribe: null
@@ -81,11 +82,15 @@ class PlayGame extends Component {
             locations={locations}
             cardWidthInPx={cardWidthInPx}
             draggingTo={this.state.draggingToSpaceline}
+            game={this.state.game}
+            updateTurnedCard={this.updateTurnedCard_}
           />
           <PlayerArea
             userId={this.props.userId}
             game={this.state.game}
             cardWidthInPx={cardWidthInPx}
+            turnedCardId={this.state.turnedCardId}
+            updateTurnedCard={this.updateTurnedCard_}
             setDraggingToSpaceline={this.setDraggingToSpaceline_}
           />
         </div>
@@ -265,9 +270,13 @@ console.log("PlayGame#makePlayerTwoFirstPlay_");
     Game.shuffleUp.bind(this)();
   };
 
+  updateTurnedCard_ = (turnedCardId) => {
+    this.setState({turnedCardId: turnedCardId});
+  };
+
   setDraggingToSpaceline_ = (dragging) => {
     this.setState({draggingToSpaceline: dragging});
-  }
+  };
 }
 
 export default DragDropContext(HTML5Backend)(PlayGame);

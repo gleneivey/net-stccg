@@ -31,6 +31,9 @@ console.log(play);
             this.state[play.setDecks.for][key] = decksToSet[key];
           });
           break;
+        case "setLocations":
+          this.state.locations = play.setLocations;
+          break;
         default:
           console.log("Don't know how to process the 'play':");
           console.log(play);
@@ -99,9 +102,9 @@ console.log(play);
     const game = this.props.game || this.state.game;
 
     let numEmptyPositions = 0;
-    for (;!spaceline[numEmptyPositions].cardId; numEmptyPositions++) {}
+    for (;!spaceline[numEmptyPositions].cardId && numEmptyPositions < spacelineIndexOfNew; numEmptyPositions++) {}
 
-    const indexOfNew = spacelineIndexOfNew - numEmptyPositions;
+    let indexOfNew = spacelineIndexOfNew - numEmptyPositions;
     const locations = spaceline.filter(location => !!location.cardId);
 
     const play = {
