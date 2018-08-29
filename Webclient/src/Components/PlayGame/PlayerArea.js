@@ -8,7 +8,7 @@ class PlayerArea extends Component {
   static propTypes = {
     game: PropTypes.object.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
-    turnedCardId: PropTypes.string.isRequired,
+    turnedCardId: PropTypes.string,
     updateTurnedCard: PropTypes.func.isRequired,
     setDraggingToSpaceline: PropTypes.func.isRequired,
   };
@@ -55,7 +55,10 @@ class PlayerArea extends Component {
   };
 
   onUserClickOnMissionDeck_ = () => {
+console.log("PlayerArea#onUserClickOnMissionDeck_");
     const turnedCardId = this.props.game.state[this.props.userId].mission.shift();
+console.log(this.props.game.state[this.props.userId].mission);
+console.log(turnedCardId);
     this.props.updateTurnedCard(turnedCardId);
   };
 

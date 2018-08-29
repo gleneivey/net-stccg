@@ -4,10 +4,11 @@ import Deck from "./Deck";
 import firebase from "../firebase";
 
 class Game extends Model {
-  constructor(playerId, gameData) {
+  constructor(playerId, playerName, gameData) {
     super();
     this.lastPlay = null;
     this.playerId = playerId;
+    this.playerName = playerName;
     this.data = gameData;
     this.state = {};
   }
@@ -61,7 +62,7 @@ console.log(this.state);
       precedingPlay: game.lastPlay,
       by: game.playerId,
       time: firebase.firestore.Timestamp.now(),
-      description: this.props.displayName + " shuffles their decks.",
+      description: game.playerName + " shuffles their decks.",
       type: "setDecks",
       setDecks: JSON.parse(JSON.stringify(this.props.deck))
     };
@@ -111,7 +112,7 @@ console.log(play);
       precedingPlay: game.lastPlay,
       by: game.playerId,
       time: firebase.firestore.Timestamp.now(),
-      description: this.props.displayName + " plays Mission to Spaceline.",
+      description: game.playerName + " plays Mission to Spaceline.",
       type: "setLocations",
       setLocations: JSON.parse(JSON.stringify(locations)),
       indexOfChange: indexOfNew

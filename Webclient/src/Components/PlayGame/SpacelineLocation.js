@@ -5,7 +5,6 @@ import classNames from "classnames";
 import "./SpacelineLocation.css";
 
 import cardData from "../../CardData/data";
-import Game from "../../Models/Game";
 const { cardMap } = cardData;
 
 class SpacelineLocation extends Component {
@@ -64,11 +63,12 @@ class SpacelineLocation extends Component {
   };
 
   static canBeDroppedOn(props) {
-    return !props.thisLocation.cardId && (
+    const canBeDroppedOn = !props.thisLocation.cardId && (
       props.index === 6 ||
       (props.adjacents[0] && props.adjacents[0].cardId) ||
       (props.adjacents[1] && props.adjacents[1].cardId)
     );
+    return canBeDroppedOn;
   }
 }
 

@@ -26,8 +26,8 @@ class Spaceline extends Component {
             index={index}
             thisLocation={location}
             adjacents={[
-              location > 0 ? spaceline[location-1] : null,
-              location < spaceline.length-1 ? spaceline[location+1] : null
+              index > 0 ? spaceline[index-1] : null,
+              index < spaceline.length-1 ? spaceline[index+1] : null
             ]}
             showAsDroppable={this.props.draggingTo}
             cardWidthInPx={this.props.cardWidthInPx}

@@ -84,11 +84,13 @@ choosing Google Firebase:
 
 ### Immediate
 
-* spaceline shows can/can't drag indicators while dragging
-* drop of mission onto spaceline makes new play, propagates
+!! fix losing 6th card of mission seed deck
+!! propagate removal of card from mission deck when placed on spaceline
 * player can't click/drag when not their turn
+* card details when seeding
+* make turning a card from mission seed deck a play instead of local state
 * status indicator: score, phase, whose turn, PASS button
-* card being dragged is full-size
+* card being dragged is large
 
 
 ### Features Soon

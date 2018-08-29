@@ -203,7 +203,7 @@ class PlayGame extends Component {
       gameData.playerOneDeckId : gameData.playerTwoDeckId;
 
     if (deckId) {
-      self.setState({game: new Game(this.props.userId, gameData)});
+      self.setState({game: new Game(this.props.userId, this.props.displayName, gameData)});
 
       db
         .collection("users")

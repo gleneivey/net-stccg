@@ -208,7 +208,7 @@ class StartGame extends Component {
     db.collection("gameOffers").doc(offerId).delete();
 
     const gameData = this.initializeGame_(offerId, opponentId);
-    this.state.game = new Game(this.props.userId, gameData);
+    this.state.game = new Game(this.props.userId, this.props.displayName, gameData);
     db
       .collection("games")
       .doc(offerId)
