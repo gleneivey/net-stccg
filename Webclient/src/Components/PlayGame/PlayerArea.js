@@ -55,10 +55,7 @@ class PlayerArea extends Component {
   };
 
   onUserClickOnMissionDeck_ = () => {
-console.log("PlayerArea#onUserClickOnMissionDeck_");
     const turnedCardId = this.props.game.state[this.props.userId].mission.shift();
-console.log(this.props.game.state[this.props.userId].mission);
-console.log(turnedCardId);
     this.props.updateTurnedCard(turnedCardId);
   };
 

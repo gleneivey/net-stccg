@@ -7,6 +7,7 @@ import Game from "../../Models/Game";
 import firebase, { firestore } from "../../firebase.js";
 import badgeIconCommand from "../../Assets/badge-icon-command.svg"
 import spinner from "../../Assets/stccg-logo.png"
+import PlayMaker from "../../Models/PlayMaker";
 
 
 /* the "handshake" between both players' browsers to agree to play with
@@ -208,13 +209,14 @@ class StartGame extends Component {
     db.collection("gameOffers").doc(offerId).delete();
 
     const gameData = this.initializeGame_(offerId, opponentId);
-    this.state.game = new Game(this.props.userId, this.props.displayName, gameData);
+    const game = new Game(this.props.userId, this.props.displayName, gameData);
+    this.setState({game: game});
     db
       .collection("games")
       .doc(offerId)
       .set(gameData)
       .then(function () {
-        self.makePlayerOneFirstPlay_();
+        self.makePlayerOneFirstPlay_(game);
       })
       .catch(function(error) {
         console.log("Error setting new 'game': ", error);
@@ -272,8 +274,10 @@ class StartGame extends Component {
                   unsubscribe();
 
     // got the game record, update with our deckId, find our opponent
+                  const playerTwoInfo = {playerTwoDeckId: self.props.deck.id};
+                  playerTwoInfo[self.props.userId] = {deck: self.props.deck};
                   gameRef = db.collection("games").doc(offerId); // redundant???????
-                  gameRef.update({playerTwoDeckId: self.props.deck.id});
+                  gameRef.update(playerTwoInfo);
 
                   self.getOpponentDocAndStartPlaying_(offerId, game.playerOneId);
                 }, function(error) {
@@ -327,9 +331,8 @@ class StartGame extends Component {
       });
   };
 
-  makePlayerOneFirstPlay_ = () => {
-console.log("StartGame#makePlayerOneFirstPlay_");
-    Game.shuffleUp.bind(this)();
+  makePlayerOneFirstPlay_ = (game) => {
+    (new PlayMaker(game)).shuffleUp();
   };
 
   initializeGame_ = (gameId, opponentId) => {

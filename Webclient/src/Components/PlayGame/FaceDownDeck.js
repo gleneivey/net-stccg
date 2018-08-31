@@ -10,8 +10,6 @@ class FaceDownDeck extends Component {
   };
 
   render() {
-console.log("FaceDownDeck#render");
-console.log(this.props.numberOfCards);
     let pseudoDeckSize;
     if (this.props.numberOfCards === 0) {
       pseudoDeckSize = 0;
@@ -24,7 +22,6 @@ console.log(this.props.numberOfCards);
     for (let c=pseudoDeckSize-1; c >= 0; c--) {
       cardbackOffsets.push(c * 8);
     }
-console.log(cardbackOffsets);
 
     return <div className="faceDownDeck__container" onClick={this.onClick_}>
       {cardbackOffsets.map(offset => (

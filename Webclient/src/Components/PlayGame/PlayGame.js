@@ -11,6 +11,7 @@ import PlayerArea from "./PlayerArea";
 import Game from "../../Models/Game";
 import firebase, { firestore } from "../../firebase.js";
 import badgeIconCommand from "../../Assets/badge-icon-command.svg"
+import PlayMaker from "../../Models/PlayMaker";
 
 class PlayGame extends Component {
   static propTypes = {
@@ -266,8 +267,7 @@ throw new Error("in the middle of re-implementing");
   };
 
   makePlayerTwoFirstPlay_ = (gameData, lastPlay) => {
-console.log("PlayGame#makePlayerTwoFirstPlay_");
-    Game.shuffleUp.bind(this)();
+    (new PlayMaker(this.state.game)).shuffleUp();
   };
 
   updateTurnedCard_ = (turnedCardId) => {

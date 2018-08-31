@@ -84,17 +84,19 @@ choosing Google Firebase:
 
 ### Immediate
 
-!! fix losing 6th card of mission seed deck
-!! propagate removal of card from mission deck when placed on spaceline
+* reverse spaceline left-for-right fr Player Two; show missions placed by opponent upside down
+* info & credits on title page
 * player can't click/drag when not their turn
 * card details when seeding
 * make turning a card from mission seed deck a play instead of local state
 * status indicator: score, phase, whose turn, PASS button
+* status indicator: mark newly-played card
 * card being dragged is large
 
 
 ### Features Soon
 
+* don't allow same person ID to make & accept gameOffer
 * add Introductory 2-Player Game card set
 * add Warp Pack card set
 * add Alternate Universe card set

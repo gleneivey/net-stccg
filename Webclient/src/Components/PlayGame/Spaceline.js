@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import "./PlayGame.css";
 import "./Spaceline.css";
 import SpacelineLocation from "./SpacelineLocation";
-import Game from "../../Models/Game";
+import PlayMaker from "../../Models/PlayMaker";
 
 class Spaceline extends Component {
   static propTypes = {
@@ -15,7 +15,6 @@ class Spaceline extends Component {
   };
 
   render() {
-    const remaining = 13 - this.props.locations.length;
     const spaceline = this.spacelineFromLocations_(this.props.locations);
 
     return (
@@ -49,7 +48,7 @@ class Spaceline extends Component {
   droppedIntoSpaceline_ = (item, index) => {
     const spaceline = this.spacelineFromLocations_(this.props.locations);
     spaceline[index] = { cardId: item.cardId };
-    Game.updateLocations.bind(this)(spaceline, index);
+    (new PlayMaker(this.props.game)).updateLocations(spaceline, index);
     this.props.updateTurnedCard(null);
   };
 }
