@@ -54,7 +54,7 @@ class Spaceline extends Component {
     }
 
     const spaceline = this.spacelineFromLocations_(this.props.locations);
-    spaceline[index] = { cardId: item.cardId };
+    spaceline[index] = item;
     (new PlayMaker(this.props.game)).updateLocations(spaceline, index);
     this.props.updateTurnedCard(null);
   };

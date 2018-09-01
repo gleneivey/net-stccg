@@ -22,7 +22,7 @@ class SpacelineLocation extends Component {
   };
 
   render() {
-    const cardId = this.props.thisLocation.cardId;
+    const cardId = this.props.thisLocation.id;
     const card = cardMap[cardId];
     const aspectRatio = (3.5/2.5);
 
@@ -63,10 +63,10 @@ class SpacelineLocation extends Component {
   };
 
   static canBeDroppedOn(props) {
-    const canBeDroppedOn = !props.thisLocation.cardId && (
+    const canBeDroppedOn = !props.thisLocation.id && (
       props.index === 6 ||
-      (props.adjacents[0] && props.adjacents[0].cardId) ||
-      (props.adjacents[1] && props.adjacents[1].cardId)
+      (props.adjacents[0] && props.adjacents[0].id) ||
+      (props.adjacents[1] && props.adjacents[1].id)
     );
     return canBeDroppedOn;
   }

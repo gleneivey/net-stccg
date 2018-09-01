@@ -8,7 +8,7 @@ const { cardMap } = cardData;
 
 class CardInPlay extends Component {
   static propTypes = {
-    cardId: PropTypes.string.isRequired,
+    card: PropTypes.object.isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
@@ -21,13 +21,13 @@ class CardInPlay extends Component {
   };
 
   render() {
-    const { cardId, isDragging, connectDragSource } = this.props;
-    const card = cardMap[cardId];
+    const { card, isDragging, connectDragSource } = this.props;
+    const cardData = cardMap[card.id];
 
     return connectDragSource(
       <img
-        src={card.imageUrl} className="cardInPlay__cardImage"
-        alt={"Image of card '" + card.name + "'"}
+        src={cardData.imageUrl} className="cardInPlay__cardImage"
+        alt={"Image of card '" + cardData.name + "'"}
         style={{
           top: this.props.y,
           left: this.props.x,
@@ -51,11 +51,7 @@ function collect(connect, monitor) {
 const specification = {
   beginDrag: function(props) {
     if (props.onDragStart) { props.onDragStart(); }
-
-    const item = {
-      cardId: props.cardId
-    };
-    return item;
+    return props.card;
   },
 
   endDrag: function(props) {

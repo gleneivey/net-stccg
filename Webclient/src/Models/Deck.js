@@ -7,12 +7,20 @@ class Deck extends Model {
     deck.draw = deck.draw || [];
   }
 
-  static shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
+  static shuffle(a, name) {
+    const shuffled = Array.from(a);
+    for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return a;
+
+    if (a.length !== shuffled.length) {
+      console.log(a);
+      console.log(shuffled);
+      throw new Error("card mismatch after shuffling '" + name + "'");
+    }
+
+    return shuffled;
   }
 }
 

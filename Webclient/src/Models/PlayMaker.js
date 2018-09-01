@@ -27,27 +27,29 @@ console.log(play);
       time: firebase.firestore.Timestamp.now(),
       description: this.game.playerName + " shuffles their decks.",
       type: "setDecks",
-      setDecks: JSON.parse(JSON.stringify(this.game.data[this.game.playerId].deck))
+      setDecks: {
+        for: this.game.playerId,
+        id: this.game.data[this.game.playerId].deck.id,
+        name: this.game.data[this.game.playerId].deck.name,
+        hand: []
+      }
     };
 
-    play.setDecks.for = this.game.playerId;
-    play.setDecks.hand = [];
-
-    const shuffledMission = Deck.shuffle(play.setDecks.mission);
-    if (shuffledMission.length !== play.setDecks.mission.length) {
-      console.log(shuffledMission);
-      console.log(play.setDecks.mission);
-      throw new Error("missions lost during shuffle");
-    }
-    play.setDecks.mission = shuffledMission;
-
-    const shuffledDraw = Deck.shuffle(play.setDecks.draw);
-    if (shuffledDraw.length !== play.setDecks.draw.length) {
-      console.log(shuffledMission);
-      console.log(play.setDecks.draw);
-      throw new Error("draw-deck cards lost during shuffle");
-    }
-    play.setDecks.draw = shuffledDraw;
+    let counter = 0;
+    Object.keys(this.game.data[this.game.playerId].deck).forEach((deckName) => {
+      if (["id", "name"].includes(deckName)) {    // not a deck....
+        return;
+      }
+      const shuffledIds = Deck.shuffle(this.game.data[this.game.playerId].deck[deckName], deckName);
+      const shuffledStructures = shuffledIds.map((id) => {
+        return {
+          id: id,
+          by: this.game.playerId,
+          index: counter++
+        };
+      });
+      play.setDecks[deckName] = shuffledStructures;
+    });
 
     if (this.game.lastPlay) {
       play.advancePhaseTo = "seed";
@@ -58,10 +60,10 @@ console.log(play);
 
   updateLocations(spaceline, spacelineIndexOfNew) {
     let numEmptyPositions = 0;
-    for (;!spaceline[numEmptyPositions].cardId && numEmptyPositions < spacelineIndexOfNew; numEmptyPositions++) {}
+    for (;!spaceline[numEmptyPositions].id && numEmptyPositions < spacelineIndexOfNew; numEmptyPositions++) {}
 
     let indexOfNew = spacelineIndexOfNew - numEmptyPositions;
-    const locations = spaceline.filter(location => !!location.cardId);
+    const locations = spaceline.filter(location => !!location.id);
 
     const play = {
       precedingPlay: this.game.lastPlay,

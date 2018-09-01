@@ -34,7 +34,7 @@ class PlayGame extends Component {
       game: null,
       plays: [],
       playsMap: {},
-      turnedCardId: null,
+      turnedCard: null,
       draggingToSpaceline: false,
       gameCollectionUnsubscribe: null,
       playCollectionUnsubscribe: null
@@ -90,7 +90,7 @@ class PlayGame extends Component {
             userId={this.props.userId}
             game={this.state.game}
             cardWidthInPx={cardWidthInPx}
-            turnedCardId={this.state.turnedCardId}
+            turnedCard={this.state.turnedCard}
             updateTurnedCard={this.updateTurnedCard_}
             setDraggingToSpaceline={this.setDraggingToSpaceline_}
           />
@@ -270,8 +270,8 @@ throw new Error("in the middle of re-implementing");
     (new PlayMaker(this.state.game)).shuffleUp();
   };
 
-  updateTurnedCard_ = (turnedCardId) => {
-    this.setState({turnedCardId: turnedCardId});
+  updateTurnedCard_ = (turnedCard) => {
+    this.setState({turnedCard: turnedCard});
   };
 
   setDraggingToSpaceline_ = (dragging) => {

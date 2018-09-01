@@ -8,7 +8,7 @@ class PlayerArea extends Component {
   static propTypes = {
     game: PropTypes.object.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
-    turnedCardId: PropTypes.string,
+    turnedCard: PropTypes.object,
     updateTurnedCard: PropTypes.func.isRequired,
     setDraggingToSpaceline: PropTypes.func.isRequired,
   };
@@ -28,10 +28,10 @@ class PlayerArea extends Component {
     }
 
     let cardInPlay;
-    if (this.props.turnedCardId && this.containerEl) {
+    if (this.props.turnedCard && this.containerEl) {
       cardInPlay = (
         <CardInPlay
-          cardId={this.props.turnedCardId}
+          card={this.props.turnedCard}
           x={Math.floor((window.innerWidth - this.props.cardWidthInPx) / 2.0)}
           y={20}
           cardWidthInPx={this.props.cardWidthInPx}
@@ -55,8 +55,8 @@ class PlayerArea extends Component {
   };
 
   onUserClickOnMissionDeck_ = () => {
-    const turnedCardId = this.props.game.state[this.props.userId].mission.shift();
-    this.props.updateTurnedCard(turnedCardId);
+    const turnedCard = this.props.game.state[this.props.userId].mission.shift();
+    this.props.updateTurnedCard(turnedCard);
   };
 
   onTurnedCardDragStart_ = () => {
