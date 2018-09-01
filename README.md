@@ -84,7 +84,7 @@ choosing Google Firebase:
 
 ### Immediate
 
-* reverse spaceline left-for-right fr Player Two; show missions placed by opponent upside down
+* show missions placed by opponent upside down
 * info & credits on title page
 * player can't click/drag when not their turn
 * card details when seeding

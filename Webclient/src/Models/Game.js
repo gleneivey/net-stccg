@@ -10,6 +10,10 @@ class Game extends Model {
     this.state = {};
   }
 
+  iAmPlayerTwo() {
+    return this.playerId !== this.data.playerOneId;
+  }
+
   advanceState(plays) {
     plays.forEach((play) => {
 console.log("Game#advanceState");

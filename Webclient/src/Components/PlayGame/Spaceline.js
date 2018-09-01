@@ -15,7 +15,10 @@ class Spaceline extends Component {
   };
 
   render() {
-    const spaceline = this.spacelineFromLocations_(this.props.locations);
+    let spaceline = this.spacelineFromLocations_(this.props.locations);
+    if (this.props.game.iAmPlayerTwo()) {
+      spaceline = spaceline.reverse();
+    }
 
     return (
       <div className="spaceline__container">
@@ -46,6 +49,10 @@ class Spaceline extends Component {
   };
 
   droppedIntoSpaceline_ = (item, index) => {
+    if (this.props.game.iAmPlayerTwo()) {
+      index = 12 - index;
+    }
+
     const spaceline = this.spacelineFromLocations_(this.props.locations);
     spaceline[index] = { cardId: item.cardId };
     (new PlayMaker(this.props.game)).updateLocations(spaceline, index);
