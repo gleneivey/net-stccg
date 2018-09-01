@@ -7,10 +7,10 @@ import PlayMaker from "../../Models/PlayMaker";
 
 class Spaceline extends Component {
   static propTypes = {
+    game: PropTypes.object.isRequired,
     locations: PropTypes.array.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
     draggingTo: PropTypes.bool.isRequired,
-    game: PropTypes.object.isRequired,
     updateTurnedCard: PropTypes.func.isRequired,
   };
 
@@ -26,6 +26,7 @@ class Spaceline extends Component {
           <SpacelineLocation
             key={index}
             index={index}
+            game={this.props.game}
             thisLocation={location}
             adjacents={[
               index > 0 ? spaceline[index-1] : null,

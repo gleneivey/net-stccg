@@ -1,9 +1,39 @@
 .signin__container {
-  padding-top: 80px;
   text-align: center;
 }
 
+.signin__topOfPageText {
+  font-size: 18px;
+}
+.signin__textLogo {
+  width: 30px;
+  padding: 6px;
+  position: relative;
+  top: 14px;
+}
+
 .signin__button {
+  padding-top: 80px;
   display: inline-block;
 }
 
+.signin__footer {
+  position: absolute;
+  bottom: 0px;
+  font-size: 12px;
+}
+
+.signin__bottomOfPageText {
+  display: inline-block;
+  max-width: 70%;
+}
+
+.signin__credits {
+  padding-left: 0;
+}
+.signin__credits li {
+  display: inline-block;
+  padding: 2px;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+}

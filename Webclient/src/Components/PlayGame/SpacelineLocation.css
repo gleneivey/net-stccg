@@ -22,3 +22,7 @@
   margin-left: 0.25%;
   margin-right: 0.25%;
 }
+
+.spacelineLocation__mission--inverted {
+  transform: rotate(0.5turn);
+}

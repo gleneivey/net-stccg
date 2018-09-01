@@ -84,10 +84,9 @@ choosing Google Firebase:
 
 ### Immediate
 
-* show missions placed by opponent upside down
-* info & credits on title page
 * player can't click/drag when not their turn
 * card details when seeding
+* card details debug mode: render outline with data
 * make turning a card from mission seed deck a play instead of local state
 * status indicator: score, phase, whose turn, PASS button
 * status indicator: mark newly-played card

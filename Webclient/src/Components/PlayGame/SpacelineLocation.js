@@ -9,6 +9,7 @@ const { cardMap } = cardData;
 
 class SpacelineLocation extends Component {
   static propTypes = {
+    game: PropTypes.object.isRequired,
     thisLocation: PropTypes.object.isRequired,
     adjacents: PropTypes.array.isRequired,
     index: PropTypes.number.isRequired,
@@ -32,11 +33,15 @@ class SpacelineLocation extends Component {
       "spacelineLocation__empty--canDrop": this.props.showAsDroppable && canBeDroppedOn,
       "spacelineLocation__empty--cantDrop": this.props.showAsDroppable && !canBeDroppedOn
     });
+    const imageClasses = classNames({
+      "spacelineLocation__mission": true,
+      "spacelineLocation__mission--inverted": this.props.game.playerId !== this.props.thisLocation.by
+    });
 
     return this.props.connectDropTarget(
       cardId ? (
         <img
-          src={card.imageUrl} className="spacelineLocation__mission"
+          src={card.imageUrl} className={imageClasses}
           alt={"Image of card '" + card.name + "'"}
           style={{width: this.props.cardWidthInPx}}
         />
