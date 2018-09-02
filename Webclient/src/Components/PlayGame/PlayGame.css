@@ -4,13 +4,6 @@
   top: -16px;
 }
 
-.playGame__title {
-  text-align: left;
-  margin-top: 0;
-  margin-left: 20px;
-  font-size: 24px;
-}
-
 .playGame__concede {
   display: block;
   float: right;

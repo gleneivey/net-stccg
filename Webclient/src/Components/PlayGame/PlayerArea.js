@@ -23,7 +23,8 @@ class PlayerArea extends Component {
 
   // render content methods, by game phase
   seedPhase_missionPhase_ = () => {
-    if (!this.props.game || !this.props.game.state.locations || !this.props.game.state[this.props.userId]) {
+    if (!this.props.game || !this.props.game.state.locations || !this.props.game.state[this.props.userId] ||
+        !this.props.game.state[this.props.userId].mission) {
       return <div />;
     }
 
@@ -46,7 +47,7 @@ class PlayerArea extends Component {
         {cardInPlay}
         <div className="playerArea__centerInArea">
           <FaceDownDeck
-            numberOfCards={this.props.game.state[this.props.game.playerId].mission.length}
+            numberOfCards={this.props.game.state[this.props.userId].mission.length}
             onClick={this.onUserClickOnMissionDeck_}
           />
         </div>

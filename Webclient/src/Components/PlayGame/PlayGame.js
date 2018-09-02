@@ -5,13 +5,14 @@ import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import "./PlayGame.css";
 import Profile from "../Profile";
+import GameStatus from "./GameStatus";
 import OpponentArea from "./OpponentArea";
 import Spaceline from "./Spaceline";
 import PlayerArea from "./PlayerArea";
 import Game from "../../Models/Game";
+import PlayMaker from "../../Models/PlayMaker";
 import firebase, { firestore } from "../../firebase.js";
 import badgeIconCommand from "../../Assets/badge-icon-command.svg"
-import PlayMaker from "../../Models/PlayMaker";
 
 class PlayGame extends Component {
   static propTypes = {
@@ -98,6 +99,17 @@ class PlayGame extends Component {
       );
     }
 
+    let gameStatus;
+    if (this.state.game) {
+      gameStatus = (
+        <GameStatus
+          player={this.props.player}
+          opponent={this.props.opponent}
+          game={this.state.game}
+        />
+      );
+    }
+
     return (
       <div className="playGame__root">
         {maybeScrim}
@@ -109,11 +121,7 @@ class PlayGame extends Component {
           <img src={badgeIconCommand} className="playGame__backArrow" alt="" />
           Concede Game
         </Link>
-        <h1 className="playGame__title">
-          {this.props.player.displayName} ({this.props.deck.name}) <i>vs. </i>
-          {this.props.opponent.displayName} ({this.state.opponentDeck && this.state.opponentDeck.name})
-        </h1>
-
+        {gameStatus}
         {playArea}
       </div>
     );

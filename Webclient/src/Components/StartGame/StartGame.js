@@ -208,7 +208,7 @@ class StartGame extends Component {
     const db = firestore();
     db.collection("gameOffers").doc(offerId).delete();
 
-    const gameData = this.initializeGame_(offerId, opponentId);
+    const gameData = Game.initializedGameData(this.props.userId, this.props.deck, offerId, opponentId);
     const game = new Game(this.props.userId, this.props.displayName, gameData);
     this.setState({game: game});
     db
@@ -333,28 +333,6 @@ class StartGame extends Component {
 
   makePlayerOneFirstPlay_ = (game) => {
     (new PlayMaker(game)).shuffleUp();
-  };
-
-  initializeGame_ = (gameId, opponentId) => {
-    const game = {
-      id: gameId,
-      playerOneId: this.props.userId,
-      playerOneDeckId: this.props.deck.id,
-      playerOneScore: 0,
-      playerTwoId: opponentId,
-      playerTwoDeckId: null,
-      playerTwoScore: 0,
-      started: firebase.firestore.Timestamp.now(),
-      finished: null,
-      winnerId: null,
-      concessionId: null
-    };
-
-    game[this.props.userId] = {
-      deck: this.props.deck
-    };
-
-    return game;
   };
 }
 

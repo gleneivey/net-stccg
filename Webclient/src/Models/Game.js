@@ -1,4 +1,5 @@
 import Model from './Model';
+import firebase from "../firebase";
 
 class Game extends Model {
   constructor(playerId, playerName, gameData) {
@@ -14,26 +15,35 @@ class Game extends Model {
     return this.playerId !== this.data.playerOneId;
   }
 
+  myOpponent() {
+    return this.iAmPlayerTwo() ? this.data.playerOneId : this.data.playerTwoId;
+  }
+
   advanceState(plays) {
     plays.forEach((play) => {
 console.log("Game#advanceState");
 console.log(play);
 
-      if (!this.state.phase) {
-        this.state.phase = "initialization";
-        this.state.locations = [];
-      }
+      this.initializeStateIfNecessary_();
 
+      // any play can adjust the content of decks
       if (Object.keys(play).includes("setDecks")) {
         const decksToSet = JSON.parse(JSON.stringify(play.setDecks));
         delete decksToSet.for;
         Object.keys(decksToSet).forEach((key) => {
-          this.state[play.setDecks.for] = this.state[play.setDecks.for] || {};
           this.state[play.setDecks.for][key] = decksToSet[key];
         });
       }
 
+      // any play can change whose turn it is
+      if (Object.keys(play).includes("playerWhoseTurn")) {
+        this.state.playerWhoseTurn = play.playerWhoseTurn;
+      }
+
       switch(play.type) {
+        case "pass":
+          // nothing but playerWhoseTurn key expected....
+          break;
         case "setDecks":
           // nothing but setDecks key expected....
           break;
@@ -51,6 +61,41 @@ console.log(play);
       }
 console.log(JSON.stringify(this.state));
     });
+  }
+
+  static initializedGameData(userId, deck, gameId, opponentId) {
+    const game = {
+      id: gameId,
+      playerOneId: userId,
+      playerOneDeckId: deck.id,
+      playerOneScore: 0,
+      playerTwoId: opponentId,
+      playerTwoDeckId: null,
+      playerTwoScore: 0,
+      started: firebase.firestore.Timestamp.now(),
+      finished: null,
+      winnerId: null,
+      concessionId: null
+    };
+
+    game[userId] = {
+      deck: deck
+    };
+
+    return game;
+  };
+
+  initializeStateIfNecessary_() {
+    if (!this.state.phase) {
+      this.state.phase = "initialization";
+      this.state.locations = [];
+
+      [this.data.playerOneId, this.data.playerTwoId].forEach((id) => {
+        this.state[id] = {
+          score: 0
+        };
+      });
+    }
   }
 }
 

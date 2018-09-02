@@ -52,6 +52,7 @@ console.log(play);
     });
 
     if (this.game.lastPlay) {
+      play.playerWhoseTurn = this.game.myOpponent();
       play.advancePhaseTo = "seed";
     }
 
