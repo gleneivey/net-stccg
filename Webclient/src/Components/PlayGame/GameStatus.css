@@ -1,5 +1,23 @@
+.gameStatus__container {
+  position: relative;
+}
+
 .gameStatus__scoreAndDeck {
   text-align: left;
   margin: 0;
   font-size: 24px;
+}
+
+.gameStatus__hoveringContainer {
+  position: absolute;
+  left: 0;
+}
+
+.gameStatus__turnStatus {
+  padding: 5px;
+  border-radius: 7px;
+}
+.gameStatus__turnStatus--flash {
+  color: #000;
+  background-color: #fdd;
 }

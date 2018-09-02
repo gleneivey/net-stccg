@@ -47,8 +47,10 @@ class PlayerArea extends Component {
         {cardInPlay}
         <div className="playerArea__centerInArea">
           <FaceDownDeck
+            game={this.props.game}
             numberOfCards={this.props.game.state[this.props.userId].mission.length}
             onClick={this.onUserClickOnMissionDeck_}
+            flashTurnStatus={this.props.flashTurnStatus}
           />
         </div>
       </div>

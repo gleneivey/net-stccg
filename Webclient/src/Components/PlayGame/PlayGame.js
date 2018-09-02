@@ -36,6 +36,7 @@ class PlayGame extends Component {
       plays: [],
       playsMap: {},
       turnedCard: null,
+      flashTurnStatus: false,
       draggingToSpaceline: false,
       gameCollectionUnsubscribe: null,
       playCollectionUnsubscribe: null
@@ -94,6 +95,7 @@ class PlayGame extends Component {
             turnedCard={this.state.turnedCard}
             updateTurnedCard={this.updateTurnedCard_}
             setDraggingToSpaceline={this.setDraggingToSpaceline_}
+            flashTurnStatus={this.flashTurnStatus_}
           />
         </div>
       );
@@ -106,6 +108,7 @@ class PlayGame extends Component {
           player={this.props.player}
           opponent={this.props.opponent}
           game={this.state.game}
+          flashTurnStatus={this.state.flashTurnStatus}
         />
       );
     }
@@ -284,6 +287,10 @@ throw new Error("in the middle of re-implementing");
 
   setDraggingToSpaceline_ = (dragging) => {
     this.setState({draggingToSpaceline: dragging});
+  };
+
+  flashTurnStatus_ = (newState) => {
+    this.setState({flashTurnStatus: newState});
   };
 }
 

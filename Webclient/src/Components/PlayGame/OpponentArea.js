@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
+import "./OpponentArea.css";
 
 class OpponentArea extends Component {
   static propTypes = {
@@ -7,7 +8,7 @@ class OpponentArea extends Component {
 
   render() {
     return <div className="opponentArea__container">
-      &nbsp;
+      [opponent area]
     </div>;
   }
 }

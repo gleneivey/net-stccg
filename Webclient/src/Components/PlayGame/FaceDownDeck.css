@@ -3,6 +3,10 @@
   top: -30px;
 }
 
+.faceDownDeck__container--notMyTurn {
+  cursor: not-allowed;
+}
+
 .faceDownDeck__cardBack {
   display: block;
   position: absolute;

@@ -11,6 +11,10 @@ class Game extends Model {
     this.state = {};
   }
 
+  isMyTurn() {
+    return this.state.playerWhoseTurn === this.playerId;
+  }
+
   iAmPlayerTwo() {
     return this.playerId !== this.data.playerOneId;
   }
@@ -89,6 +93,7 @@ console.log(JSON.stringify(this.state));
     if (!this.state.phase) {
       this.state.phase = "initialization";
       this.state.locations = [];
+      this.state.playerWhoseTurn = null;
 
       [this.data.playerOneId, this.data.playerTwoId].forEach((id) => {
         this.state[id] = {

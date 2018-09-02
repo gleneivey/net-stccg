@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
+import classNames from "classnames";
 import "./GameStatus.css";
 
 class GameStatus extends Component {
   static propTypes = {
     player: PropTypes.object.isRequired,
     opponent: PropTypes.object.isRequired,
-    game: PropTypes.object.isRequired
+    game: PropTypes.object.isRequired,
+    flashTurnStatus: PropTypes.bool.isRequired
   };
 
   render() {
@@ -22,6 +24,12 @@ class GameStatus extends Component {
       return <div />;
     }
 
+    const turn = myId === this.props.game.state.playerWhoseTurn ? "Your" : "Their";
+    const turnStatusClasses = classNames({
+      "gameStatus__turnStatus": true,
+      "gameStatus__turnStatus--flash": this.props.flashTurnStatus
+    });
+
     return <div className="gameStatus__container">
       <h1 className="gameStatus__scoreAndDeck">
         {this.props.game.state[myId].score} points &mdash; {myName} ({myDeck && myDeck.name})
@@ -29,6 +37,11 @@ class GameStatus extends Component {
       <h1 className="gameStatus__scoreAndDeck">
         {this.props.game.state[theirId].score} points &mdash; {theirName} ({theirDeck && theirDeck.name})
       </h1>
+      <div className="gameStatus__hoveringContainer">
+        <span className={turnStatusClasses}>
+          {turn} Turn
+        </span>
+      </div>
     </div>;
   }
 }

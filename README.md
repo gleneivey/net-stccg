@@ -84,12 +84,12 @@ choosing Google Firebase:
 
 ### Immediate
 
-* player can't click/drag when not their turn
 * card details when seeding
 * card details debug mode: render outline with data
 * make turning a card from mission seed deck a play instead of local state
 * status indicator: score, phase, whose turn, PASS button
 * status indicator: mark newly-played card
+* mission phase end:  get rid of 13th card slot
 * card being dragged is large
 
 

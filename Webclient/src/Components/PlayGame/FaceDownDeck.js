@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
+import classNames from "classnames";
 import "./FaceDownDeck.css";
 import cardBack from "../../Assets/stccg-card-back.gif"
 
 class FaceDownDeck extends Component {
   static propTypes = {
+    game: PropTypes.object.isRequired,
     numberOfCards: PropTypes.number.isRequired,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    flashTurnStatus: PropTypes.func.isRequired
   };
 
   render() {
@@ -23,7 +26,12 @@ class FaceDownDeck extends Component {
       cardbackOffsets.push(c * 8);
     }
 
-    return <div className="faceDownDeck__container" onClick={this.onClick_}>
+    const containerClasses = classNames({
+      "faceDownDeck__container": true,
+      "faceDownDeck__container--notMyTurn": this.props.game && !this.props.game.isMyTurn()
+    });
+
+    return <div className={containerClasses} onClick={this.onClick_}>
       {cardbackOffsets.map(offset => (
         <img
           src={cardBack} className="faceDownDeck__cardBack"
@@ -36,6 +44,13 @@ class FaceDownDeck extends Component {
   }
 
   onClick_ = (event) => {
+    if (!this.props.game.isMyTurn()) {
+      const self = this;
+      this.props.flashTurnStatus(true);
+      setTimeout(function (){ self.props.flashTurnStatus(false); }, 200);
+      return;
+    }
+
     if (this.props.onClick) {
       this.props.onClick();
     }
