@@ -84,7 +84,6 @@ choosing Google Firebase:
 
 ### Immediate
 
-* card details when seeding
 * card details debug mode: render outline with data
 * make turning a card from mission seed deck a play instead of local state
 * status indicator: score, phase, whose turn, PASS button

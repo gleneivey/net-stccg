@@ -11,6 +11,8 @@ class PlayerArea extends Component {
     turnedCard: PropTypes.object,
     updateTurnedCard: PropTypes.func.isRequired,
     setDraggingToSpaceline: PropTypes.func.isRequired,
+    showDetailsFor: PropTypes.func.isRequired,
+    dontShowDetails: PropTypes.func.isRequired,
   };
 
   render() {
@@ -36,6 +38,8 @@ class PlayerArea extends Component {
           x={Math.floor((window.innerWidth - this.props.cardWidthInPx) / 2.0)}
           y={20}
           cardWidthInPx={this.props.cardWidthInPx}
+          showDetailsFor={this.props.showDetailsFor}
+          dontShowDetails={this.props.dontShowDetails}
           onDragStart={this.onTurnedCardDragStart_}
           onDragEnd={this.onTurnedCardDragEnd_}
         />

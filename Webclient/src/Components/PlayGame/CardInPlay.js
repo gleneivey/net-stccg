@@ -14,6 +14,8 @@ class CardInPlay extends Component {
     cardWidthInPx: PropTypes.number.isRequired,
     onDragStart: PropTypes.func,
     onDragEnd: PropTypes.func,
+    showDetailsFor: PropTypes.func.isRequired,
+    dontShowDetails: PropTypes.func.isRequired,
 
     // Injected by React DnD:
     connectDragSource: PropTypes.func.isRequired,
@@ -34,9 +36,15 @@ class CardInPlay extends Component {
           width: this.props.cardWidthInPx,
           opacity: isDragging ? 0.5 : 1
         }}
+        onMouseEnter={this.onMouseEnter_}
+        onMouseLeave={this.props.dontShowDetails}
       />
     );
   }
+
+  onMouseEnter_ = () => {
+    this.props.showDetailsFor(this.props.card.id);
+  };
 }
 
 

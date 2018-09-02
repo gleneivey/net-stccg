@@ -12,6 +12,8 @@ class Spaceline extends Component {
     cardWidthInPx: PropTypes.number.isRequired,
     draggingTo: PropTypes.bool.isRequired,
     updateTurnedCard: PropTypes.func.isRequired,
+    showDetailsFor: PropTypes.func.isRequired,
+    dontShowDetails: PropTypes.func.isRequired,
   };
 
   render() {
@@ -35,6 +37,8 @@ class Spaceline extends Component {
             showAsDroppable={this.props.draggingTo}
             cardWidthInPx={this.props.cardWidthInPx}
             droppedIntoSpaceline={this.droppedIntoSpaceline_}
+            showDetailsFor={this.props.showDetailsFor}
+            dontShowDetails={this.props.dontShowDetails}
           />
         ))}
       </div>

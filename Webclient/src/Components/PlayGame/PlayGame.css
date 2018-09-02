@@ -35,6 +35,14 @@
   z-index: 10;
 }
 
+.playGame__cardDetail {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 38%;
+  z-index: 8;
+}
+
 .pageModal__message {
   margin-left: auto;
   margin-right: auto;

@@ -14,6 +14,9 @@ import PlayMaker from "../../Models/PlayMaker";
 import firebase, { firestore } from "../../firebase.js";
 import badgeIconCommand from "../../Assets/badge-icon-command.svg"
 
+import cardData from "../../CardData/data";
+const { cardMap } = cardData;
+
 class PlayGame extends Component {
   static propTypes = {
     userId: PropTypes.string,
@@ -38,6 +41,7 @@ class PlayGame extends Component {
       turnedCard: null,
       flashTurnStatus: false,
       draggingToSpaceline: false,
+      showDetailsFor: null,
       gameCollectionUnsubscribe: null,
       playCollectionUnsubscribe: null
     };
@@ -87,6 +91,8 @@ class PlayGame extends Component {
             draggingTo={this.state.draggingToSpaceline}
             game={this.state.game}
             updateTurnedCard={this.updateTurnedCard_}
+            showDetailsFor={this.showDetailsFor_}
+            dontShowDetails={this.dontShowDetails_}
           />
           <PlayerArea
             userId={this.props.userId}
@@ -96,6 +102,8 @@ class PlayGame extends Component {
             updateTurnedCard={this.updateTurnedCard_}
             setDraggingToSpaceline={this.setDraggingToSpaceline_}
             flashTurnStatus={this.flashTurnStatus_}
+            showDetailsFor={this.showDetailsFor_}
+            dontShowDetails={this.dontShowDetails_}
           />
         </div>
       );
@@ -113,9 +121,18 @@ class PlayGame extends Component {
       );
     }
 
+    let maybeDetails = null;
+    if (this.state.showDetailsFor) {
+      const card = cardMap[this.state.showDetailsFor];
+      maybeDetails = (
+        <img src={card.imageUrl} className="playGame__cardDetail" alt={"Image of card '" + card.name + "'"} />
+      );
+    }
+
     return (
       <div className="playGame__root">
         {maybeScrim}
+        {maybeDetails}
         <Profile
           displayName={this.props.player.displayName}
           doSignOut={this.props.doSignOut}
@@ -286,11 +303,22 @@ throw new Error("in the middle of re-implementing");
   };
 
   setDraggingToSpaceline_ = (dragging) => {
-    this.setState({draggingToSpaceline: dragging});
+    this.setState({
+      draggingToSpaceline: dragging,
+      showDetailsFor: null
+    });
   };
 
   flashTurnStatus_ = (newState) => {
     this.setState({flashTurnStatus: newState});
+  };
+
+  showDetailsFor_ = (cardId) => {
+    this.setState({showDetailsFor: cardId});
+  };
+
+  dontShowDetails_ = () => {
+    this.setState({showDetailsFor: null});
   };
 }
 

@@ -16,6 +16,8 @@ class SpacelineLocation extends Component {
     showAsDroppable: PropTypes.bool.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
     droppedIntoSpaceline: PropTypes.func.isRequired,
+    showDetailsFor: PropTypes.func.isRequired,
+    dontShowDetails: PropTypes.func.isRequired,
 
     // Injected by React DnD:
     connectDropTarget: PropTypes.func.isRequired,
@@ -44,6 +46,8 @@ class SpacelineLocation extends Component {
           src={card.imageUrl} className={imageClasses}
           alt={"Image of card '" + card.name + "'"}
           style={{width: this.props.cardWidthInPx}}
+          onMouseEnter={this.onMouseEnter_}
+          onMouseLeave={this.props.dontShowDetails}
         />
       ) : (
         <div
@@ -58,6 +62,10 @@ class SpacelineLocation extends Component {
       )
     );
   }
+
+  onMouseEnter_ = () => {
+    this.props.showDetailsFor(this.props.thisLocation.id);
+  };
 
   placeDroppedCardInThisLocation_ = (item) => {
     this.props.droppedIntoSpaceline(item, this.props.index);
