@@ -5,9 +5,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 import "./DeckEditor.css";
 import AvailableCards from "./AvailableCards";
 import DeckContent from "./DeckContent";
-
-import cardData from "../../CardData/data";
-const { cardMap } = cardData;
+import CardHoverDetail from "../CardHoverDetail";
 
 class DeckEditor extends Component {
   static propTypes = {
@@ -27,17 +25,11 @@ class DeckEditor extends Component {
       return <div />;
     }
 
-    let maybeDetails = null;
-    if (this.state.showDetailsFor) {
-      const card = cardMap[this.state.showDetailsFor];
-      maybeDetails = (
-        <img src={card.imageUrl} className="deck__cardDetail" alt={"Image of card '" + card.name + "'"} />
-      );
-    }
-
     return (
       <div>
-        {maybeDetails}
+        <CardHoverDetail
+          cardId={this.state.showDetailsFor}
+        />
         <h2 className="deck__name">{this.props.deck.name}</h2>
         <DeckContent
           userId={this.props.userId}

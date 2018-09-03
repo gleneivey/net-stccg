@@ -1,0 +1,10 @@
+.cardHoverDetail__container {
+}
+
+.cardHoverDetail__image {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 8;
+  width: 38%;
+}

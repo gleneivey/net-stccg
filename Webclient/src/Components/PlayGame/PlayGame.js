@@ -9,13 +9,11 @@ import GameStatus from "./GameStatus";
 import OpponentArea from "./OpponentArea";
 import Spaceline from "./Spaceline";
 import PlayerArea from "./PlayerArea";
+import CardHoverDetail from "../CardHoverDetail";
 import Game from "../../Models/Game";
 import PlayMaker from "../../Models/PlayMaker";
 import firebase, { firestore } from "../../firebase.js";
 import badgeIconCommand from "../../Assets/badge-icon-command.svg"
-
-import cardData from "../../CardData/data";
-const { cardMap } = cardData;
 
 class PlayGame extends Component {
   static propTypes = {
@@ -121,18 +119,12 @@ class PlayGame extends Component {
       );
     }
 
-    let maybeDetails = null;
-    if (this.state.showDetailsFor) {
-      const card = cardMap[this.state.showDetailsFor];
-      maybeDetails = (
-        <img src={card.imageUrl} className="playGame__cardDetail" alt={"Image of card '" + card.name + "'"} />
-      );
-    }
-
     return (
       <div className="playGame__root">
         {maybeScrim}
-        {maybeDetails}
+        <CardHoverDetail
+          cardId={this.state.showDetailsFor}
+        />
         <Profile
           displayName={this.props.player.displayName}
           doSignOut={this.props.doSignOut}
