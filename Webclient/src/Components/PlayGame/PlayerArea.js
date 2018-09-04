@@ -6,6 +6,7 @@ import CardInPlay from "./CardInPlay";
 
 class PlayerArea extends Component {
   static propTypes = {
+    showDebug: PropTypes.bool.isRequired,
     game: PropTypes.object.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
     turnedCard: PropTypes.object,

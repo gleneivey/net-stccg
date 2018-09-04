@@ -11,6 +11,7 @@ import Deck from "../../Models/Deck";
 
 class ManageDecks extends Component {
   static propTypes = {
+    showDebug: PropTypes.bool.isRequired,
     userId: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,
     doSignOut: PropTypes.func.isRequired,
@@ -56,6 +57,7 @@ class ManageDecks extends Component {
           <div>
             <hr />
             <DeckEditor
+              showDebug={this.props.showDebug}
               userId={this.props.userId}
               deck={currentDeck}
             />

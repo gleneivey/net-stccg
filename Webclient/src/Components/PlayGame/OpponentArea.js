@@ -4,6 +4,7 @@ import "./OpponentArea.css";
 
 class OpponentArea extends Component {
   static propTypes = {
+    showDebug: PropTypes.bool.isRequired,
   };
 
   render() {

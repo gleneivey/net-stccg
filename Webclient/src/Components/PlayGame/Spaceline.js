@@ -7,6 +7,7 @@ import PlayMaker from "../../Models/PlayMaker";
 
 class Spaceline extends Component {
   static propTypes = {
+    showDebug: PropTypes.bool.isRequired,
     game: PropTypes.object.isRequired,
     locations: PropTypes.array.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,

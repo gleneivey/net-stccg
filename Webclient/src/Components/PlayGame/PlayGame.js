@@ -17,6 +17,7 @@ import badgeIconCommand from "../../Assets/badge-icon-command.svg"
 
 class PlayGame extends Component {
   static propTypes = {
+    showDebug: PropTypes.bool.isRequired,
     userId: PropTypes.string,
     displayName: PropTypes.string,
     player: PropTypes.object,
@@ -82,8 +83,11 @@ class PlayGame extends Component {
 
       playArea = (
         <div className="playGame__table">
-          <OpponentArea />
+          <OpponentArea
+            showDebug={this.props.showDebug}
+          />
           <Spaceline
+            showDebug={this.props.showDebug}
             locations={locations}
             cardWidthInPx={cardWidthInPx}
             draggingTo={this.state.draggingToSpaceline}
@@ -93,6 +97,7 @@ class PlayGame extends Component {
             dontShowDetails={this.dontShowDetails_}
           />
           <PlayerArea
+            showDebug={this.props.showDebug}
             userId={this.props.userId}
             game={this.state.game}
             cardWidthInPx={cardWidthInPx}
@@ -123,6 +128,7 @@ class PlayGame extends Component {
       <div className="playGame__root">
         {maybeScrim}
         <CardHoverDetail
+          showDebug={this.props.showDebug}
           cardId={this.state.showDetailsFor}
         />
         <Profile
@@ -269,21 +275,7 @@ class PlayGame extends Component {
   };
 
   onPlayClick_ = (event) => {
-throw new Error("in the middle of re-implementing");
-    // const x = event.pageX / this.state.width;
-    // const y = event.pageY / this.state.height;
-
-    const db = firestore();
-    db
-      .collection("games")
-      .doc(this.state.game.data.id)
-      .collection("plays")
-      .add({
-        // x: x,
-        // y: y,
-        // by: this.props.userId,
-        // time: firebase.firestore.Timestamp.now()
-      })
+    console.log("PlayGame#onPlayClick_");
   };
 
   makePlayerTwoFirstPlay_ = (gameData, lastPlay) => {

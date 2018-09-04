@@ -1,10 +1,155 @@
 .cardHoverDetail__container {
 }
 
-.cardHoverDetail__image {
+.cardHoverDetail__image, .cHD__cardOutline {
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 8;
   width: 38%;
 }
+
+.cHD__cardOutline {
+  background-color: #333;
+  border: solid 2px #ddd;
+  border-radius: 12px;
+}
+
+.cHD__cardIcon {
+  position: absolute;
+  left: 9.30%;
+  top: 6.66%;
+  width: 10.14%;
+  height: 7.43%;
+}
+.cHD__cardIcon--facility {
+  width: 11.99%;
+  height: 8.59%;
+}
+
+.cHD__cardTitle {
+  position: absolute;
+  left: 20.22%;
+  top: 7.63%;
+  width: 70.22%;
+  height: 5.62%;
+  padding-left: 10px;
+  font-size: 24px;
+}
+
+.cHD__cardText {
+  position: absolute;
+}
+.cHD__cardText--facility {
+  left: 16.98%;
+  top: 60.81%;
+  width: 65.50%;
+  height: 12.93%;
+  border: solid 1px #fff;
+  padding: 4px;
+}
+
+.cHD__cardRules {
+  position: absolute;
+}
+.cHD__cardRules--facility {
+  left: 12.13%;
+  top: 75%;
+  width: 76.28%;
+  height: 7.82%;
+  border: solid 1px #fff;
+  padding: 4px;
+}
+
+.cHD__affiliationIcon {
+  position: absolute;
+}
+.cHD__affiliationIcon--facility {
+  left: 9.30%;
+  top: 87.84%;
+  width: 10.78%;
+  height: 7.72%;
+}
+
+.cHD__outpost {
+  position: absolute;
+  left: 22.91%;
+  top: 89.5%;
+  width: 30%;
+  height: 3.57%;
+  font-size: 22px;
+}
+
+.cHD__outpostShields {
+  position: absolute;
+  left: 70.08%;
+  top: 90.5%;
+  width: 21.02%;
+  height: 4.83%;
+  font-size: 14px;
+}
+
+/*   card dimensions
+  TOTAL 356 x 498
+
+  icon:  offset 33,33; opposite 70,70
+         9.30%,6.66%   10.14%,7.43%
+                       11.99%,8.59%
+  type-at-top:  offset 72,38; opposite 322,66
+  name-at-top:  offset 72,38; opposite 322,66
+         20.22%,7.63%  70.22%,5.62%
+  name-in-middle:  offset 46,306; opposite 289,328
+  mission-name:  offset 96,306; opposite 262,328
+  staffing-area:  offset 33,306; opposite 60,369
+  mission-icon:  offset 41,334; opposite 69,362
+  block:  offset 123,301; opposite 232,328
+  starship-block:  offset 60,301; opposite 294,328
+  expansion icon:  offset 289,306; opposite 308,328
+  text:  offset 42,328; opposite 312,387
+  starship-text:  offset 60,328; opposite 294,386
+  personnel-text:  offset 60,306; opposite 294,369
+  mission-text:  offset 72,330; opposite 294,366
+  starship-staffing:  offset 60,398; opposite 130,427
+  rules:  offset 42,404; opposite 312,464
+  starship-rules:  offset 130,400; opposite 296,427
+  personnel-rules:  offset 33,374; opposite 328,430
+  mission-rules:  offset 34,370; opposite 320,408
+  mission-affiliations:  offset 34,412; opposite 268,454
+  mission-points:  offset 268,412; opposite 320,454
+  span-top-center:  offset 175,460
+
+  integrity:  offset 48, 446
+  integrity-box:  offset 103,444; opposite 127,462
+  cunning:  offset 145,446
+  cunning-box:  offset 196,444; opposite 220,462
+  strength:  offset 233,446
+  strength-box:  offset 287,444; opposite 311,462
+
+  range:  offset 54,440; opposite 124,460
+  weapons:  offset 140,440; opposite 214,460
+  shiels:  offset 228,440; opposite 300,460
+
+
+  TOTAL 742 x 1036
+
+  icon:  offset 69,69; opposite 148,148
+  outpost-icon:  offset 69,69; opposite 158,158
+  icon:  offset 88,630; opposite 138,682
+
+  type-at-top:  offset 150,80; opposite 673,142
+  name-in-middle:  offset 138,630; opposite 600,682
+  expansion icon:  offset 600,630; opposite 650,682
+  text:  offset 88,684; opposite 650,806
+  outpost-text:  offset 126,630; opposite 612,764
+         16.98%,60.81% 65.50%,12.93%
+  rules:  offset 88,838; opposite 650,970
+  outpost-rules:  offset 90,777; opposite 656,858
+         12.13%,75.0%   76.28%,7.82%
+  outpost-affiliation:  offset 69,910; opposite 149,985
+         9.30%,87.84%   10.78%,7.72%
+  outpost-type:  offset 170,925; opposite 350,962
+         22.91%,89.29%  ~30%,3.57%
+  outpost-shields:  offset 520,920; opposite 676,970
+         70.08%,88.8%   21.02%,4.83%
+
+ */

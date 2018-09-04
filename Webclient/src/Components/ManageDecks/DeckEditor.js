@@ -9,6 +9,7 @@ import CardHoverDetail from "../CardHoverDetail";
 
 class DeckEditor extends Component {
   static propTypes = {
+    showDebug: PropTypes.bool.isRequired,
     userId: PropTypes.string.isRequired,
     deck: PropTypes.object
   };
@@ -28,6 +29,7 @@ class DeckEditor extends Component {
     return (
       <div>
         <CardHoverDetail
+          showDebug={this.props.showDebug}
           cardId={this.state.showDetailsFor}
         />
         <h2 className="deck__name">{this.props.deck.name}</h2>

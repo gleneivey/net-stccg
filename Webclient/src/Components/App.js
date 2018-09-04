@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
+import $ from "jquery";
 import "./App.css";
 import SignIn from "./SignIn";
 import ManageDecks from "./ManageDecks/ManageDecks";
@@ -15,6 +16,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showDebug: false,
       signedIn: false,
       displayName: null,
       email: null,
@@ -27,7 +29,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    $(document).keydown(this.onKeyDown_);
+    $(document).keyup(this.onKeyUp_);
     this.checkIfAlreadySignedIn_();
+  }
+
+  componentWillUnmount() {
+    $(document).off("keydown");
+    $(document).off("keyup");
   }
 
   render() {
@@ -50,6 +59,7 @@ class App extends Component {
             } else {
               return (
                 <ManageDecks
+                  showDebug={this.state.showDebug}
                   userId={this.state.userId}
                   displayName={this.state.displayName}
                   doSignOut={this.doSignOut_}
@@ -79,6 +89,7 @@ class App extends Component {
           render={props => {
             return (
               <PlayGame
+                showDebug={this.state.showDebug}
                 userId={this.state.userId}
                 displayName={this.state.displayName}
 
@@ -95,6 +106,18 @@ class App extends Component {
       </div>
     );
   }
+
+  onKeyDown_ = (event) => {
+    if (event.key === "Shift") {
+      this.setState({showDebug: true});
+    }
+  };
+
+  onKeyUp_ = (event) => {
+    if (event.key === "Shift") {
+      this.setState({showDebug: false});
+    }
+  };
 
   doSignIn_ = (displayName, email) => {
     this.setState({
