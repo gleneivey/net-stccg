@@ -37,28 +37,83 @@
   font-size: 24px;
 }
 
-.cHD__cardText {
+.cHD__cardBlock {
   position: absolute;
-}
-.cHD__cardText--facility {
-  left: 16.98%;
-  top: 60.81%;
-  width: 65.50%;
-  height: 12.93%;
+  background-color: #333;
   border: solid 1px #fff;
   padding: 4px;
+  padding-top: 8px;
+  text-align: center;
+}
+.cHD__cardBlock--person {
+  left: 34.55%;
+  top: 50%;
+  width: 30.62%;
+  height: 3.5%;
+}
+.cHD__cardBlock--dilemma, .cHD__cardBlock--event, .cHD__cardBlock--interrupt,
+.cHD__cardBlock--artifact, .cHD__cardBlock--ship {
+  left: 9.27%;
+  top: 50%;
+  width: 82.87%;
+  height: 3.5%;
+}
+
+.cHD__cardText {
+  position: absolute;
+  border: solid 1px #fff;
+  padding: 4px;
+}
+.cHD__cardText--facility, .cHD__cardText--person {
+  left: 16.98%;
+  top: 51%;
+  width: 65.50%;
+  height: 17%;
+  padding-top: 7%;
+}
+.cHD__cardText--dilemma, .cHD__cardText--event, .cHD__cardText--interrupt,
+.cHD__cardText--artifact, .cHD__cardText--ship {
+  left: 9.27%;
+  top: 55.9%;
+  width: 82.87%;
+  height: 17%;
 }
 
 .cHD__cardRules {
   position: absolute;
+  border: solid 1px #fff;
+  padding: 4px;
 }
 .cHD__cardRules--facility {
   left: 12.13%;
   top: 75%;
   width: 76.28%;
   height: 7.82%;
-  border: solid 1px #fff;
-  padding: 4px;
+}
+.cHD__cardRules--person, .cHD__cardRules--ship,
+.cHD__cardRules--dilemma, .cHD__cardRules--event, .cHD__cardRules--interrupt, .cHD__cardRules--artifact {
+  left: 9.27%;
+  top: 75.1%;
+  width: 82.87%;
+  height: 11.25%;
+}
+
+.cHD__cardAttributeList {
+  margin: 0;
+  padding: 0;
+}
+
+.cHD__cardAttribute {
+  display: inline-block;
+  list-style: none;
+  margin-right: 3%;
+}
+.cHD__cardAttribute::before {
+  display: inline-block;
+  content: "•";
+  color: #f00;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .cHD__affiliationIcon {
@@ -89,6 +144,84 @@
   font-size: 14px;
 }
 
+
+.cHD__missionName {
+  position: absolute;
+  left: 26.97%;
+  top: 61.45%;
+  width: 46.63%;
+  height: 4.42%;
+  text-align: center;
+  font-size: 24px;
+}
+
+.cHD__missionText {
+  position: absolute;
+  left: 9.55%;
+  top: 66.27%;
+  width: 62.36%;
+  height: 7.23%;
+  border: solid 1px #fff;
+  padding: 4px;
+  padding-left: 9.67%;
+  padding-right: 9.67%;
+}
+
+.cHD__missionRules {
+  position: absolute;
+  left: 9.55%;
+  top: 75.7%;
+  width: 80.33%;
+  height: 7.63%;
+  border: solid 1px #fff;
+  padding: 4px;
+}
+
+.cHD__missionAffiliations {
+  position: absolute;
+  left: 9.55%;
+  top: 85.5%;
+  width: 65.73%;
+  height: 5%;
+  border: solid 1px #fff;
+  padding: 4px;
+  text-align: center;
+}
+
+.cHD__missionAffiliation {
+  display: inline-block;
+  width: 15%;
+  height: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.cHD__missionAffiliation--Fed { background-color: #5ec7f2; }
+.cHD__missionAffiliation--Rom { background-color: #a2dac7; }
+.cHD__missionAffiliation--Kli { background-color: #ca001b; }
+
+.cHD__missionPoints {
+  position: absolute;
+  left: 80%;
+  top: 85.5%;
+  width: 8.6%;
+  height: 5%;
+  border: solid 1px #fff;
+  padding: 4px;
+  text-align: center;
+}
+
+.cHD__missionSpan {
+  position: absolute;
+  left: 0%;
+  top: 92.37%;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+
+
+
 /*   card dimensions
   TOTAL 356 x 498
 
@@ -100,23 +233,32 @@
          20.22%,7.63%  70.22%,5.62%
   name-in-middle:  offset 46,306; opposite 289,328
   mission-name:  offset 96,306; opposite 262,328
+         26.97%,61.45% 46.63%,4.42%
   staffing-area:  offset 33,306; opposite 60,369
   mission-icon:  offset 41,334; opposite 69,362
   block:  offset 123,301; opposite 232,328
+         34.55%,60.44% 30.62%,5.42%
   starship-block:  offset 60,301; opposite 294,328
   expansion icon:  offset 289,306; opposite 308,328
   text:  offset 42,328; opposite 312,387
   starship-text:  offset 60,328; opposite 294,386
   personnel-text:  offset 60,306; opposite 294,369
+         16.85%,61.45%  65.73%,12.65%
   mission-text:  offset 72,330; opposite 294,366
+         20.22%,66.27   62.36,7.23
   starship-staffing:  offset 60,398; opposite 130,427
   rules:  offset 42,404; opposite 312,464
   starship-rules:  offset 130,400; opposite 296,427
   personnel-rules:  offset 33,374; opposite 328,430
+         9.27%,75.1%    82.87%,11.25%
   mission-rules:  offset 34,370; opposite 320,408
+         9.55,74.29     80.33,7.63
   mission-affiliations:  offset 34,412; opposite 268,454
+         9.55,82.73     65.73,8.43
   mission-points:  offset 268,412; opposite 320,454
+         75.28,82.73    14.61,8.43
   span-top-center:  offset 175,460
+         460 -> 92.37%
 
   integrity:  offset 48, 446
   integrity-box:  offset 103,444; opposite 127,462
