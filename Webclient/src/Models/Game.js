@@ -54,6 +54,9 @@ console.log(play);
         case "setLocations":
           this.state.locations = play.setLocations;
           break;
+        case "turnCard":
+          this.state[play.setCardInPlay.for].cardInPlay = play.setCardInPlay.card;
+          break;
         default:
           console.log("Don't know how to process the 'play':");
           console.log(play);
@@ -97,7 +100,8 @@ console.log(JSON.stringify(this.state));
 
       [this.data.playerOneId, this.data.playerTwoId].forEach((id) => {
         this.state[id] = {
-          score: 0
+          score: 0,
+          cardInPlay: null
         };
       });
     }

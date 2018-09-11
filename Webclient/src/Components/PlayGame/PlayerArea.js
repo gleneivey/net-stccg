@@ -7,10 +7,10 @@ import CardInPlay from "./CardInPlay";
 class PlayerArea extends Component {
   static propTypes = {
     showDebug: PropTypes.bool.isRequired,
+    userId: PropTypes.string.isRequired,
     game: PropTypes.object.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
     turnedCard: PropTypes.object,
-    updateTurnedCard: PropTypes.func.isRequired,
     setDraggingToSpaceline: PropTypes.func.isRequired,
     showDetailsFor: PropTypes.func.isRequired,
     dontShowDetails: PropTypes.func.isRequired,
@@ -32,10 +32,11 @@ class PlayerArea extends Component {
     }
 
     let cardInPlay;
-    if (this.props.turnedCard && this.containerEl) {
+    const card = this.props.game.state[this.props.userId].cardInPlay;
+    if (card && this.containerEl) {
       cardInPlay = (
         <CardInPlay
-          card={this.props.turnedCard}
+          card={card}
           x={Math.floor((window.innerWidth - this.props.cardWidthInPx) / 2.0)}
           y={20}
           cardWidthInPx={this.props.cardWidthInPx}
@@ -54,17 +55,12 @@ class PlayerArea extends Component {
           <FaceDownDeck
             game={this.props.game}
             numberOfCards={this.props.game.state[this.props.userId].mission.length}
-            onClick={this.onUserClickOnMissionDeck_}
             flashTurnStatus={this.props.flashTurnStatus}
+            deckName="mission"
           />
         </div>
       </div>
     );
-  };
-
-  onUserClickOnMissionDeck_ = () => {
-    const turnedCard = this.props.game.state[this.props.userId].mission.shift();
-    this.props.updateTurnedCard(turnedCard);
   };
 
   onTurnedCardDragStart_ = () => {

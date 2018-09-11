@@ -92,7 +92,6 @@ class PlayGame extends Component {
             cardWidthInPx={cardWidthInPx}
             draggingTo={this.state.draggingToSpaceline}
             game={this.state.game}
-            updateTurnedCard={this.updateTurnedCard_}
             showDetailsFor={this.showDetailsFor_}
             dontShowDetails={this.dontShowDetails_}
           />
@@ -274,16 +273,8 @@ class PlayGame extends Component {
     this.setState({opponentConceded: true});
   };
 
-  onPlayClick_ = (event) => {
-    console.log("PlayGame#onPlayClick_");
-  };
-
   makePlayerTwoFirstPlay_ = (gameData, lastPlay) => {
     (new PlayMaker(this.state.game)).shuffleUp();
-  };
-
-  updateTurnedCard_ = (turnedCard) => {
-    this.setState({turnedCard: turnedCard});
   };
 
   setDraggingToSpaceline_ = (dragging) => {

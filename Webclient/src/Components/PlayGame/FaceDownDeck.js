@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types"
 import classNames from "classnames";
 import "./FaceDownDeck.css";
+import PlayMaker from "../../Models/PlayMaker";
 import cardBack from "../../Assets/stccg-card-back.gif"
 
 class FaceDownDeck extends Component {
   static propTypes = {
     game: PropTypes.object.isRequired,
     numberOfCards: PropTypes.number.isRequired,
-    onClick: PropTypes.func,
-    flashTurnStatus: PropTypes.func.isRequired
+    flashTurnStatus: PropTypes.func.isRequired,
+    deckName: PropTypes.string.isRequired
   };
 
   render() {
@@ -51,9 +52,7 @@ class FaceDownDeck extends Component {
       return;
     }
 
-    if (this.props.onClick) {
-      this.props.onClick();
-    }
+    (new PlayMaker(this.props.game)).turnCardFromDeck(this.props.deckName)
   };
 }
 

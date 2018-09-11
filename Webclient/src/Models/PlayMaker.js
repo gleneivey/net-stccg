@@ -20,20 +20,28 @@ console.log(play);
       .add(play);
   }
 
-  shuffleUp() {
-    const play = {
+  basePlay(description, type) {
+    return {
       precedingPlay: this.game.lastPlay,
       by: this.game.playerId,
       time: firebase.firestore.Timestamp.now(),
-      description: this.game.playerName + " shuffles their decks.",
-      type: "setDecks",
+      description: description,
+      type: type
+    };
+  }
+
+  shuffleUp() {
+    const play = Object.assign(this.basePlay(
+      this.game.playerName + " shuffles their decks.",
+      "setDecks"
+    ), {
       setDecks: {
         for: this.game.playerId,
         id: this.game.data[this.game.playerId].deck.id,
         name: this.game.data[this.game.playerId].deck.name,
         hand: []
       }
-    };
+    });
 
     let counter = 0;
     Object.keys(this.game.data[this.game.playerId].deck).forEach((deckName) => {
@@ -59,6 +67,29 @@ console.log(play);
     this.savePlay_(play);
   }
 
+  turnCardFromDeck(deckName) {
+    const card = this.game.state[this.game.playerId][deckName].shift();
+    const updatedDeck = this.game.state[this.game.playerId][deckName];
+
+    const setDecks = {
+      for: this.game.playerId,
+    };
+    setDecks[deckName] = updatedDeck;
+
+    const play = Object.assign(this.basePlay(
+      this.game.playerName + " drew the card '" + card.name + "'",
+      "turnCard"
+    ), {
+      setCardInPlay: {
+        for: this.game.playerId,
+        card: card
+      },
+      setDecks: setDecks
+    });
+
+    this.savePlay_(play);
+  }
+
   updateLocations(spaceline, spacelineIndexOfNew) {
     let numEmptyPositions = 0;
     for (;!spaceline[numEmptyPositions].id && numEmptyPositions < spacelineIndexOfNew; numEmptyPositions++) {}
@@ -66,12 +97,10 @@ console.log(play);
     let indexOfNew = spacelineIndexOfNew - numEmptyPositions;
     const locations = spaceline.filter(location => !!location.id);
 
-    const play = {
-      precedingPlay: this.game.lastPlay,
-      by: this.game.playerId,
-      time: firebase.firestore.Timestamp.now(),
-      description: this.game.playerName + " plays Mission to Spaceline.",
-      type: "setLocations",
+    const play = Object.assign(this.basePlay(
+      this.game.playerName + " plays Mission to Spaceline.",
+      "setLocations"
+    ), {
       setLocations: JSON.parse(JSON.stringify(locations)),
       indexOfChange: indexOfNew,
       playerWhoseTurn: this.game.myOpponent(),
@@ -79,7 +108,7 @@ console.log(play);
         for: this.game.playerId,
         mission: this.game.state[this.game.playerId].mission
       }
-    };
+    });
 
     this.savePlay_(play);
   }

@@ -84,14 +84,6 @@ choosing Google Firebase:
 
 ### Immediate
 
-* card details debug mode: render outline with data
-    person holo icon
-    person ability icons
-    person details
-    ship staffing requirement icons
-    ship attributes
-    ship details
-    dilemma types (need to reparse data)
 * make turning a card from mission seed deck a play instead of local state
 * status indicator: score, phase, whose turn, PASS button
 * status indicator: mark newly-played card
@@ -131,6 +123,14 @@ choosing Google Firebase:
 * handle case where both players attempt to seed the same mission
 * better way to determine starting player
 
+* card details debug mode: render outline with data
+    person holo icon
+    person ability icons
+    person details
+    ship staffing requirement icons
+    ship attributes
+    ship details
+    dilemma types (need to reparse data)
 
 
 ### Long Term

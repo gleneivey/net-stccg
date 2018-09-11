@@ -12,7 +12,6 @@ class Spaceline extends Component {
     locations: PropTypes.array.isRequired,
     cardWidthInPx: PropTypes.number.isRequired,
     draggingTo: PropTypes.bool.isRequired,
-    updateTurnedCard: PropTypes.func.isRequired,
     showDetailsFor: PropTypes.func.isRequired,
     dontShowDetails: PropTypes.func.isRequired,
   };
@@ -62,7 +61,6 @@ class Spaceline extends Component {
     const spaceline = this.spacelineFromLocations_(this.props.locations);
     spaceline[index] = item;
     (new PlayMaker(this.props.game)).updateLocations(spaceline, index);
-    this.props.updateTurnedCard(null);
   };
 }
 
