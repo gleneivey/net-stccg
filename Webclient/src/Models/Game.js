@@ -30,18 +30,22 @@ console.log(play);
 
       this.initializeStateIfNecessary_();
 
-      // any play can adjust the content of decks
+      // any play can.....
+      //     change whose turn it is
+      if (Object.keys(play).includes("playerWhoseTurn")) {
+        this.state.playerWhoseTurn = play.playerWhoseTurn;
+      }
+      //     change a card in play
+      if (Object.keys(play).includes("setCardInPlay")) {
+        this.state[play.setCardInPlay.for].cardInPlay = play.setCardInPlay.card;
+      }
+      //     adjust the content of decks
       if (Object.keys(play).includes("setDecks")) {
         const decksToSet = JSON.parse(JSON.stringify(play.setDecks));
         delete decksToSet.for;
         Object.keys(decksToSet).forEach((key) => {
           this.state[play.setDecks.for][key] = decksToSet[key];
         });
-      }
-
-      // any play can change whose turn it is
-      if (Object.keys(play).includes("playerWhoseTurn")) {
-        this.state.playerWhoseTurn = play.playerWhoseTurn;
       }
 
       switch(play.type) {
@@ -51,11 +55,11 @@ console.log(play);
         case "setDecks":
           // nothing but setDecks key expected....
           break;
+        case "turnCard":
+          // nothing but setCardInPlay key expected....
+          break;
         case "setLocations":
           this.state.locations = play.setLocations;
-          break;
-        case "turnCard":
-          this.state[play.setCardInPlay.for].cardInPlay = play.setCardInPlay.card;
           break;
         default:
           console.log("Don't know how to process the 'play':");

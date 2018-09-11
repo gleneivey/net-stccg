@@ -85,6 +85,10 @@ class PlayGame extends Component {
         <div className="playGame__table">
           <OpponentArea
             showDebug={this.props.showDebug}
+            game={this.state.game}
+            cardWidthInPx={cardWidthInPx}
+            showDetailsFor={this.showDetailsFor_}
+            dontShowDetails={this.dontShowDetails_}
           />
           <Spaceline
             showDebug={this.props.showDebug}

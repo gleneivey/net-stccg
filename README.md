@@ -84,10 +84,9 @@ choosing Google Firebase:
 
 ### Immediate
 
-* make turning a card from mission seed deck a play instead of local state
+* mission phase end:  get rid of 13th card slot
 * status indicator: score, phase, whose turn, PASS button
 * status indicator: mark newly-played card
-* mission phase end:  get rid of 13th card slot
 * card being dragged is large
 
 

@@ -104,6 +104,10 @@ console.log(play);
       setLocations: JSON.parse(JSON.stringify(locations)),
       indexOfChange: indexOfNew,
       playerWhoseTurn: this.game.myOpponent(),
+      setCardInPlay: {
+        for: this.game.playerId,
+        card: null
+      },
       setDecks: {
         for: this.game.playerId,
         mission: this.game.state[this.game.playerId].mission
