@@ -58,7 +58,6 @@ class CardHoverDetail extends Component {
     }
 
     const card = cardMap[this.props.cardId];
-console.log(card);
     if (!this.props.showDebug) {
       return (
         <div className="cardHoverDetail__container">

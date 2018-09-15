@@ -113,7 +113,7 @@ const gameStates = [
   },
   {
     key: "seed",
-    name: "Seed Phase",
+    name: "Seeding",
     gameStates: [
       // {
       //   key: "doorway",

@@ -1,5 +1,5 @@
 .gameStatus__container {
-  position: relative;
+  position: absolute;
 }
 
 .gameStatus__scoreAndDeck {
@@ -9,15 +9,25 @@
 }
 
 .gameStatus__hoveringContainer {
-  position: absolute;
-  left: 0;
+  z-index: 12;
 }
 
 .gameStatus__turnStatus {
+  font-size: 20px;
+  font-weight: bold;
   padding: 5px;
   border-radius: 7px;
 }
 .gameStatus__turnStatus--flash {
   color: #000;
   background-color: #fdd;
+}
+.gameStatus__turnStatusMarker {
+  position: relative;
+  font-size: 38px;
+  top: 4px;
+}
+
+.gameStatus__lastPlay {
+  font-weight: lighter;
 }

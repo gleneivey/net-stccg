@@ -74,7 +74,7 @@ class PlayGame extends Component {
       );
     }
 
-    let playArea = null;
+    let gameStatus = null, playArea = null;
     if (this.state.game) {
       let locations = [];
       if (this.state.game.state.locations) {
@@ -113,15 +113,13 @@ class PlayGame extends Component {
           />
         </div>
       );
-    }
 
-    let gameStatus;
-    if (this.state.game) {
       gameStatus = (
         <GameStatus
           player={this.props.player}
           opponent={this.props.opponent}
           game={this.state.game}
+          plays={this.state.plays}
           flashTurnStatus={this.state.flashTurnStatus}
         />
       );
@@ -288,16 +286,16 @@ class PlayGame extends Component {
     });
   };
 
-  flashTurnStatus_ = (newState) => {
-    this.setState({flashTurnStatus: newState});
-  };
-
   showDetailsFor_ = (cardId) => {
     this.setState({showDetailsFor: cardId});
   };
 
   dontShowDetails_ = () => {
     this.setState({showDetailsFor: null});
+  };
+
+  flashTurnStatus_ = (newState) => {
+    this.setState({flashTurnStatus: newState});
   };
 }
 

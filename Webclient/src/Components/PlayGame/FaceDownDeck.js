@@ -52,6 +52,11 @@ class FaceDownDeck extends Component {
       return;
     }
 
+    const myInfo = this.props.game.state[this.props.game.playerId];
+    if (myInfo && myInfo.cardInPlay) {
+      return;
+    }
+
     (new PlayMaker(this.props.game)).turnCardFromDeck(this.props.deckName)
   };
 }

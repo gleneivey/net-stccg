@@ -18,7 +18,16 @@ class PlayerArea extends Component {
 
   render() {
     let content;
-    content = this.seedPhase_missionPhase_();
+    switch(this.props.game.state.phase) {
+      case "seed:mission":
+        content = this.seedPhase_missionPhase_();
+        break;
+      case "seed:dilemma":
+        content = this.seedPhase_dilemmaPhase_();
+        break;
+      default:
+        content = <div></div>;
+    }
     return content;
   }
 
@@ -59,6 +68,13 @@ class PlayerArea extends Component {
             deckName="mission"
           />
         </div>
+      </div>
+    );
+  };
+
+  seedPhase_dilemmaPhase_ = () => {
+    return (
+      <div className="playerArea__container" ref={el => (this.containerEl = el)}>
       </div>
     );
   };

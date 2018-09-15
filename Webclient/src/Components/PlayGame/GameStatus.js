@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types"
 import classNames from "classnames";
 import "./GameStatus.css";
+import metadata from "../../CardData/metadata";
 
 class GameStatus extends Component {
   static propTypes = {
     player: PropTypes.object.isRequired,
     opponent: PropTypes.object.isRequired,
     game: PropTypes.object.isRequired,
+    plays: PropTypes.array.isRequired,
     flashTurnStatus: PropTypes.bool.isRequired
   };
 
@@ -39,11 +41,37 @@ class GameStatus extends Component {
       </h1>
       <div className="gameStatus__hoveringContainer">
         <span className={turnStatusClasses}>
-          {turn} Turn
+          <span className="gameStatus__turnStatusMarker">&raquo;</span> {turn} Turn
         </span>
+      </div>
+
+      <div className="gameStatus__phase">
+        Now: {this.phaseDisplayString_(this.props.game.state.phase)}
+      </div>
+      <div className="gameStatus__lastPlay">
+        Last: {this.props.plays[this.props.plays.length-1].description}
       </div>
     </div>;
   }
+
+  phaseDisplayString_ = (phaseString) => {
+    let resultString = "";
+    let gameStates = metadata.stateCollections.gameStates;
+
+    phaseString.split(":").forEach(function (key) {
+      if (resultString.length > 0) { resultString += " - "; }
+
+      const stateInfo = gameStates.find(function (info) { return info.key === key; });
+      if (stateInfo) {
+        resultString += stateInfo.name;
+        gameStates = stateInfo.gameStates;
+      } else {
+        resultString += key;
+      }
+    });
+
+    return resultString;
+  };
 }
 
 export default GameStatus;

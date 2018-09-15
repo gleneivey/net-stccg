@@ -2,6 +2,10 @@ import Model from './Model';
 import Deck from "./Deck";
 import {firestore} from "../firebase";
 import firebase from "../firebase";
+import metadata from "../CardData/metadata";
+
+import cardData from "../CardData/data";
+const { cardMap } = cardData;
 
 class PlayMaker extends Model {
   constructor(game) {
@@ -32,7 +36,7 @@ console.log(play);
 
   shuffleUp() {
     const play = Object.assign(this.basePlay(
-      this.game.playerName + " shuffles their decks.",
+      this.game.playerName + " shuffled their decks.",
       "setDecks"
     ), {
       setDecks: {
@@ -61,7 +65,8 @@ console.log(play);
 
     if (this.game.lastPlay) {
       play.playerWhoseTurn = this.game.myOpponent();
-      play.advancePhaseTo = "seed";
+      const seedInfo = metadata.stateCollections.gameStates.find(function (info) { return info.key === "seed"; });
+      play.advancePhaseTo = "seed:" + seedInfo.gameStates[0].key;
     }
 
     this.savePlay_(play);
@@ -76,8 +81,9 @@ console.log(play);
     };
     setDecks[deckName] = updatedDeck;
 
+    const cardData = cardMap[card.id];
     const play = Object.assign(this.basePlay(
-      this.game.playerName + " drew the card '" + card.name + "'",
+      this.game.playerName + " drew the card '" + cardData.name + "'",
       "turnCard"
     ), {
       setCardInPlay: {
@@ -91,28 +97,37 @@ console.log(play);
   }
 
   updateLocations(spaceline, spacelineIndexOfNew) {
+    const newCard = spaceline[spacelineIndexOfNew];
     let numEmptyPositions = 0;
     for (;!spaceline[numEmptyPositions].id && numEmptyPositions < spacelineIndexOfNew; numEmptyPositions++) {}
 
     let indexOfNew = spacelineIndexOfNew - numEmptyPositions;
     const locations = spaceline.filter(location => !!location.id);
+    const myMissionDeck = this.game.state[this.game.playerId].mission;
+    const opponent = this.game.myOpponent();
 
+    const cardData = cardMap[newCard.id];
     const play = Object.assign(this.basePlay(
-      this.game.playerName + " plays Mission to Spaceline.",
+      this.game.playerName + " played the Mission '" + cardData.name + "' to the Spaceline.",
       "setLocations"
     ), {
       setLocations: JSON.parse(JSON.stringify(locations)),
       indexOfChange: indexOfNew,
-      playerWhoseTurn: this.game.myOpponent(),
+      playerWhoseTurn: opponent,
       setCardInPlay: {
         for: this.game.playerId,
         card: null
       },
       setDecks: {
         for: this.game.playerId,
-        mission: this.game.state[this.game.playerId].mission
+        mission: myMissionDeck
       }
     });
+
+    if (myMissionDeck.length === 0 &&
+      this.game.state[opponent].mission.length === 0) {
+      play.advancePhaseTo = "seed:dilemma";
+    }
 
     this.savePlay_(play);
   }

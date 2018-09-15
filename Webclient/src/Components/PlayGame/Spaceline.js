@@ -46,6 +46,10 @@ class Spaceline extends Component {
   }
 
   spacelineFromLocations_ = (locations) => {
+    if (this.props.game.state.phase !== "seed:mission") {
+      return Array.from(locations);
+    }
+
     const remaining = 13 - locations.length;
     return Array(Math.floor(remaining / 2.0)).fill({})
       .concat(locations).concat(

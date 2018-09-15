@@ -84,8 +84,7 @@ choosing Google Firebase:
 
 ### Immediate
 
-* mission phase end:  get rid of 13th card slot
-* status indicator: score, phase, whose turn, PASS button
+* status indicator: PASS button
 * status indicator: mark newly-played card
 * card being dragged is large
 
